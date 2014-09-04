@@ -13,3 +13,6 @@
 *.classpath
 *.project
 .settings/*
+
+# also these things
+__MACOSX/*
