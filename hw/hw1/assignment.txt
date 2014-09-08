@@ -1,0 +1,29 @@
+1) Define the following Terms (As used in Java) (10 points each):
+
+A. protected
+
+B. static
+
+C. new
+
+D. interface
+
+E. abstract
+
+2) Write a Java program that plays the game I am thinking of a number between 1 
+
+and 1000. The computer will think of the number, and the user will repeatedly 
+
+guess until they answer correctly. The program will tell the user if guesses are too 
+
+high or too low. This only needs be a console game; no extra credit will be given 
+
+for a graphical implementation.
+
+When the user guesses the correct number, the game should show the user how 
+
+many turns it took. You must handle incorrect input (letters when numbers were 
+
+wanted). You should hand in hard copy code for this problem, and hard copy 
+
+output from 2 runs of the program. (50 Points)

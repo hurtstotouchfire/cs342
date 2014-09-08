@@ -4,7 +4,7 @@ public class GuessNumber {
     private int range_min = 0;
     private int range_max = 1000;
     private int guess;
-    private int num_guesses = 0;
+    private int num_guesses = 1;
 
     public static void main (String[] args) {
 	GuessNumber gn = new GuessNumber();
