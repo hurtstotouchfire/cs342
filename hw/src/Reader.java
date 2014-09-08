@@ -1,11 +1,11 @@
-import java.io.IOException;
+//import java.io.IOException;
 public class Reader {
     private String prompt;
 
     public Reader (String a_prompt) {
 	prompt = a_prompt;
     }
-
+    /*
     public static void main (String[] args) {
 	Reader r = new Reader("promptastic!");
 	try {
@@ -15,7 +15,7 @@ public class Reader {
 	    //care about it
 	}
     }
-
+    */
     public int readln () throws java.io.IOException {
 	System.out.println (prompt);
 	int num = 0;

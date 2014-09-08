@@ -1,3 +1,4 @@
+import java.io.IOException;
 public class GuessNumber {
     private int target_num;
     private int range_min = 0;
@@ -20,9 +21,16 @@ public class GuessNumber {
 	target_num = 50;
     }
     private void take_a_guess() {
-	System.out.println ("Take a guess:");
 
-	// TODO: take input and validate
+	//TODO: validate inputs
+	// take input and spit it right back out
+	Reader r = new Reader("Take a guess:");
+	try {
+	    guess = r.readln();
+	    System.out.println (guess);
+	} catch (IOException e) {
+	    //care about it
+	}
 
 	num_guesses++;
 	// TODO: compare to num_guesses
