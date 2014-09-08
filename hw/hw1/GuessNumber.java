@@ -1,7 +1,7 @@
 import java.io.IOException;
 public class GuessNumber {
     private int target_num;
-    private int range_min = 0;
+    private int range_min = 1;
     private int range_max = 1000;
     private int guess = range_min - 1; //initialize guess outside range
     private int num_guesses = 0;
@@ -35,7 +35,7 @@ public class GuessNumber {
 
 	num_guesses++;
 	System.out.println ("You guessed: " + guess);
-	System.out.println ("That makes " + num_guesses + " guesses.");
+	give_feedback();
 
 	// if base case, return true and win. otherwise recurse.
 	if (guess == target_num)
@@ -45,9 +45,20 @@ public class GuessNumber {
 	}
 
     }
+
+    private void give_feedback() {
+	if (guess < target_num) {
+	    System.out.println ("That's too low.");
+	} else if (guess > target_num) {
+	    System.out.println ("That's too high.");
+	} else { 
+	    return;
+	}
+    }
+
     private void you_win() {
 	System.out.println ("Ok, it's " + target_num + ".");
-	//	System.out.println ("It only took you " + num_guesses + "!");
+      	System.out.println ("It only took you " + num_guesses + " guesses!");
     }
 
 }
