@@ -25,13 +25,9 @@ public class GuessNumber {
 	//TODO: validate inputs
 	// take input and spit it right back out
 	Reader r = new Reader("Take a guess:");
-	try {
-	    guess = r.readln();
-	    System.out.println (guess);
-	} catch (IOException e) {
-	    //care about it
-	}
-
+	guess = r.readln();
+	System.out.println (guess);
+	
 	num_guesses++;
 	// TODO: compare to num_guesses
 	System.out.println ("You guessed: " + guess);
