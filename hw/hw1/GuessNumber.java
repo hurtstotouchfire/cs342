@@ -14,17 +14,19 @@ public class GuessNumber {
 	if (gn.take_a_guess())
 	    gn.you_win();
     }
-
+    
+    // print welcome message and let the user know the guess range. Guesses outside range still count.
     private void welcome() {
 	System.out.print ("I'm thinking of a number between " + range_min + " and " + range_max + "...\n");
     }
-
+    
+    // Pick a random number within our range
     private void random_number() {
 	Random random = new Random();
 	target_num = random.nextInt(range_max - range_min) + range_min;
-	//System.out.println("and it's " + target_num);
     }
 
+    // take guesses until user gets it right. Provide high/low feedback.
     private boolean take_a_guess() {
 
 	// get input, validate, give feedback
@@ -32,8 +34,6 @@ public class GuessNumber {
 	System.out.println("Take a guess: ");
 	if (scant.hasNextInt()) {
 	    guess = scant.nextInt();
-	    //System.out.println ("You guessed: " + guess);
-	    //System.out.println ("That makes " + num_guesses + " guesses.");
 	    give_feedback();
 	} else {
 	    System.out.println ("That's not an integer...");
