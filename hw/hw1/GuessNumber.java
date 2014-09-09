@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 public class GuessNumber {
     private int target_num;
     private int range_min = 1;
@@ -19,12 +20,14 @@ public class GuessNumber {
     }
 
     private void random_number() {
-    // TODO: make this pick a random number between range_min and range_max
-	target_num = 50;
+	Random random = new Random();
+	target_num = random.nextInt(range_max - range_min) + range_min;
+	//System.out.println("and it's " + target_num);
     }
 
     private boolean take_a_guess() {
 
+	// get input, validate, give feedback
 	Scanner scant = new Scanner(System.in);
 	System.out.println("Take a guess: ");
 	if (scant.hasNextInt()) {
@@ -36,6 +39,7 @@ public class GuessNumber {
 	    System.out.println ("That's not an integer...");
 	}
 	
+	// every guess counts, including invalid ones
 	num_guesses++;
 	
 	// if base case, return true and win. otherwise recurse.
