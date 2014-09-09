@@ -20,19 +20,21 @@ public class Reader {
 	System.out.println(prompt);
 	int num = 0;
 	int ch;
-	while ((ch = System.in.read ()) != '\n')
+	while ((ch = System.in.read ()) != '\n') {
 
-	    if (! valid_input(Integer.toString(ch)))
+	    if (! valid_input(Integer.toString(ch))) {
 		throw new IOException("Not a valid input.");
-
+	    } else {
 	    // assemble a multi-digit integer
-	    if (ch >= '0' && ch <= '9')
-		{
+		if (ch >= '0' && ch <= '9') {
 		    num *= 10;
 		    num += ch - '0';
 		}
-	    else
-		break;
+		else {
+		    break;
+		}
+	    }
+	}
 	return num;
     }
     private boolean valid_input (String input) {
@@ -41,9 +43,8 @@ public class Reader {
 	    if (input == Integer.toString(valid_inputs[i])) {
 		System.out.println("checking " + valid_inputs[i]);
 		return true;
-	    } else {
-		return false;
-	    }
+	    } 
 	}
+	return false;
     }
 }
