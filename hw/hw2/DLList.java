@@ -47,18 +47,18 @@ public class DLList {
 	
     public String toString() {
 	String rtn = "";
-	rtn += "[Node Count = " + nodeCount + "]\n";
+	rtn += "Node Count = " + nodeCount + "\n";
 		
 	if (nodeCount == 0) {
 	    rtn += "<Empty>";
 	} else {
 	    Node temp = head;
 	    while (t != null) {
-		rtn += "<";
+		rtn += "[";
 		rtn += temp.getData(); // get the data from current node assigned to temp
 		rtn += ", ";
 		rtn += temp.getNext(); // get the pointer for the next node
-		rtn += "> ";
+		rtn += "] ";
 		
 		temp = temp.getNext();// get next until null
 	    }
