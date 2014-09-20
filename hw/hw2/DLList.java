@@ -1,45 +1,45 @@
 
-public class SLList {
+public class DLList {
 	
     private Node head;
     private int nodeCount;
 	
-    public SLList() {
+    public DLList() {
 	head = null;
 	nodeCount = 0;
     }
-    
+	
     public int size() {
 	return nodeCount;
     }
-    
+	
     public void headAdd(int data) {
 	Node newNode = new Node();
 	newNode.setData(data);
-	
+		
 	newNode.setNext(head);
 	head = newNode;
 	nodeCount++;
     }
-    
+	
     public int headRemove() throws RuntimeException{
 	int d = head.getData();
 	Node tmp = head;
-	
+		
 	head = head.getNext();
 	tmp.setNext(null);
-	
+		
 	nodeCount--;
 	return d;
     }
-    
+	
     public boolean search(int data) {
 	if (size() == 0) {
 	    return false;
 	}
-	
+		
 	Node tmp = head;
-	
+		
 	while (tmp != null) {
 	    if (tmp.getData() == data) {  // Got it
 		return true;
@@ -49,7 +49,7 @@ public class SLList {
 	// Getting here means the data is not there
 	return false;
     }
-    
+	
     public void insertInOrder(int data) {
 	// Head insert
 	// Step 1 (Head is null)
@@ -119,7 +119,7 @@ public class SLList {
 		} else {
 		    // Remove from the middle of the list
 		    // prev and cur are valid
-				    
+					
 		    prev.setNext(cur.getNext());
 		    cur.setNext(null);
 		    nodeCount--;
@@ -132,7 +132,7 @@ public class SLList {
 	}
 	return false;
     }
-    
+	
     public String toString() {
 	String rtn = "";
 	rtn += "[Node Count = " + nodeCount + "]\n";
