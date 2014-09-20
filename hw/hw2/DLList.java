@@ -3,12 +3,12 @@ public class DLList {
 	
     private Node head;
     private int nodeCount;
-    /*	
+
     public DLList() {
 	head = null;
 	nodeCount = 0;
     }
-    */	
+
     public int size() {
 	return nodeCount;
     }
@@ -38,7 +38,10 @@ public class DLList {
     }
 	
     public void appendNodeWith(int data) {
-
+	if (head == null) {
+	    // do things differently if we have nothing in the head yet
+	    }
+	// otherwise just add this into the last node
     }
 	
     public boolean deleteNodeWith(int data) {
