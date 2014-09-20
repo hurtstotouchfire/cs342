@@ -52,10 +52,15 @@ public class DLList {
 	if (nodeCount == 0) {
 	    rtn += "<Empty>";
 	} else {
-	    Node t = head;
+	    Node temp = head;
 	    while (t != null) {
-		rtn += "<" + t.getData() + ", " + t.getNext() + "> ";
-		t = t.getNext();
+		rtn += "<";
+		rtn += temp.getData(); // get the data from current node assigned to temp
+		rtn += ", ";
+		rtn += temp.getNext(); // get the pointer for the next node
+		rtn += "> ";
+		
+		temp = temp.getNext();// get next until null
 	    }
 	}
 		
