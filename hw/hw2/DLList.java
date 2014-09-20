@@ -37,11 +37,11 @@ public class DLList {
 
     }
 	
-    public void insertInOrder(int data) {
+    public void appendNodeWith(int data) {
 
     }
 	
-    public boolean deleteNodeContaining(int data) {
+    public boolean deleteNodeWith(int data) {
 
     }
 	

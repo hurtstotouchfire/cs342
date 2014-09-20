@@ -8,19 +8,19 @@ public class Driver {
 	}
 	
 	public void doIt() {
-		SLList list = new SLList();
+		DLList list = new DLList();
 		System.out.println(list.size());
-		list.insertInOrder(33);  // empty list
-		list.insertInOrder(43);	// Tail of list
-		list.insertInOrder(23);	// Front of populated list
-		list.insertInOrder(35);	// Middle of populated list
+		list.appendNodeWith(33);  // empty list
+		list.appendNodeWith(43);	// Tail of list
+		list.appendNodeWith(23);	// Front of populated list
+		list.appendNodeWith(35);	// Middle of populated list
 		System.out.println(list);
 
-		System.out.println(list.deleteNodeContaining(88));
+		System.out.println(list.deleteNodeWith(88));
 
-		System.out.println(list.deleteNodeContaining(33));
-		System.out.println(list.deleteNodeContaining(43));
-		System.out.println(list.deleteNodeContaining(23));
+		System.out.println(list.deleteNodeWith(33));
+		System.out.println(list.deleteNodeWith(43));
+		System.out.println(list.deleteNodeWith(23));
 		
 		//System.out.println(list.search(34));
 		System.out.println(list);
