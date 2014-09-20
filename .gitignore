@@ -12,6 +12,7 @@
 # more eclipse files
 *.classpath
 *.project
+.settings/
 .settings/*
 
 # also these things
