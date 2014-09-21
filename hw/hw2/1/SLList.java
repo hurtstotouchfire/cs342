@@ -10,6 +10,10 @@ public class SLList {
     }
 
     public boolean append(int data) {
+	if (head == null){
+	    // do things differently
+	}
+	
 	return false;
     }
     
@@ -34,4 +38,17 @@ public class SLList {
 	System.out.println(output);
     }
 
+    private Node findLastNode(SLList list){
+
+	// what if I am passed an empty, null head? I cannot call getNext on that.
+
+	// start at the head
+	curr = list.head;
+
+	// loop through until a node has nothing after it
+	while (curr.getNext() != null) {
+	    curr = curr.getNext();
+	}
+    return curr;
+    }
 }
