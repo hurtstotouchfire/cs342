@@ -10,23 +10,32 @@ public class SLList {
     }
 
     public void insertAtTail(int data) {
+	// if there are no nodes yet, insert at head
 	if (head == null){
-	    // do things differently
-	    addHead();
-	} 
+	    insertAtHead(data);
+	} else {
+	    Node lastNode = findLastNode();
+	}
 	
-	Node newNode = new Node();
-	Node lastNode = findLastNode();
-	lastNode.setNext(newNode);
-	return false;
-    }
-    
-    private void insertAtHead(int data) {
+	// make a new node with our data in it
 	Node newNode = new Node();
 	newNode.setData(data);
+	nodeCount++;
+
+	// stick it after the tail
+	newNode.setNext(lastNode.getNext());
+	lastNode.setNext(newNode);
+    }
+    
+    public void insertAtHead(int data) {
+	// make a new node with our data in it
+	Node newNode = new Node();
+	newNode.setData(data);
+	nodeCount++;
+
+	// stick it in front of the head
 	newNode.setNext(head);
 	head = newNode;
-	nodeCount++;
     }
     
     public boolean deleteLastNode() {
