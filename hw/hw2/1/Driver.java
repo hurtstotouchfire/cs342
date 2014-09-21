@@ -2,29 +2,31 @@
 public class Driver {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Driver me = new Driver();
 		me.doIt();
 	}
 	
 	public void doIt() {
 		SLList list = new SLList();
-		System.out.println(list.size());
-		list.insertInOrder(33);  // empty list
-		list.insertInOrder(43);	// Tail of list
-		list.insertInOrder(23);	// Front of populated list
-		list.insertInOrder(35);	// Middle of populated list
-		System.out.println(list);
+		// check out our empty list
+		list.displayList();
 
-		System.out.println(list.deleteNodeContaining(88));
+		// put 10 integers in it
+		list.append(3);
+		list.append(1);
+		list.append(4);
+		list.append(1);
+		list.append(5);
+		list.append(9);
+		list.append(2);
+		list.append(6);
+		list.append(5);
+		list.append(3);
+		list.displayList();		
 
-		System.out.println(list.deleteNodeContaining(33));
-		System.out.println(list.deleteNodeContaining(43));
-		System.out.println(list.deleteNodeContaining(23));
-		
-		//System.out.println(list.search(34));
-		System.out.println(list);
-		
+		// delete the last node
+		list.deleteLastNode();
+		list.displayList();		
 	}
 
 }
