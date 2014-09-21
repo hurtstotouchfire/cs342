@@ -9,12 +9,24 @@ public class SLList {
 	nodeCount = 0;
     }
 
-    public boolean append(int data) {
+    public void insertAtTail(int data) {
 	if (head == null){
 	    // do things differently
-	}
+	    addHead();
+	} 
 	
+	Node newNode = new Node();
+	Node lastNode = findLastNode();
+	lastNode.setNext(newNode);
 	return false;
+    }
+    
+    private void insertAtHead(int data) {
+	Node newNode = new Node();
+	newNode.setData(data);
+	newNode.setNext(head);
+	head = newNode;
+	nodeCount++;
     }
     
     public boolean deleteLastNode() {
@@ -29,7 +41,21 @@ public class SLList {
 	    return true;
 	}
     }
-    
+
+    private Node findLastNode() {
+
+	// what if I am passed an empty, null head? I cannot call getNext on that.
+
+	// start at the head
+	Node curr = head;
+
+	// loop through until a node has nothing after it
+	while (curr.getNext() != null) {
+	    curr = curr.getNext();
+	}
+	return curr;
+    }
+
     public String displayList() {
 	String output = "";
 	output += "Node Count = " + nodeCount + "\n";
@@ -45,19 +71,5 @@ public class SLList {
 	}
 		
 	System.out.println(output);
-    }
-
-    private Node findLastNode(SLList list){
-
-	// what if I am passed an empty, null head? I cannot call getNext on that.
-
-	// start at the head
-	curr = list.head;
-
-	// loop through until a node has nothing after it
-	while (curr.getNext() != null) {
-	    curr = curr.getNext();
-	}
-    return curr;
     }
 }
