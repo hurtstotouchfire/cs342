@@ -18,7 +18,16 @@ public class SLList {
     }
     
     public boolean deleteLastNode() {
-	return false;
+	
+	if (head == null){
+	    // do things differently
+	    return false;
+	}
+	else {
+	    lastNode = findLastNode(self);
+	    // delete it
+	    return true;
+	}
     }
     
     public String displayList() {
