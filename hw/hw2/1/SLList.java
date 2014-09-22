@@ -14,7 +14,7 @@ public class SLList {
 	if (head == null){
 	    insertAtHead(data);
 	} else {
-	    Node lastNode = findLastNode();
+	    Node lastNode = getNodeByIndex(nodeCount - 1);
 	    // make a new node with our data in it
 	    Node newNode = new Node();
 	    newNode.setData(data);
@@ -40,28 +40,36 @@ public class SLList {
     public boolean deleteLastNode() {
 	
 	if (head == null){
-	    // do things differently
+	    // Could throw an error here
+	    System.out.println("That's all the nodes!");
 	    return false;
 	}
 	else {
-	    Node lastNode = findLastNode();
-	    // delete it
+	    Node secondToLast = getNodeByIndex(nodeCount - 2);
+	    // point it at null
+	    secondToLast.setNext(null);
+	    nodeCount--;
 	    return true;
 	}
     }
 
-    private Node findLastNode() {
+    private Node getNodeByIndex(int i) {
 
-	// what if I am passed an empty, null head? I cannot call getNext on that.
-
-	// start at the head
-	Node curr = head;
-
-	// loop through until a node has nothing after it
-	while (curr.getNext() != null) {
-	    curr = curr.getNext();
+	// what if I am passed an empty, null head? 
+	if (nodeCount == 0) {
+	    return null;
+	} else {
+	    // start at the head
+	    Node currNode = head;
+	    
+	    // loop through, incrementing current until we reach the node we want
+	    int c = 0;
+	    while (c != i) {
+		currNode = currNode.getNext();
+		c++;
+	    }
+	    return currNode;
 	}
-	return curr;
     }
 
     public void displayList() {
