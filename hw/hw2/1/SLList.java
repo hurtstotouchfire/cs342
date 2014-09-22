@@ -55,8 +55,11 @@ public class SLList {
 
     private Node getNodeByIndex(int i) {
 
-	// what if I am passed an empty, null head? 
-	if (nodeCount == 0) {
+	// safeguard for indexing errors
+	if (i >= nodeCount) {
+	    return null;
+	} else if (i < 0) {
+	    System.out.println("We don't support negative indexing.");
 	    return null;
 	} else {
 	    // start at the head

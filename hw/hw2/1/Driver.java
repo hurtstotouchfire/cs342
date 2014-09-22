@@ -8,8 +8,21 @@ public class Driver {
 	
 	public void doIt() {
 		SLList list = new SLList();
-		// check out our empty list
+		System.out.println("check out our empty list:");
 		list.displayList();
+
+		System.out.println("See what happens if we try to delete nothing");
+		list.deleteLastNode();
+		list.displayList();		
+
+		System.out.println("Put something in and immediately delete it");
+		list.insertAtTail(3);
+		list.displayList();		
+		list.deleteLastNode();
+		list.displayList();		
+
+
+		/*
 
 		// put 10 integers in it
 		list.insertAtTail(3);
@@ -27,6 +40,7 @@ public class Driver {
 		// delete the last node
 		list.deleteLastNode();
 		list.displayList();		
+		*/
 	}
 
 }
