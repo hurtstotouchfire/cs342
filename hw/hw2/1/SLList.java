@@ -38,13 +38,16 @@ public class SLList {
     }
     
     public boolean deleteLastNode() {
-	
 	if (head == null){
 	    // Could throw an error here
 	    System.out.println("That's all the nodes!");
 	    return false;
-	}
-	else {
+	} else if (nodeCount == 1) {
+	    // last is also first
+	    head = null;
+	    nodeCount--;
+	    return true;
+	} else {
 	    Node secondToLast = getNodeByIndex(nodeCount - 2);
 	    // point it at null
 	    secondToLast.setNext(null);
@@ -53,8 +56,12 @@ public class SLList {
 	}
     }
 
-    private Node getNodeByIndex(int i) {
+    public void deleteAllNodes() {
+	head = null;
+	nodeCount = 0;
+    }
 
+    private Node getNodeByIndex(int i) {
 	// safeguard for indexing errors
 	if (i >= nodeCount) {
 	    return null;

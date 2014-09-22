@@ -22,9 +22,15 @@ public class Driver {
 		list.displayList();		
 
 
-		/*
+		System.out.println("Inserting the first item at head or tail should look the same");
+		list.insertAtTail(3);
+		list.displayList();		
+		list.deleteLastNode();
+		list.insertAtHead(3);
+		list.displayList();		
 
-		// put 10 integers in it
+		System.out.println("Clear out our list and put 10 fresh integers in it");
+		list.deleteAllNodes();
 		list.insertAtTail(3);
 		list.insertAtTail(1);
 		list.insertAtTail(4);
@@ -37,10 +43,10 @@ public class Driver {
 		list.insertAtTail(3);
 		list.displayList();		
 
-		// delete the last node
+		System.out.println("Delete the last node");
 		list.deleteLastNode();
 		list.displayList();		
-		*/
+
 	}
 
 }
