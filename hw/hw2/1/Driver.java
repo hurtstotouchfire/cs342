@@ -12,16 +12,16 @@ public class Driver {
 		list.displayList();
 
 		// put 10 integers in it
-		list.append(3);
-		list.append(1);
-		list.append(4);
-		list.append(1);
-		list.append(5);
-		list.append(9);
-		list.append(2);
-		list.append(6);
-		list.append(5);
-		list.append(3);
+		list.insertAtTail(3);
+		list.insertAtTail(1);
+		list.insertAtTail(4);
+		list.insertAtTail(1);
+		list.insertAtTail(5);
+		list.insertAtTail(9);
+		list.insertAtTail(2);
+		list.insertAtTail(6);
+		list.insertAtTail(5);
+		list.insertAtTail(3);
 		list.displayList();		
 
 		// delete the last node

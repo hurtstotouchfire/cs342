@@ -15,16 +15,15 @@ public class SLList {
 	    insertAtHead(data);
 	} else {
 	    Node lastNode = findLastNode();
+	    // make a new node with our data in it
+	    Node newNode = new Node();
+	    newNode.setData(data);
+	    nodeCount++;
+	    
+	    // stick it after the tail
+	    newNode.setNext(lastNode.getNext());
+	    lastNode.setNext(newNode);
 	}
-	
-	// make a new node with our data in it
-	Node newNode = new Node();
-	newNode.setData(data);
-	nodeCount++;
-
-	// stick it after the tail
-	newNode.setNext(lastNode.getNext());
-	lastNode.setNext(newNode);
     }
     
     public void insertAtHead(int data) {
@@ -45,7 +44,7 @@ public class SLList {
 	    return false;
 	}
 	else {
-	    lastNode = findLastNode(self);
+	    Node lastNode = findLastNode();
 	    // delete it
 	    return true;
 	}
@@ -65,7 +64,7 @@ public class SLList {
 	return curr;
     }
 
-    public String displayList() {
+    public void displayList() {
 	String output = "";
 	output += "Node Count = " + nodeCount + "\n";
 		
