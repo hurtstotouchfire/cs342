@@ -7,9 +7,8 @@ public class Driver {
 	}
 	
 	public void doIt() {
+		System.out.println("Make an empty list");
 		SLList list = new SLList();
-		System.out.println("check out our empty list:");
-		list.displayList();
 
 		System.out.println("See what happens if we try to delete nothing");
 		list.deleteLastNode();
