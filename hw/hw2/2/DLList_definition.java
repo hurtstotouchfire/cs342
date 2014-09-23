@@ -9,7 +9,7 @@ public class DLList {
   nodeCount = 0;
   }
   
-  public void insertAtHead {
+  public void insertAtHead(String[] data) {
     // Create new node with data
     // insert it in front of the head by updating:
       // head should point to the new node
@@ -18,7 +18,7 @@ public class DLList {
       // increment nodeCount
   }
   
-  public void insertAtTail {
+  public void insertAtTail(String[] data) {
     // If there is only one node, insertAtHead
     // Else:
     // Create new node with data
