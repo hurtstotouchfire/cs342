@@ -1,6 +1,6 @@
 
 public class Node {
-    private int data;
+    private String[] data; // data is an array containing 3 strings
     private Node next;
     private Node prev;
     
