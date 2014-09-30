@@ -8,146 +8,94 @@ public class SLList {
 	head = null;
 	nodeCount = 0;
     }
-    
-    public int size() {
-	return nodeCount;
+
+    public void insertAtTail(int data) {
+	// if there are no nodes yet, insert at head
+	if (head == null){
+	    insertAtHead(data);
+	} else {
+	    Node lastNode = getNodeByIndex(nodeCount - 1);
+	    // make a new node with our data in it
+	    Node newNode = new Node();
+	    newNode.setData(data);
+	    nodeCount++;
+	    
+	    // stick it after the tail
+	    newNode.setNext(lastNode.getNext());
+	    lastNode.setNext(newNode);
+	}
     }
     
-    public void headAdd(int data) {
+    public void insertAtHead(int data) {
+	// make a new node with our data in it
 	Node newNode = new Node();
 	newNode.setData(data);
-	
+	nodeCount++;
+
+	// stick it in front of the head
 	newNode.setNext(head);
 	head = newNode;
-	nodeCount++;
     }
     
-    public int headRemove() throws RuntimeException{
-	int d = head.getData();
-	Node tmp = head;
-	
-	head = head.getNext();
-	tmp.setNext(null);
-	
-	nodeCount--;
-	return d;
-    }
-    
-    public boolean search(int data) {
-	if (size() == 0) {
+    public boolean deleteLastNode() {
+	if (head == null){
+	    // Could throw an error here
+	    System.out.println("That's all the nodes!");
 	    return false;
-	}
-	
-	Node tmp = head;
-	
-	while (tmp != null) {
-	    if (tmp.getData() == data) {  // Got it
-		return true;
-	    }
-	    tmp = tmp.getNext();
-	}
-	// Getting here means the data is not there
-	return false;
-    }
-    
-    public void insertInOrder(int data) {
-	// Head insert
-	// Step 1 (Head is null)
-	if (head == null) {
-	    headAdd(data);
-	    return;
-	}
-		
-	// General insert
-		
-	Node prev = null;
-	Node cur = head;
-		
-	while (cur != null) {
-	    if (cur.getData() >= data) {
-		// Insert data before current and after prev
-		if (prev == null) {
-		    // Insert data at head of the list
-		    // Because it is the smallest piece of data
-		    headAdd(data);
-		    return;
-		} else {
-		    // Insert in the middle of the list
-		    Node n = new Node();
-		    n.setData(data);
-		    n.setNext(cur);
-					
-		    prev.setNext(n);
-		    nodeCount++;
-		    return;
-		}
-	    }
-	    // Update our references
-	    prev = cur;
-	    cur = cur.getNext();
-	}
-		
-	// Tail Insert
-	if (cur == null) {
-	    Node n = new Node();
-	    n.setData(data);
-	    n.setNext(null);
-	    prev.setNext(n);
-	    nodeCount++;
-	    return;
-	}
-    }
-	
-    public boolean deleteNodeContaining(int data) {
-	// Empty List
-	if (head == null) {
-	    return false;
-	}
-		
-	// General Delete
-		
-	Node prev = null;
-	Node cur = head;
-		
-	while (cur != null) {
-	    if (cur.getData() == data) {
-		// Delete node after prev
-		if (prev == null) {
-		    // Delete head because it contains data
-		    headRemove();
-		    return true;
-		} else {
-		    // Remove from the middle of the list
-		    // prev and cur are valid
-				    
-		    prev.setNext(cur.getNext());
-		    cur.setNext(null);
-		    nodeCount--;
-		    return true;
-		}
-	    }
-	    // Update our references
-	    prev = cur;
-	    cur = cur.getNext();
-	}
-	return false;
-    }
-    
-    public String toString() {
-	String rtn = "";
-	rtn += "[Node Count = " + nodeCount + "]\n";
-		
-	if (nodeCount == 0) {
-	    rtn += "<Empty>";
+	} else if (nodeCount == 1) {
+	    // last is also first
+	    head = null;
+	    nodeCount--;
+	    return true;
 	} else {
-	    Node t = head;
-	    while (t != null) {
-		rtn += "<" + t.getData() + ", " + t.getNext() + "> ";
-		t = t.getNext();
-	    }
+	    Node secondToLast = getNodeByIndex(nodeCount - 2);
+	    // point it at null
+	    secondToLast.setNext(null);
+	    nodeCount--;
+	    return true;
 	}
-		
-	return rtn;
     }
 
+    public void deleteAllNodes() {
+	head = null;
+	nodeCount = 0;
+    }
+
+    private Node getNodeByIndex(int i) {
+	// safeguard for indexing errors
+	if (i >= nodeCount) {
+	    return null;
+	} else if (i < 0) {
+	    System.out.println("We don't support negative indexing.");
+	    return null;
+	} else {
+	    // start at the head
+	    Node currNode = head;
+	    
+	    // loop through, incrementing current until we reach the node we want
+	    int c = 0;
+	    while (c != i) {
+		currNode = currNode.getNext();
+		c++;
+	    }
+	    return currNode;
+	}
+    }
+
+    public void displayList() {
+	String output = "";
+	output += "Node Count = " + nodeCount + "\n";
+		
+	if (nodeCount == 0) {
+	    output += "[Empty]";
+	} else {
+	    Node temp = head;
+	    while (temp != null) {
+		output += "[" + temp.getData() + ", " + temp.getNext() + "] ";
+		temp = temp.getNext();
+	    }
+	}
+		
+	System.out.println(output);
+    }
 }
