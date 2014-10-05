@@ -1,3 +1,4 @@
+// TODO: add all the methods here we actually need
 public class DLList {
   private Node head;
   private int nodeCount;
@@ -9,7 +10,12 @@ public class DLList {
   nodeCount = 0;
   }
   
-  public void insertAtHead(String[] data) {
+    // TODO: possible methods
+    // createNode - make a new node and put data in it
+    // insert - take a node, somehow insert it alphabetically, while handling the abstraction of Contact. Maybe need to extend DLList with an abstraction class?
+    // avoid: Node.getData.getName and order by that
+
+  public void insert(String[] data) {
     // Create new node with data
     // insert it in front of the head by updating:
       // head should point to the new node

@@ -1,4 +1,6 @@
-
+// TODO: 
+// sort out how searching and printing by private data should be methodized
+// make Contact extend Node so that I can get next and previous
 public class Contact {
     // an array containing 3 strings for my fields
     private String[] contact; 
