@@ -1,3 +1,10 @@
+// what's the right segregation of abstractions? 
+// AddressBook knows it extends DLList and uses DLList methods presumably
+// But maybe all public methods on AddressBook are named as if DLList does not exist
+
+// TODO: consider taking a string array of args so you can set all three. 
+// store in array as well?
+// Would need getters and setters for those fields.
 
 public class AddressBook extends DLList {
 
@@ -60,11 +67,57 @@ public class AddressBook extends DLList {
      * implement by directly accessing DLList methods.
      */
 
-    private void addContact() {}
-    private void printList() {}
-    private void search() {}
-    private void deleteContact() {}
-    private void export() {}
-    private void import() {}
+    public void addContact(String newName, String email, String phoneNumber) { //add contacts in alpha order by Name field.
+	/* first, make sure searchContact returns false. (note that this is less efficient but better encapsulation)
+	 * make a new Contact and populate data
+	 * 
+	 * start with first contact, get it's name
+	 * if firstcontact.name is alphabetically after newName
+	 *     insertContactAtHead(newName)
+	 * otherwise, make a loop (remember prev node so we can step back one)
+	 * if currentContact.name is alpha before newName
+	 *     getNext contact
+	 * else 
+	 *     insert newName contact after prev node and before currentContact node.
+	 */
+    }
+    public void printAllContacts() { // TODO: Make sure Contact toString makes a nice print output for concatenating
+	// if nodeCount == 0 (is this the right check)
+	// print that we're empty. 
+	// else:
+	// make a return string with some initial glue in it
+	// start at head
+	// while we have Contacts
+	//     add currentContact.toString() to return string
+    }
 
+    public boolean searchContacts(String query, String field) {
+	// TODO: if I use a class variable for currentNode I could have searchContacts set that to the contact when I find it, and then I could call this from add and delete and I could just pick that up from the class... Way more efficient.
+	/* start at head
+	 * while we have contacts
+	 *    if currentContact field matches query
+	 *        println(currentContact.toString())
+	 *        return true
+	 * if the loop finishes or we reach nextContact is null, 
+	 *    return false
+	 */
+    }
+    public void deleteContact(String contactName) {
+	/* first make sure searchContact returns true (note that this is less efficient but better encapsulation)
+	 * start at first contact
+	 * while currentContact.name != contactName
+	 * 
+	 */
+    }
+    public void exportContacts() {}
+    public void importContacts() {}
+
+    // More methods I need:
+    private void insertContactAtHead(String newName) {
+	// make a new node with name newName
+	// make it the new head
+
+	// So this would be a private method that knows about Contacts (which DLList doesn't know about)
+	// but which also knows about DLList Nodes, which public methods of AddressBook will not reference.
+    }
 }
