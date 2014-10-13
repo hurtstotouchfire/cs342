@@ -1,5 +1,5 @@
 
-public class AddressBook {
+public class AddressBook extends DLList {
 
     public static void main(String[] args) {
 	AddressBook addy = new AddressBook();

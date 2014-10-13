@@ -1,12 +1,8 @@
 // TODO: 
 // sort out how searching and printing by private data should be methodized
-// make Contact extend Node so that I can get next and previous
-public class Contact {
-    // an array containing 3 strings for my fields
-    private String[] contact; 
+public class Contact extends Node {
 
-    // associate name, email, number vars with indices in array
-    // that might need to happen in setter methods
+    // Private data for each field
     private String Name;
     private String Email;
     private String Number;

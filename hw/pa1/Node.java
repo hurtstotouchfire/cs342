@@ -1,15 +1,8 @@
 
 public class Node {
-    private Contact data;
     private Node next;
     private Node prev;
     
-    public String[] getData() {
-    return data;
-    }
-    public void setData(String[] data) {
-    this.data = data;
-    }
     public Node getNext() {
     return next;
     }
