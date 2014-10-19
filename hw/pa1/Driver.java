@@ -1,51 +1,50 @@
-
+// TODO fix indentation in master and rebase
 public class Driver {
 
-	public static void main(String[] args) {
-		Driver me = new Driver();
-		me.doIt();
-	}
+    public static void main(String[] args) {
+	Driver me = new Driver();
+	me.doIt();
+    }
 	
-	public void doIt() {
-		System.out.println("Make an empty list");
-		SLList list = new SLList();
+    /* Test Cases:
+       
+       Print: 
+       x - empty condition
+       1 contact
+       multiple contacts
 
-		System.out.println("See what happens if we try to delete nothing");
-		list.deleteLastNode();
-		list.displayList();		
+       Add:
+       add first contact
+       add additional contacts
+       add dupe contact
 
-		System.out.println("Put something in and immediately delete it");
-		list.insertAtTail(3);
-		list.displayList();		
-		list.deleteLastNode();
-		list.displayList();		
+       Search:
+       successful search by name for contact
+       successful search by email for contact
+       failing search
 
+       Delete:
+       failing delete (contact doesn't exist)
+       successful delete
+       delete last contact
 
-		System.out.println("Inserting the first item at head or tail should look the same");
-		list.insertAtTail(3);
-		list.displayList();		
-		list.deleteLastNode();
-		list.insertAtHead(3);
-		list.displayList();		
+       Export:
+       export empty contact list
+       export multiple contacts
 
-		System.out.println("Clear out our list and put 10 fresh integers in it");
-		list.deleteAllNodes();
-		list.insertAtTail(3);
-		list.insertAtTail(1);
-		list.insertAtTail(4);
-		list.insertAtTail(1);
-		list.insertAtTail(5);
-		list.insertAtTail(9);
-		list.insertAtTail(2);
-		list.insertAtTail(6);
-		list.insertAtTail(5);
-		list.insertAtTail(3);
-		list.displayList();		
+       Import:
+       import multiple contacts
 
-		System.out.println("Delete the last node");
-		list.deleteLastNode();
-		list.displayList();		
+    */
 
-	}
+    public void doIt() {// Exercising public methods
+	System.out.println("Make an empty AddressBook");
+	AddressBook addy = new AddressBook();
+
+	// Print: empty condition
+	System.out.println("Print the empty AddressBook");
+	addy.printAllContacts();
+
+    }
 
 }
