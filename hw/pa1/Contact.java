@@ -2,39 +2,35 @@
 // sort out how searching and printing by private data should be methodized
 public class Contact extends Node {
 
-    // Private data for each field
-    private String Name;
-    private String Email;
-    private String Number;
+    // Array: [name, email, phoneNumber]
+    private String[] contactInfo;
     
-    // need a constructor to make my new blank contact
-    // initialize fields to null so that contacts don't need 
-    // to have all 3
-
-    public void setName(String[] args) {
-	this.Name = args;
+    public void setName(String args) {
+	this.contactInfo[0] = args;
     }
     public String getName() {
-	return Name;
+	return this.contactInfo[0];
     }
 
-    public void setEmail(String[] args) {
-	this.Email = args;
+    public void setEmail(String args) {
+	this.contactInfo[1] = args;
     }
     public String getEmail() {
-	return Email;
+	return this.contactInfo[1];
     }
 
 
-    public void setNumber(String[] args) {
-	this.Number = args;
+    public void setNumber(String args) {
+	this.contactInfo[2] = args;
     }
     public String getNumber() {
-	return Number;
+	return this.contactInfo[2];
     }
     
-    public String[] toString() {
+    public String toString() {
+	String rtn = "";
 	// output all fields in a nice string format
+	return rtn;
     }
 
 }

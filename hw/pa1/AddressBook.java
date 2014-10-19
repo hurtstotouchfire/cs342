@@ -17,14 +17,16 @@ public class AddressBook extends DLList {
 	
 	// make an empty list
 	DLList list = new DLList();
-	addy.print();
+	printAllContacts();
 	// print contents of address book using list's toString method
 	System.out.println(list);	
 
 	// make a loop which takes commands and parses them with parseArgs
-	while (not breaking condition) {
-	    addy.parseArgs();
-	}
+	/*
+	  while (not breaking condition) {
+	  parseArgs();
+	  }
+	*/
 	
     }
     
@@ -36,29 +38,29 @@ public class AddressBook extends DLList {
 
     }
 
-    public void execArgs(String command, String input) {// TODO: move to another class somehow
+    public void execArgs(String command, String[] input) {// TODO: move to another class somehow
 	// make input arg optional
 
    	// if command is "a"
-	addy.addContact(input);
+	addContact(input);
 
    	// if command is "p"
-	addy.printList(list);
+	printAllContacts();
 
    	// if command is "s"
-	addy.search(input);
+	searchContacts(input[0], "name");
 
    	// if command is "e"
-	addy.search(input, "email");
+	searchContacts(input[1], "email");
 
    	// if command is "d"
-	addy.deleteContact(input);
+        deleteContact(input[0]);
 
    	// if command is "w"
-	addy.export(input);
+	exportContacts();
 
    	// if command is "r"
-	addy.import(input);
+	importContacts();
     }
 
     /* TODO:
@@ -66,7 +68,10 @@ public class AddressBook extends DLList {
      * implement by directly accessing DLList methods.
      */
 
-    public void addContact(String newName, String email, String phoneNumber) { //add contacts in alpha order by Name field.
+    public void addContact(String[] contactInfo) { //add contacts in alpha order by Name field.
+	String newName = contactInfo[0];
+	String email = contactInfo[1]; 
+	String phoneNumber = contactInfo[2];
 	/* first, make sure searchContact returns false. (note that this is less efficient but better encapsulation)
 	 * make a new Contact and populate data
 	 * 
@@ -97,9 +102,9 @@ public class AddressBook extends DLList {
 	 *    if currentContact field matches query
 	 *        println(currentContact.toString())
 	 *        return true
-	 * if the loop finishes or we reach nextContact is null, 
-	 *    return false
 	 */
+	// if the loop finishes or we reach nextContact is null, 
+	return false;
     }
     public void deleteContact(String contactName) {
 	/* first make sure searchContact returns true (note that this is less efficient but better encapsulation)
@@ -108,7 +113,10 @@ public class AddressBook extends DLList {
 	 * 
 	 */
     }
-    public void exportContacts() {}
+    public void exportContacts() {
+	/*
+	 */
+    }
     public void importContacts() {}
 
     // More methods I need:

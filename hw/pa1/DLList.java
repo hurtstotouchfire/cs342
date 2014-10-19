@@ -36,22 +36,15 @@ public class DLList {
       // if keeping track of tail, update reference to new node
   }
   
-    public Node getNodeByIndex(int i) {
-    // Safeguard for indexing errors:
-      // index cannot be larger than nodecount - 1 (assuming 0 indexing)
-      // if index can be negative, interpret it as indexing backwards from the tail
-    // Traverse the length of the list by following Next links until you reach the Node for that index
-      // if index can be negative, can optimize for indexes that are > 0.5 * nodeCount by starting from tail and following Prev
-  }
-  
   public String displayList () {
     // initialize empty string to return
+      String rtn = "";
     // Traverse length of list, starting at head
     // for each node:
       // append reference to Prev to string
       // append data to string
       // append reference to Next to string
-    // return string
+      return rtn;
   }
   
 }
