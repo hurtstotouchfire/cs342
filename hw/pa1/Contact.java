@@ -1,6 +1,7 @@
+import java.io.Serializable;
 // TODO: 
 // sort out how searching and printing by private data should be methodized
-public class Contact extends Node {
+public class Contact extends Node implements Serializable {
 
     // Array: [name, email, phoneNumber]
     private String[] contactInfo;

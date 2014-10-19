@@ -56,11 +56,15 @@ public class AddressBook extends DLList {
    	// if command is "d"
         deleteContact(input[0]);
 
+	// String array arg option breaks down once you need a filename. Need to break this up and move it.
+
    	// if command is "w"
-	exportContacts();
+	String fileName = ""; //get this from UI / validation
+	exportContacts(fileName);
 
    	// if command is "r"
-	importContacts();
+	String fileName = ""; //get this from UI / validation
+	importContacts(fileName);
     }
 
     /* TODO:
@@ -113,11 +117,45 @@ public class AddressBook extends DLList {
 	 * 
 	 */
     }
-    public void exportContacts() {
+    public void exportContacts(String fleName) {//https://community.oracle.com/message/9051394
 	/*
+	 * initialize a new File from fileName
+	 * initialize a new FileOutputStream, giving it the new File
+	 * initialize a new ObjectOutputStream, giving it the new FileOutputStream
+	 * 
+	 * start at the tail node
+	 * while we have nodes,
+	 *     writeObject(currentContact)
+	 *     currentContact.getPrev();
+	 * make sure to include the head
+	 * close out the streams
 	 */
     }
-    public void importContacts() {}
+    public void importContacts(String fleName) { // TODO: currently currentNode vs currentContact is all mixed up
+	/*
+	 * initialize a new File from fileName
+	 * initialize a new FileInputStream, giving it the new File
+	 * initialize a new ObjectInputStream, giving it the new FileInputStream
+	 * 
+	 * No contacts in file:
+	 * check for empty file (EOFE probably) and throw error
+	 *
+	 * One contact in file:
+	 * make newContact object from readObject()
+	 * point head to newContact
+	 * point tail to newContact
+	 * set currentNode to newContact
+	 * if there's only one contact, the following while loop will immediately get EOFE
+	 *
+	 * Multiple contacts:
+	 * while we're not getting an end of file exception
+	 *     make newContact object from readObject()
+	 *     set newContact prev to currentNode
+	 *     set currentNode next to newContact
+	 *     set tail to newContact
+	 *     set currentContact to newContact
+	 */
+    }
 
     // More methods I need:
     private void insertContactAtHead(String newName) {
