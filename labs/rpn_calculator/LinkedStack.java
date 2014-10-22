@@ -10,7 +10,7 @@ public class LinkedStack implements MyStack {
 	}
 	
 	@Override
-	public void push(int data) throws StackOverFlowException {
+	public void push(double data) throws StackOverFlowException {
 		// TODO Auto-generated method stub
 		LSNode n = new LSNode();
 		n.setData(data);
@@ -21,8 +21,8 @@ public class LinkedStack implements MyStack {
 	}
 
 	@Override
-	public int pop() {
-		int rtn = top.getData();
+	public double pop() {
+		double rtn = top.getData();
 		LSNode n = top;
 		
 		top = top.getNext();
@@ -40,7 +40,7 @@ public class LinkedStack implements MyStack {
 	}
 
 	@Override
-	public int stackTop() {
+	public double stackTop() {
 		return top.getData();
 	}
 

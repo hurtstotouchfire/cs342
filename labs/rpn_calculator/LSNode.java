@@ -1,17 +1,17 @@
 
 public class LSNode {
-	private int data;
+	private double data;
 	private LSNode next;
 	
 	public LSNode() {
 		next = null;
-		data = 0;
+		data = 0.0;
 	}
 	
-	public int getData() {
+	public double getData() {
 		return data;
 	}
-	public void setData(int data) {
+	public void setData(double data) {
 		this.data = data;
 	}
 	public LSNode getNext() {
