@@ -37,7 +37,7 @@ public class AddressBook extends DLList {
 	String newName = contactInfo[0];
 	String email = contactInfo[1]; 
 	String phoneNumber = contactInfo[2];
-
+	
 	if (searchContacts(newName, "name")) {
 	    System.out.println("That name is already associated with a Contact.");
 	} else if (searchContacts(email, "email")) {
@@ -48,19 +48,37 @@ public class AddressBook extends DLList {
 	    newContact.setName(newName);
 	    newContact.setEmail(email);
 	    newContact.setNumber(phoneNumber);
-
 	    
+	    // case 1: insert before head
+	    if (currentContact.getName().compareTo(newName) < 0) {
+		newContact.setNext(head);
+		head.setPrev((Node)newContact);
+		head = (Node)newContact;
+	    }
+	    
+	    // case 2: insert somewhere in between
+	    currentContact = (Contact)head.getNext();
+	    while (currentContact != null) {
+		// search until we overshoot, handle tail case separately
+		if (currentContact.getName().compareTo(newName) > 0) {
+		    Node prevNode = currentContact.getPrev();
+		    // new contact goes before current and after previous
+		    newContact.setNext((Node)currentContact);
+		    newContact.setPrev(prevNode);
+		    // point previous and current to new contact
+		    currentContact.setPrev((Node)newContact);
+		    prevNode.setNext((Node)newContact);
+		    // once current > new, insert new before current and break
+		} else {
+		    currentContact = (Contact)currentContact.getNext();
+		}
+	    }
+	    
+	    // case 3: insert as new tail
+	    newContact.setPrev(tail);
+	    tail.setNext((Node)newContact);
+	    tail = (Node)newContact;
 	}
-	/* 
-	 * start with first contact, get it's name
-	 * if firstcontact.name is alphabetically after newName
-	 *     insertContactAtHead(newName)
-	 * otherwise, make a loop (remember prev node so we can step back one)
-	 * if currentContact.name is alpha before newName
-	 *     getNext contact
-	 * else 
-	 *     insert newName contact after prev node and before currentContact node.
-	 */
     }
 
     public void printAllContacts() { // TODO: Make sure Contact toString makes a nice print output for concatenating
