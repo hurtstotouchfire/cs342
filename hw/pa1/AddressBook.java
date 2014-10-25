@@ -8,6 +8,8 @@
 
 public class AddressBook extends DLList {
 
+    private Contact currentContact = null;
+
     public static void main(String[] args) {
 	AddressBook addy = new AddressBook();
 	addy.start();
@@ -30,47 +32,6 @@ public class AddressBook extends DLList {
 	
     }
     
-    public void parseArgs() {	
-	// take CL input
-	// validate input, ask additional questions where needed
-	// break up as command and input
-	// execArgs(command, input);
-
-    }
-
-    public void execArgs(String command, String[] input) {// TODO: move to another class somehow
-	// make input arg optional
-
-   	// if command is "a"
-	addContact(input);
-
-   	// if command is "p"
-	printAllContacts();
-
-   	// if command is "s"
-	searchContacts(input[0], "name");
-
-   	// if command is "e"
-	searchContacts(input[1], "email");
-
-   	// if command is "d"
-        deleteContact(input[0]);
-
-	// String array arg option breaks down once you need a filename. Need to break this up and move it.
-
-   	// if command is "w"
-	String fileName = ""; //get this from UI / validation
-	exportContacts(fileName);
-
-   	// if command is "r"
-	String fileName = ""; //get this from UI / validation
-	importContacts(fileName);
-    }
-
-    /* TODO:
-     * decide which of the following UI methods need to exist and which we can 
-     * implement by directly accessing DLList methods.
-     */
 
     public void addContact(String[] contactInfo) { //add contacts in alpha order by Name field.
 	String newName = contactInfo[0];
@@ -100,16 +61,25 @@ public class AddressBook extends DLList {
     }
 
     public boolean searchContacts(String query, String field) {
-	// TODO: if I use a class variable for currentNode I could have searchContacts set that to the contact when I find it, and then I could call this from add and delete and I could just pick that up from the class... Way more efficient.
-	/* start at head
-	 * while we have contacts
-	 *    if currentContact field matches query
-	 *        println(currentContact.toString())
-	 *        return true
-	 */
-	// if the loop finishes or we reach nextContact is null, 
+	currentContact = (Contact)head;
+	while (currentContact != null) {
+	    if (field == "email") {
+		if (currentContact.getEmail() == query) {
+		    System.out.println(currentContact);
+		    return true;
+		}
+	    } else if (field == "name") {
+		if (currentContact.getName() == query) {
+		    System.out.println(currentContact);
+		    return true;
+		} 
+	    } else {
+		throw new RuntimeException("That Contact field is not queryable!");
+	    }
+	}
 	return false;
     }
+
     public void deleteContact(String contactName) {
 	/* first make sure searchContact returns true (note that this is less efficient but better encapsulation)
 	 * start at first contact

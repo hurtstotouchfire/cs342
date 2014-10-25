@@ -1,13 +1,15 @@
 // TODO: add all the methods here we actually need
 public class DLList {
-    private Node head;
-    private int nodeCount;
-    private Node tail; // need this for exporting from end
-    private Node currentNode; // TODO make other AddressBook methods use this.
+    protected Node head;
+    protected int nodeCount;
+    protected Node tail; // need this for exporting from end
+    protected Node currentNode; // TODO make other AddressBook methods use this.
 
     public DLList() {
 	head = null;
+	tail = null;
 	nodeCount = 0;
+	currentNode = null;
     }
   
     // TODO: possible methods
