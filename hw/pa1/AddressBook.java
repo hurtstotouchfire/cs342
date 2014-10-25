@@ -37,9 +37,21 @@ public class AddressBook extends DLList {
 	String newName = contactInfo[0];
 	String email = contactInfo[1]; 
 	String phoneNumber = contactInfo[2];
-	/* first, make sure searchContact returns false. (note that this is less efficient but better encapsulation)
-	 * make a new Contact and populate data
-	 * 
+
+	if (searchContacts(newName, "name")) {
+	    System.out.println("That name is already associated with a Contact.");
+	} else if (searchContacts(email, "email")) {
+	    System.out.println("That email address is already associated with a Contact.");
+	} else {
+	    // make a new Contact and populate data
+	    Contact newContact = new Contact();
+	    newContact.setName(newName);
+	    newContact.setEmail(email);
+	    newContact.setNumber(phoneNumber);
+
+	    
+	}
+	/* 
 	 * start with first contact, get it's name
 	 * if firstcontact.name is alphabetically after newName
 	 *     insertContactAtHead(newName)
@@ -50,6 +62,7 @@ public class AddressBook extends DLList {
 	 *     insert newName contact after prev node and before currentContact node.
 	 */
     }
+
     public void printAllContacts() { // TODO: Make sure Contact toString makes a nice print output for concatenating
 	// if nodeCount == 0 (is this the right check)
 	// print that we're empty. 
@@ -81,12 +94,17 @@ public class AddressBook extends DLList {
     }
 
     public void deleteContact(String contactName) {
-	/* first make sure searchContact returns true (note that this is less efficient but better encapsulation)
-	 * start at first contact
-	 * while currentContact.name != contactName
-	 * 
-	 */
+	if (searchContacts(contactName, "name")) {
+	    Contact prev = (Contact)currentContact.getPrev();
+	    Contact next = (Contact)currentContact.getNext();
+	    prev.setNext(next);
+	    next.setPrev(prev);
+	    System.out.println("Contact removed.");
+	} else {
+	    System.out.println("Contact not found.");
+	}
     }
+
     public void exportContacts(String fleName) {//https://community.oracle.com/message/9051394
 	/*
 	 * initialize a new File from fileName

@@ -1,7 +1,7 @@
 
 public class Node {
-    private Node next;
-    private Node prev;
+    protected Node next;
+    protected Node prev;
     
     public Node getNext() {
     return next;
