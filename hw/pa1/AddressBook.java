@@ -8,8 +8,6 @@
 
 public class AddressBook extends DLList {
 
-    private Contact currentContact = null;
-
     public static void main(String[] args) {
 	AddressBook addy = new AddressBook();
 	addy.start();
@@ -50,6 +48,7 @@ public class AddressBook extends DLList {
 	    newContact.setNumber(phoneNumber);
 	    
 	    // case 1: insert before head
+	    Contact currentContact = (Contact)current;
 	    if (currentContact.getName().compareTo(newName) < 0) {
 		newContact.setNext(head);
 		head.setPrev((Node)newContact);
@@ -57,20 +56,21 @@ public class AddressBook extends DLList {
 	    }
 	    
 	    // case 2: insert somewhere in between
-	    currentContact = (Contact)head.getNext();
-	    while (currentContact != null) {
+	    current = (Contact)head.getNext();
+	    while (current != null) {
 		// search until we overshoot, handle tail case separately
+		currentContact = (Contact)current;
 		if (currentContact.getName().compareTo(newName) > 0) {
-		    Node prevNode = currentContact.getPrev();
+		    Node prevNode = current.getPrev();
 		    // new contact goes before current and after previous
-		    newContact.setNext((Node)currentContact);
+		    newContact.setNext((Node)current);
 		    newContact.setPrev(prevNode);
 		    // point previous and current to new contact
-		    currentContact.setPrev((Node)newContact);
+		    current.setPrev((Node)newContact);
 		    prevNode.setNext((Node)newContact);
 		    // once current > new, insert new before current and break
 		} else {
-		    currentContact = (Contact)currentContact.getNext();
+		    current = (Contact)current.getNext();
 		}
 	    }
 	    
@@ -88,20 +88,20 @@ public class AddressBook extends DLList {
 	// make a return string with some initial glue in it
 	// start at head
 	// while we have Contacts
-	//     add currentContact.toString() to return string
+	//     add current.toString() to return string
     }
 
     public boolean searchContacts(String query, String field) {
-	currentContact = (Contact)head;
-	while (currentContact != null) {
+	current = (Contact)head;
+	while (current != null) {
 	    if (field == "email") {
-		if (currentContact.getEmail() == query) {
-		    System.out.println(currentContact);
+		if (current.getEmail() == query) {
+		    System.out.println(current);
 		    return true;
 		}
 	    } else if (field == "name") {
-		if (currentContact.getName() == query) {
-		    System.out.println(currentContact);
+		if (current.getName() == query) {
+		    System.out.println(current);
 		    return true;
 		} 
 	    } else {
@@ -113,8 +113,8 @@ public class AddressBook extends DLList {
 
     public void deleteContact(String contactName) {
 	if (searchContacts(contactName, "name")) {
-	    Contact prev = (Contact)currentContact.getPrev();
-	    Contact next = (Contact)currentContact.getNext();
+	    Contact prev = (Contact)current.getPrev();
+	    Contact next = (Contact)current.getNext();
 	    prev.setNext(next);
 	    next.setPrev(prev);
 	    System.out.println("Contact removed.");
@@ -131,13 +131,13 @@ public class AddressBook extends DLList {
 	 * 
 	 * start at the tail node
 	 * while we have nodes,
-	 *     writeObject(currentContact)
-	 *     currentContact.getPrev();
+	 *     writeObject(current)
+	 *     current.getPrev();
 	 * make sure to include the head
 	 * close out the streams
 	 */
     }
-    public void importContacts(String fleName) { // TODO: currently currentNode vs currentContact is all mixed up
+    public void importContacts(String fleName) { // TODO: currently currentNode vs current is all mixed up
 	/*
 	 * initialize a new File from fileName
 	 * initialize a new FileInputStream, giving it the new File
@@ -159,7 +159,7 @@ public class AddressBook extends DLList {
 	 *     set newContact prev to currentNode
 	 *     set currentNode next to newContact
 	 *     set tail to newContact
-	 *     set currentContact to newContact
+	 *     set current to newContact
 	 */
     }
 

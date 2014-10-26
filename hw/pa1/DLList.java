@@ -1,21 +1,25 @@
 // TODO: add all the methods here we actually need
 public class DLList {
-    protected Node head;
     protected int nodeCount;
-    protected Node tail; // need this for exporting from end
-    protected Node currentNode; // TODO make other AddressBook methods use this.
+    protected Node head;
+    protected Node tail;
+    protected Node current;
 
-    public DLList() {
+    public DLList() {//not actually sure this would get called with the subclass, may need a constructor there to initialize nodecount in particular. TODO: investigate default constructor for integer variables.
+	nodeCount = 0;
 	head = null;
 	tail = null;
-	nodeCount = 0;
-	currentNode = null;
+	current = null;
     }
   
     // TODO: possible methods
     // createNode - make a new node and put data in it
     // insert - take a node, somehow insert it alphabetically, while handling the abstraction of Contact. Maybe need to extend DLList with an abstraction class?
     // avoid: Node.getData.getName and order by that
+
+    //insert before head
+    //insert after tail
+    //insert before node
 
     public void insert(String[] data) {
 	// Create new node with data
