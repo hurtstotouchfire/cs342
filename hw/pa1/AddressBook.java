@@ -10,6 +10,13 @@ public class AddressBook extends DLList {
 
     private Contact currentContact = null; // I think this isn't going to be used
 
+    private Node createContact(String[] contactInfo) {
+	// implicitly cast so that we can use Node operations
+	Node newNode = new Contact();
+	newNode.setData(contactInfo);
+	return newNode;
+    }
+
     public void addContact(String[] contactInfo) { //add contacts in alpha order by Name field.
 	String newName = contactInfo[0];
 	String email = contactInfo[1]; 
@@ -17,7 +24,8 @@ public class AddressBook extends DLList {
 	
 	// handle first contact case
 	if (nodeCount == 0) {
-	    addHead(contactInfo);
+	    Node newContact = createContact(contactInfo);
+	    addHead(newContact);
 	}
 
 	// if we already have contacts, check for dupes

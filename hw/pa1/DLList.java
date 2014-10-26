@@ -22,10 +22,7 @@ public class DLList {
 	}
     }
 
-    public void addHead(String[] data) {// add first node
-	Node newNode = new Node();
-	newNode.setData(data);
-
+    public void addHead(Node newNode) {// add first node
 	newNode.setNext(null);
 	newNode.setPrev(null);
 	head = newNode;
@@ -62,9 +59,9 @@ public class DLList {
   
     public void insertAtTail(String[] data) {
 	// can handle a 1 node list but not an empty one
-	if (nodeCount == 0) {
-	    addHead(data);
-	} else {
+	//if (nodeCount == 0) {
+	    //addHead(newNode);
+	//	} else {
 	    Node newNode = new Node();
 	    newNode.setData(data);
 	    
@@ -72,7 +69,7 @@ public class DLList {
 	    tail.setNext(newNode);
 	    tail = newNode;
 	    nodeCount++;
-	}
+	    //}
     }
 
     public void removeHead() {
