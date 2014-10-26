@@ -45,16 +45,37 @@ public class DLList {
 	tail = newNode;
 	nodeCount++;
     }
+
+    public void removeHead() {
+	// get node after head
+	Node nextNode = head.getNext();
+
+	// make it the new head and decrement node count
+	nextNode.setPrev(null);
+	head = nextNode;
+	nodeCount--;
+    }
   
-    public String displayList () {
-	// initialize empty string to return
-	String rtn = "";
-	// Traverse length of list, starting at head
-	// for each node:
-	// append reference to Prev to string
-	// append data to string
-	// append reference to Next to string
-	return rtn;
+    public void removeNode(Node currentNode) {
+	// get nodes surrounding current
+	Node prevNode = currentNode.getPrev();
+	Node nextNode = currentNode.getNext();
+
+	// point them at each other and decrement node count
+	prevNode.setNext(nextNode);
+	nextNode.setPrev(prevNode);
+	nodeCount--;
+    }
+  
+    public void removeTail() {
+	// get node before tail
+	Node prevNode = tail.getPrev();
+
+	// make it the new tail and decrement node count
+	prevNode.setNext(null);
+	tail = prevNode;
+	nodeCount--;
+
     }
   
 }
