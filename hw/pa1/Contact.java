@@ -27,11 +27,12 @@ public class Contact extends Node implements Serializable {
 	return this.data[2];
     }
 
-
+    
     public String toString() {
 	String rtn = "";
 	// output all fields in a nice string format
+	rtn +=  getName() + ": " + getNumber() + ", " + getEmail();
 	return rtn;
-    }
+	}
 
 }

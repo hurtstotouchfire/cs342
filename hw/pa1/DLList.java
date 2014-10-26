@@ -133,9 +133,11 @@ public class DLList {
 	    output += "[Empty]";
 	} else {
 	    Node currentNode = head;
+	    int i = 0;
 	    while (currentNode != null) {
-		output += "[" + currentNode.getData() + ", " + currentNode.getNext() + "] ";
+		output += "[" + i + "][" + currentNode + "] ";
 		currentNode = currentNode.getNext();
+		i++;
 	    }
 	}
 		
