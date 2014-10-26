@@ -43,7 +43,20 @@ public class Driver {
 
 	// Print: empty condition
 	System.out.println("Print the empty AddressBook");
-	addy.printAllContacts();
+	System.out.println(addy);
+
+	// add first contact
+	System.out.println("Add a contact");
+	String[] contactInfo = new String[3];
+	contactInfo[0] = "Kelly";
+	contactInfo[1] = "kb@stuff.com"; 
+	contactInfo[2] = "123-4567";
+	addy.addContact(contactInfo);
+
+	// Print: 1 contact
+	System.out.println("Print the contact");
+	System.out.println(addy);
+
 
     }
 

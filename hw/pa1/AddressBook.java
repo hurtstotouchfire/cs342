@@ -15,6 +15,12 @@ public class AddressBook extends DLList {
 	String email = contactInfo[1]; 
 	String phoneNumber = contactInfo[2];
 	
+	// handle first contact case
+	if (nodeCount == 0) {
+	    addHead(contactInfo);
+	}
+
+	// if we already have contacts, check for dupes
 	if (searchContacts(newName, "name")) {
 	    System.out.println("That name is already associated with a Contact.");
 	} else if (searchContacts(email, "email")) {

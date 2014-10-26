@@ -11,18 +11,30 @@ public class DLList {
     }
   
     public void insertAtIndex(int index, String[] data) {
-	switch (index) {
-	case 0:
+	
+	if (index == 0) {
 	    insertAtHead(data);
-	case nodeCount - 1:
+	} else if (index == (nodeCount - 1)) {
 	    insertAtTail(data);
-	default:
+	} else {
 	    Node currentNode = getNodeByIndex(index);
 	    insertBeforeNode(data, currentNode);
 	}
     }
 
-    public void insertAtHead(String[] data) {
+    public void addHead(String[] data) {// add first node
+	Node newNode = new Node();
+	newNode.setData(data);
+
+	newNode.setNext(null);
+	newNode.setPrev(null);
+	head = newNode;
+	tail = newNode;
+	nodeCount++;
+	
+    }
+
+    public void insertAtHead(String[] data) {// insert before existing head
 	Node newNode = new Node();
 	newNode.setData(data);
 
@@ -49,13 +61,18 @@ public class DLList {
     }
   
     public void insertAtTail(String[] data) {
-	Node newNode = new Node();
-	newNode.setData(data);
-
-	newNode.setPrev(tail);
-	tail.setNext(newNode);
-	tail = newNode;
-	nodeCount++;
+	// can handle a 1 node list but not an empty one
+	if (nodeCount == 0) {
+	    addHead(data);
+	} else {
+	    Node newNode = new Node();
+	    newNode.setData(data);
+	    
+	    newNode.setPrev(tail);
+	    tail.setNext(newNode);
+	    tail = newNode;
+	    nodeCount++;
+	}
     }
 
     public void removeHead() {
@@ -111,21 +128,21 @@ public class DLList {
 	}
     }
 
-    public void displayList() {
+    public String toString() {
 	String output = "";
 	output += "Node Count = " + nodeCount + "\n";
 		
 	if (nodeCount == 0) {
 	    output += "[Empty]";
 	} else {
-	    Node temp = head;
-	    while (temp != null) {
-		output += "[" + temp.getData() + ", " + temp.getNext() + "] ";
-		temp = temp.getNext();
+	    Node currentNode = head;
+	    while (currentNode != null) {
+		output += "[" + currentNode.getData() + ", " + currentNode.getNext() + "] ";
+		currentNode = currentNode.getNext();
 	    }
 	}
 		
-	System.out.println(output);
+	return output;
     }
 
   
