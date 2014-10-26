@@ -10,6 +10,18 @@ public class DLList {
 	nodeCount = 0;
     }
   
+    public void insertAtIndex(int index, String[] data) {
+	switch (index) {
+	case 0:
+	    insertAtHead(data);
+	case nodeCount - 1:
+	    insertAtTail(data);
+	default:
+	    Node currentNode = getNodeByIndex(index);
+	    insertBeforeNode(data, currentNode);
+	}
+    }
+
     public void insertAtHead(String[] data) {
 	Node newNode = new Node();
 	newNode.setData(data);
@@ -77,5 +89,44 @@ public class DLList {
 	nodeCount--;
 
     }
+
+    private Node getNodeByIndex(int i) {
+	// safeguard for indexing errors
+	if (i >= nodeCount) {
+	    return null;
+	} else if (i < 0) {
+	    System.out.println("We don't support negative indexing.");
+	    return null;
+	} else {
+	    // start at the head
+	    Node currentNode = head;
+	    
+	    // loop through, incrementing current until we reach the node we want
+	    int c = 0;
+	    while (c != i) {
+		currentNode = currentNode.getNext();
+		c++;
+	    }
+	    return currentNode;
+	}
+    }
+
+    public void displayList() {
+	String output = "";
+	output += "Node Count = " + nodeCount + "\n";
+		
+	if (nodeCount == 0) {
+	    output += "[Empty]";
+	} else {
+	    Node temp = head;
+	    while (temp != null) {
+		output += "[" + temp.getData() + ", " + temp.getNext() + "] ";
+		temp = temp.getNext();
+	    }
+	}
+		
+	System.out.println(output);
+    }
+
   
 }

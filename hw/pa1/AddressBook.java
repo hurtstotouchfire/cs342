@@ -8,30 +8,7 @@
 
 public class AddressBook extends DLList {
 
-    private Contact currentContact = null;
-
-    public static void main(String[] args) {
-	AddressBook addy = new AddressBook();
-	addy.start();
-    }
-    
-    public void start() {
-	
-	// make an empty list
-	DLList list = new DLList();
-	printAllContacts();
-	// print contents of address book using list's toString method
-	System.out.println(list);	
-
-	// make a loop which takes commands and parses them with parseArgs
-	/*
-	  while (not breaking condition) {
-	  parseArgs();
-	  }
-	*/
-	
-    }
-    
+    private Contact currentContact = null; // I think this isn't going to be used
 
     public void addContact(String[] contactInfo) { //add contacts in alpha order by Name field.
 	String newName = contactInfo[0];
@@ -83,6 +60,7 @@ public class AddressBook extends DLList {
     }
 
     public boolean searchContacts(String query, String field) {
+	// traverse list of Contacts, searching for a particular field
 	currentContact = (Contact)head;
 	while (currentContact != null) {
 	    if (field == "email") {
