@@ -34,12 +34,14 @@ public class AddressBook extends DLList {
 	} else if (searchContacts(email, "email")) {
 	    System.out.println("That email address is already associated with a Contact.");
 	} else {
+	    // TODO: use createContact
 	    // make a new Contact and populate data
 	    Contact newContact = new Contact();
 	    newContact.setName(newName);
 	    newContact.setEmail(email);
 	    newContact.setNumber(phoneNumber);
 	    
+	    // TODO: use insertByIndex
 	    // case 1: insert before head
 	    if (currentContact.getName().compareTo(newName) < 0) {
 		insertAtHead(contactInfo);
@@ -63,16 +65,6 @@ public class AddressBook extends DLList {
 	}
     }
 
-    public void printAllContacts() { // TODO: Make sure Contact toString makes a nice print output for concatenating
-	// if nodeCount == 0 (is this the right check)
-	// print that we're empty. 
-	// else:
-	// make a return string with some initial glue in it
-	// start at head
-	// while we have Contacts
-	//     add currentContact.toString() to return string
-    }
-
     public boolean searchContacts(String query, String field) {
 	// traverse list of Contacts, searching for a particular field
 	currentContact = (Contact)head;
@@ -90,20 +82,14 @@ public class AddressBook extends DLList {
 	    } else {
 		throw new RuntimeException("That Contact field is not queryable!");
 	    }
+	    currentContact = (Contact)currentContact.getNext();
 	}
 	return false;
     }
 
-    public void deleteContact(String contactName) {
-	if (searchContacts(contactName, "name")) {
-	    Contact prev = (Contact)currentContact.getPrev();
-	    Contact next = (Contact)currentContact.getNext();
-	    prev.setNext(next);
-	    next.setPrev(prev);
-	    System.out.println("Contact removed.");
-	} else {
-	    System.out.println("Contact not found.");
-	}
+    public void deleteContact(int index) {
+	// add some messaging for what was removed
+	removeAtIndex(index);
     }
 
     public void exportContacts(String fleName) {//https://community.oracle.com/message/9051394

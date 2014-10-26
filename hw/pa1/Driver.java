@@ -10,11 +10,11 @@ public class Driver {
        
        Print: 
        x - empty condition
-       1 contact
+       x - 1 contact
        multiple contacts
 
        Add:
-       add first contact
+       x - add first contact
        add additional contacts
        add dupe contact
 
@@ -26,7 +26,7 @@ public class Driver {
        Delete:
        failing delete (contact doesn't exist)
        successful delete
-       delete last contact
+       x - delete last contact
 
        Export:
        export empty contact list
@@ -57,7 +57,37 @@ public class Driver {
 	System.out.println("Print the contact");
 	System.out.println(addy);
 
+	// Delete: last contact
+	System.out.println("Delete the contact");
+	addy.deleteContact(0);
 
+	System.out.println("Add a contact");
+	addy.addContact(contactInfo);
+
+	//make some contacts
+	String[] contactInfo2 = new String[3];
+	contactInfo2[0] = "Bob";
+	contactInfo2[1] = "kb@stuff.com"; 
+	contactInfo2[2] = "123-4567";
+	String[] contactInfo3 = new String[3];
+	contactInfo3[0] = "Charlie";
+	contactInfo3[1] = "kb@stuff.com"; 
+	contactInfo3[2] = "123-4567";
+	String[] contactInfo4 = new String[3];
+	contactInfo4[0] = "Bret";
+	contactInfo4[1] = "kb@stuff.com"; 
+	contactInfo4[2] = "123-4567";
+
+	System.out.println("exercising index methods directly");
+	addy.insertAtIndex(0, contactInfo2);
+	System.out.println(addy);
+	addy.insertAtIndex(2, contactInfo3);
+	System.out.println(addy);
+	addy.insertAtIndex(1, contactInfo4);
+	System.out.println(addy);
+
+	System.out.println("searching");
+	System.out.println(addy.searchContacts("Kelly", "name"));
     }
 
 }
