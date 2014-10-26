@@ -51,9 +51,7 @@ public class AddressBook extends DLList {
 	    
 	    // case 1: insert before head
 	    if (currentContact.getName().compareTo(newName) < 0) {
-		newContact.setNext(head);
-		head.setPrev((Node)newContact);
-		head = (Node)newContact;
+		insertAtHead(contactInfo);
 	    }
 	    
 	    // case 2: insert somewhere in between
@@ -61,23 +59,16 @@ public class AddressBook extends DLList {
 	    while (currentContact != null) {
 		// search until we overshoot, handle tail case separately
 		if (currentContact.getName().compareTo(newName) > 0) {
-		    Node prevNode = currentContact.getPrev();
-		    // new contact goes before current and after previous
-		    newContact.setNext((Node)currentContact);
-		    newContact.setPrev(prevNode);
-		    // point previous and current to new contact
-		    currentContact.setPrev((Node)newContact);
-		    prevNode.setNext((Node)newContact);
 		    // once current > new, insert new before current and break
+		    insertBeforeNode(contactInfo, (Node)currentContact);
+		    break;
 		} else {
 		    currentContact = (Contact)currentContact.getNext();
 		}
 	    }
 	    
 	    // case 3: insert as new tail
-	    newContact.setPrev(tail);
-	    tail.setNext((Node)newContact);
-	    tail = (Node)newContact;
+	    insertAtTail(contactInfo);
 	}
     }
 
