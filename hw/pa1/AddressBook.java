@@ -8,83 +8,100 @@
 
 public class AddressBook extends DLList {
 
-    private Contact currentContact = null; // I think this isn't going to be used
+    // Some helper methods to keep all our casting in one place
+    //    public Contact currentContact(){
+    //return (Contact)currentNode;
+    //}
 
-    private Node createContact(String[] contactInfo) {
-	// implicitly cast so that we can use Node operations
-	Node newNode = new Contact();
-	newNode.setData(contactInfo);
-	return newNode;
+    private Contact firstContact(){
+	return (Contact)head;
     }
 
-    public void addContact(String[] contactInfo) { //add contacts in alpha order by Name field.
-	String newName = contactInfo[0];
-	String email = contactInfo[1]; 
-	String phoneNumber = contactInfo[2];
+    private Contact lastContact(){
+	return (Contact)tail;
+    }
+
+    private Contact createContact(String[] contactInfo) {
+	Contact newContact = new Contact();
+	newContact.setData(contactInfo);
+	return newContact;
+    }
+
+    // Methods for supported commands
+
+    public boolean addContact(String[] contactInfo) { 
+	/* Add contacts in alpha order by Name field.
+	 * Prevent adding dupes for the fields we allow searching on:
+	 * - name
+	 * - email
+	 */
 	
-	// handle first contact case
-	if (nodeCount == 0) {
-	    Node newContact = createContact(contactInfo);
-	    addHead(newContact);
+	// unpack contact fields that we will validate against
+	String newName = contactInfo[0];
+	String newEmail = contactInfo[1]; 
+	// dupe phone numbers are allowed
+	
+	// make a new contact with this info, and then we'll figure out where it goes.
+	Contact newContact = createContact(contactInfo);
+
+	// If there are no contacts yet, add this one in the first slot
+	if (firstContact() == null) {
+	    insertAtIndex(newContact, 0);
 	}
 
-	// if we already have contacts, check for dupes
-	if (searchContacts(newName, "name")) {
-	    System.out.println("That name is already associated with a Contact.");
-	} else if (searchContacts(email, "email")) {
-	    System.out.println("That email address is already associated with a Contact.");
-	} else {
-	    // TODO: use createContact
-	    // make a new Contact and populate data
-	    Contact newContact = new Contact();
-	    newContact.setName(newName);
-	    newContact.setEmail(email);
-	    newContact.setNumber(phoneNumber);
-	    
-	    // TODO: use insertByIndex
-	    // case 1: insert before head
-	    if (currentContact.getName().compareTo(newName) < 0) {
-		insertAtHead(contactInfo);
+	// Otherwise, add it in order
+	Contact currentContact = firstContact();
+	int i = 0; // keep track of index, we will use this to insert
+	while (currentContact != null) {
+	    if (currentContact.getName() == newName) {
+		// prevent adding dupe names
+		System.out.println("That name is already associated with a Contact.");
+		return false;
+	    } else if (currentContact.getEmail() == newEmail) {
+		// prevent adding dupe emails
+		System.out.println("That email address is already associated with a Contact.");
+		return false;
+	    } else if (currentContact.getName().compareTo(newName) > 0) {
+		// once current > new, insert new in current slot
+		insertAtIndex(newContact, i);
+		return true;
+	    } else {
+		currentContact = currentContact.nextContact();
+		i++;
 	    }
-	    
-	    // case 2: insert somewhere in between
-	    currentContact = (Contact)head.getNext();
-	    while (currentContact != null) {
-		// search until we overshoot, handle tail case separately
-		if (currentContact.getName().compareTo(newName) > 0) {
-		    // once current > new, insert new before current and break
-		    insertBeforeNode(contactInfo, (Node)currentContact);
-		    break;
-		} else {
-		    currentContact = (Contact)currentContact.getNext();
-		}
-	    }
-	    
-	    // case 3: insert as new tail
-	    insertAtTail(contactInfo);
 	}
+	
+	// if loop completes, then insert contact at end
+	i++; // TODO: figure out how to do this in the argument
+	insertAtIndex(newContact, i);
+	return true;
     }
-
-    public boolean searchContacts(String query, String field) {
+    
+    public int searchContacts(String query, String field) {
 	// traverse list of Contacts, searching for a particular field
-	currentContact = (Contact)head;
+	// Prints contact if found and returns index 
+	// TODO: sort out what this method should return
+
+	Contact currentContact = firstContact();
+	int i = 0; // keep track of index, we will return this
 	while (currentContact != null) {
 	    if (field == "email") {
 		if (currentContact.getEmail() == query) {
 		    System.out.println(currentContact);
-		    return true;
+		    return i;
 		}
 	    } else if (field == "name") {
 		if (currentContact.getName() == query) {
 		    System.out.println(currentContact);
-		    return true;
+		    return i;
 		} 
 	    } else {
 		throw new RuntimeException("That Contact field is not queryable!");
 	    }
-	    currentContact = (Contact)currentContact.getNext();
+		currentContact = currentContact.nextContact();
+		i++;
 	}
-	return false;
+	return -1;
     }
 
     public void deleteContact(int index) {
@@ -132,12 +149,4 @@ public class AddressBook extends DLList {
 	 */
     }
 
-    // More methods I need:
-    private void insertContactAtHead(String newName) {
-	// make a new node with name newName
-	// make it the new head
-
-	// So this would be a private method that knows about Contacts (which DLList doesn't know about)
-	// but which also knows about DLList Nodes, which public methods of AddressBook will not reference.
-    }
 }

@@ -3,6 +3,7 @@ public class DLList {
     protected Node head;
     protected int nodeCount;
     protected Node tail; // need this for exporting from end
+    //    protected Node currentNode;
 
     public DLList() {
 	head = null;
@@ -16,15 +17,17 @@ public class DLList {
      * for bookkeeping the head / tail / various pointers.
      */
 
-    public void insertAtIndex(int index, String[] data) {
+    public void insertAtIndex(Node newNode, int index) {
 	
-	if (index == 0) {
-	    insertAtHead(data);
+	if (nodeCount == 0) {
+	    addHead(newNode);
+	} else if (index == 0) {
+	    insertAtHead(newNode);
 	} else if (index == (nodeCount)) {//TODO: how to indicate with index to insert after tail
-	    insertAtTail(data);
+	    insertAtTail(newNode);
 	} else {
 	    Node currentNode = getNodeByIndex(index);
-	    insertBeforeNode(data, currentNode);
+	    insertBeforeNode(newNode, currentNode);
 	}
     }
 
@@ -42,11 +45,11 @@ public class DLList {
 	}
     }
 
-    private Node getNodeByIndex(int i) {
+    private Node getNodeByIndex(int index) {
 	// safeguard for indexing errors
-	if (i >= nodeCount) {
+	if (index >= nodeCount) {
 	    return null;
-	} else if (i < 0) {
+	} else if (index < 0) {
 	    System.out.println("We don't support negative indexing.");
 	    return null;
 	} else {
@@ -55,7 +58,7 @@ public class DLList {
 	    
 	    // loop through, incrementing current until we reach the node we want
 	    int c = 0;
-	    while (c != i) {
+	    while (c != index) {
 		currentNode = currentNode.getNext();
 		c++;
 	    }
@@ -77,19 +80,14 @@ public class DLList {
 	
     }
 
-    public void insertAtHead(String[] data) {// insert before existing head
-	Node newNode = new Node();
-	newNode.setData(data);
-
+    public void insertAtHead(Node newNode) {// insert before existing head
 	newNode.setNext(head);
 	head.setPrev(newNode);
 	head = newNode;
 	nodeCount++;
     }
   
-    public void insertBeforeNode(String[] data, Node currentNode) {//TODO check cases here
-	    Node newNode = new Node();
-	    newNode.setData(data);
+    public void insertBeforeNode(Node newNode, Node currentNode) {//TODO check cases here
 	switch (nodeCount) {
 	case 0:
 	    addHead(newNode);
@@ -108,11 +106,8 @@ public class DLList {
 	}
     }
 
-    public void insertAtTail(String[] data) {
+    public void insertAtTail(Node newNode) {
 	// can handle a 1 node list but not an empty one
-	    Node newNode = new Node();
-	    newNode.setData(data);
-
 	switch (nodeCount) {
 	case 0:
 	    addHead(newNode);

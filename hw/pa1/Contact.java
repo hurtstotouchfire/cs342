@@ -3,6 +3,17 @@ import java.io.Serializable;
 // sort out how searching and printing by private data should be methodized
 public class Contact extends Node implements Serializable {
 
+    // Some helper methods to minimize casting in AddressBook
+    public Contact nextContact() {
+	return (Contact)next;
+    };
+
+    public Contact prevContact() {
+	return (Contact)prev;
+    };
+
+
+    // Data handling methods
     // Array: [name, email, phoneNumber]
     
     public void setName(String args) {

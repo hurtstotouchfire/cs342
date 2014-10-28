@@ -78,6 +78,14 @@ public class Driver {
 	contactInfo4[1] = "kb@stuff.com"; 
 	contactInfo4[2] = "123-4567";
 
+	addy.addContact( contactInfo2);
+	System.out.println(addy);
+	addy.addContact(contactInfo3);
+	System.out.println(addy);
+	addy.addContact(contactInfo4);
+	System.out.println(addy);
+
+	/*
 	System.out.println("exercising index methods directly");
 	addy.insertAtIndex(0, contactInfo2);
 	System.out.println(addy);
@@ -85,9 +93,10 @@ public class Driver {
 	System.out.println(addy);
 	addy.insertAtIndex(1, contactInfo4);
 	System.out.println(addy);
+	*/
 
-	System.out.println("searching");
-	System.out.println(addy.searchContacts("Kelly", "name"));
+	//	System.out.println("searching");
+	//	System.out.println(addy.searchContacts("Kelly", "name"));
     }
 
 }
