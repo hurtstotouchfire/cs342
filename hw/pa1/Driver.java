@@ -153,6 +153,10 @@ public class Driver {
 	System.out.println(addy);
 	System.out.println("");
 
+	// export
+	System.out.println("export contacts");
+	addy.exportContacts("Contacts.bin");
+
     }
 
 }

@@ -5,6 +5,7 @@
 // TODO: consider taking a string array of args so you can set all three. 
 // store in array as well?
 // Would need getters and setters for those fields.
+import java.io.*;
 
 public class AddressBook extends DLList {
 
@@ -121,21 +122,37 @@ public class AddressBook extends DLList {
 	}
     }
 
-    public void exportContacts(String fleName) {//https://community.oracle.com/message/9051394
-	/*
-	 * initialize a new File from fileName
-	 * initialize a new FileOutputStream, giving it the new File
-	 * initialize a new ObjectOutputStream, giving it the new FileOutputStream
-	 * 
-	 * start at the tail node
-	 * while we have nodes,
-	 *     writeObject(currentContact)
-	 *     currentContact.getPrev();
-	 * make sure to include the head
-	 * close out the streams
-	 */
+    public boolean exportContacts(String fileName) {
+	// if we have no contacts, don't export.
+	if (nodeCount == 0) {//TODO make this addressbooky
+	    throw new RuntimeException("You have no contacts to export.");
+	}
+
+	try {
+	    ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(fileName));
+	    
+	    Contact currentContact = lastContact();
+	    while (currentContact != null) {
+	    //	    try {
+		oout.writeObject(currentContact);
+		/*	    } catch (IOException ioe){ 
+			    ioe.printStackTrace();
+			    } catch (FileNotFoundException foe) { 
+			    foe.printStackTrace();
+			    }*/
+		
+	    currentContact.prevContact();
+	    }
+	    oout.flush();
+	    oout.close();
+	    return true;
+	} catch (IOException ioe){ 
+	    ioe.printStackTrace();
+	    return false;
+	} 
     }
-    public void importContacts(String fleName) { // TODO: currently currentNode vs currentContact is all mixed up
+    
+    public void importContacts(String fileName) { // TODO: currently currentNode vs currentContact is all mixed up
 	/*
 	 * initialize a new File from fileName
 	 * initialize a new FileInputStream, giving it the new File
