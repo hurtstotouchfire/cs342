@@ -44,56 +44,108 @@ public class Driver {
 	// Print: empty condition
 	System.out.println("Print the empty AddressBook");
 	System.out.println(addy);
+	System.out.println("");
 
 	// add first contact
-	System.out.println("Add a contact");
+	System.out.println("Add first contact");
 	String[] contactInfo = new String[3];
 	contactInfo[0] = "Kelly";
 	contactInfo[1] = "kb@stuff.com"; 
 	contactInfo[2] = "123-4567";
 	addy.addContact(contactInfo);
+	System.out.println("");
+
 
 	// Print: 1 contact
 	System.out.println("Print the contact");
 	System.out.println(addy);
+	System.out.println("");
+
 
 	// Delete: last contact
 	System.out.println("Delete the contact");
 	addy.deleteContact(0);
+	System.out.println(addy);
+	System.out.println("");
 
-	System.out.println("Add a contact");
+
+	System.out.println("Add the contact back");
 	addy.addContact(contactInfo);
+	System.out.println(addy);
+	System.out.println("");
+
 
 	//make some contacts
 	String[] contactInfo2 = new String[3];
 	contactInfo2[0] = "Bob";
-	contactInfo2[1] = "kb@stuff.com"; 
+	contactInfo2[1] = "kb2@stuff.com"; 
 	contactInfo2[2] = "123-4567";
 	String[] contactInfo3 = new String[3];
 	contactInfo3[0] = "Charlie";
-	contactInfo3[1] = "kb@stuff.com"; 
+	contactInfo3[1] = "kb3@stuff.com"; 
 	contactInfo3[2] = "123-4567";
 	String[] contactInfo4 = new String[3];
 	contactInfo4[0] = "Bret";
-	contactInfo4[1] = "kb@stuff.com"; 
+	contactInfo4[1] = "kb4@stuff.com"; 
 	contactInfo4[2] = "123-4567";
+	String[] contactInfo5 = new String[3];
+	contactInfo5[0] = "Zedd";
+	contactInfo5[1] = "kb5@stuff.com"; 
+	contactInfo5[2] = "123-4567";
 
-	addy.addContact( contactInfo2);
+	System.out.println("Add a contact");
+	addy.addContact(contactInfo2);
 	System.out.println(addy);
+	System.out.println("");
+
+	System.out.println("Add a contact");
 	addy.addContact(contactInfo3);
 	System.out.println(addy);
+	System.out.println("");
+
+	System.out.println("Add a contact");
 	addy.addContact(contactInfo4);
 	System.out.println(addy);
+	System.out.println("");
 
-	/*
-	System.out.println("exercising index methods directly");
-	addy.insertAtIndex(0, contactInfo2);
+	System.out.println("Add a contact");
+	addy.addContact(contactInfo5);
 	System.out.println(addy);
-	addy.insertAtIndex(2, contactInfo3);
+	System.out.println("");
+
+
+	// delete contacts
+	System.out.println("Delete a contact");
+	addy.deleteContact(3);
 	System.out.println(addy);
-	addy.insertAtIndex(1, contactInfo4);
+	System.out.println("");
+
+	System.out.println("Delete a contact");
+	addy.deleteContact(4);
 	System.out.println(addy);
-	*/
+	System.out.println("");
+
+	System.out.println("Delete a contact");
+	addy.deleteContact(4);
+	System.out.println(addy);
+	System.out.println("");
+
+	System.out.println("Delete a contact");
+	addy.deleteContact(1);
+	System.out.println(addy);
+	System.out.println("");
+
+	System.out.println("Delete a contact");
+	addy.deleteContact(2);
+	System.out.println(addy);
+	System.out.println("");
+
+	System.out.println("Delete a contact");
+	addy.deleteContact(1);
+	System.out.println(addy);
+	System.out.println("");
+
+
 
 	//	System.out.println("searching");
 	//	System.out.println(addy.searchContacts("Kelly", "name"));

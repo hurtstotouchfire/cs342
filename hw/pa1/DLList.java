@@ -18,12 +18,12 @@ public class DLList {
      */
 
     public void insertAtIndex(Node newNode, int index) {
-	
+	System.out.println("Index: " + index + " Nodecount: " + nodeCount);
 	if (nodeCount == 0) {
 	    addHead(newNode);
 	} else if (index == 0) {
 	    insertAtHead(newNode);
-	} else if (index == (nodeCount)) {//TODO: how to indicate with index to insert after tail
+	} else if (index == (nodeCount)) {
 	    insertAtTail(newNode);
 	} else {
 	    Node currentNode = getNodeByIndex(index);
@@ -33,10 +33,12 @@ public class DLList {
 
     public void removeAtIndex(int index) {
 	
-	if (index == 0) {
-	    // throw a runtime error maybe?
-	} else if (index == 1) {
+	if (index < 0) {
+	    throw new RuntimeException("Negative indices are not supported.");
+	} else if (index == 0) {
 	    removeHead();
+	} else if (index >= nodeCount) {
+	    throw new IndexOutOfBoundsException();
 	} else if (index == (nodeCount - 1)) {
 	    removeTail();
 	} else {
@@ -77,7 +79,6 @@ public class DLList {
 	head = newNode;
 	tail = newNode;
 	nodeCount++;
-	
     }
 
     public void insertAtHead(Node newNode) {// insert before existing head
@@ -106,7 +107,7 @@ public class DLList {
 	}
     }
 
-    public void insertAtTail(Node newNode) {
+    public void insertAtTail(Node newNode) {//insert after last node
 	// can handle a 1 node list but not an empty one
 	switch (nodeCount) {
 	case 0:
@@ -125,14 +126,29 @@ public class DLList {
      * For empty lists, they throw runtime errors. TODO add those
      */
 
-    public void removeHead() {//can handle 2+ node lists. for 1 node, use clear
-	// get node after head
-	Node nextNode = head.getNext();
+    public void clearList() {//TODO see if we can call a constructor here
+	nodeCount = 0;
+	head = null;
+	tail = null;
+    }
 
-	// make it the new head and decrement node count
-	nextNode.setPrev(null);
-	head = nextNode;
-	nodeCount--;
+    public void removeHead() {//can handle 2+ node lists. for 1 node, use clear
+	System.out.println("Nodecount: " + nodeCount);
+	switch (nodeCount) {
+	case 0:
+	    throw new RuntimeException("Head is already removed.");
+	case 1:
+	    clearList();
+	    break;
+	default:
+	    // get node after head
+	    Node nextNode = head.getNext();
+	    
+	    // make it the new head and decrement node count
+	    nextNode.setPrev(null);
+	    head = nextNode;
+	    nodeCount--;
+	}
     }
   
     public void removeNode(Node currentNode) {//TODO safeguard for 0,1,2 cases

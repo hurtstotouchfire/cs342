@@ -47,6 +47,7 @@ public class AddressBook extends DLList {
 	// If there are no contacts yet, add this one in the first slot
 	if (firstContact() == null) {
 	    insertAtIndex(newContact, 0);
+	    return true;
 	}
 
 	// Otherwise, add it in order
@@ -67,12 +68,12 @@ public class AddressBook extends DLList {
 		return true;
 	    } else {
 		currentContact = currentContact.nextContact();
-		i++;
+		i++; // increments even on the last time through the loop
 	    }
 	}
 	
-	// if loop completes, then insert contact at end
-	i++; // TODO: figure out how to do this in the argument
+	// if loop completes, then insert contact at end 
+	// (index is currently 1 past the valid indices that have Contacts)
 	insertAtIndex(newContact, i);
 	return true;
     }
@@ -105,8 +106,12 @@ public class AddressBook extends DLList {
     }
 
     public void deleteContact(int index) {
-	// add some messaging for what was removed
-	removeAtIndex(index);
+	// TODO: add some messaging for what was removed
+	try {
+	    removeAtIndex(index);
+	} catch (IndexOutOfBoundsException e) {
+	    System.err.println("There is no Contact at that index.");
+	}
     }
 
     public void exportContacts(String fleName) {//https://community.oracle.com/message/9051394
