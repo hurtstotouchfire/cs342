@@ -24,12 +24,10 @@ public class SerialiseTest {
 	contactInfo4[1] = "kb4@stuff.com"; 
 	contactInfo4[2] = "123-4567";
 
-	Contact o1 = new Contact();
-	o1.setData(contactInfo2);
-	Contact o2 = new Contact();
-	o2.setData(contactInfo3);
-	Contact o3 = new Contact();
-     	o3.setData(contactInfo4);
+	Contact o1 = new Contact(contactInfo2);
+	Contact o2 = new Contact(contactInfo3);
+	Contact o3 = new Contact(contactInfo4);
+
 
 	System.out.println("here's what goes in:");
 	System.out.println(o1);
@@ -53,9 +51,9 @@ public class SerialiseTest {
 	    Object ob3 = oin.readObject();
                
 	    System.out.println("here's what comes out:");
-	    System.out.println(o1);
-	    System.out.println(o2);
-	    System.out.println(o3);
+	    System.out.println(ob1);
+	    System.out.println(ob2);
+	    System.out.println(ob3);
                
 	} catch (Exception exc){ 
 	    exc.printStackTrace();

@@ -157,6 +157,10 @@ public class Driver {
 	System.out.println("export contacts");
 	addy.exportContacts("Contacts.bin");
 
+	// import
+	System.out.println("import contacts");
+	addy.importContacts("Contacts.bin");
+
     }
 
 }

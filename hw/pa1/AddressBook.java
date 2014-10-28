@@ -23,12 +23,11 @@ public class AddressBook extends DLList {
     }
 
     private Contact createContact(String[] contactInfo) {
-	Contact newContact = new Contact();
-	newContact.setData(contactInfo); // TODO: use Contact methods or justify
+	Contact newContact = new Contact(contactInfo);
 	return newContact;
     }
 
-    /*
+   /*
      *   Methods for supported commands
      */
 
@@ -131,21 +130,18 @@ public class AddressBook extends DLList {
 	try {
 	    ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(fileName));
 	    
-	    Contact currentContact = lastContact();
+	    Contact currentContact = firstContact();
 	    while (currentContact != null) {
-	    //	    try {
+		System.out.println("Exporting contact: " + currentContact);
 		oout.writeObject(currentContact);
-		/*	    } catch (IOException ioe){ 
-			    ioe.printStackTrace();
-			    } catch (FileNotFoundException foe) { 
-			    foe.printStackTrace();
-			    }*/
-		
-	    currentContact.prevContact();
+		currentContact = currentContact.nextContact();
 	    }
+
+	    // close up the file when we're done.
 	    oout.flush();
 	    oout.close();
 	    return true;
+
 	} catch (IOException ioe){ 
 	    ioe.printStackTrace();
 	    return false;
@@ -153,29 +149,29 @@ public class AddressBook extends DLList {
     }
     
     public void importContacts(String fileName) { // TODO: currently currentNode vs currentContact is all mixed up
-	/*
-	 * initialize a new File from fileName
-	 * initialize a new FileInputStream, giving it the new File
-	 * initialize a new ObjectInputStream, giving it the new FileInputStream
-	 * 
-	 * No contacts in file:
-	 * check for empty file (EOFE probably) and throw error
-	 *
-	 * One contact in file:
-	 * make newContact object from readObject()
-	 * point head to newContact
-	 * point tail to newContact
-	 * set currentNode to newContact
-	 * if there's only one contact, the following while loop will immediately get EOFE
-	 *
-	 * Multiple contacts:
-	 * while we're not getting an end of file exception
-	 *     make newContact object from readObject()
-	 *     set newContact prev to currentNode
-	 *     set currentNode next to newContact
-	 *     set tail to newContact
-	 *     set currentContact to newContact
-	 */
-    }
+	// if file doesn't exist, throw an error.
+	/*	if (nodeCount == 0) {
+	    throw new RuntimeException("File does not exist.");
+	    }*/
 
+	try {
+	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream(fileName));
+	    
+	    // need to loop through till we reach end of file. For now just testing 2.
+	    Object c1 = oin.readObject();
+	    Object c2 = oin.readObject();
+
+	    // all debugging. fails when I try to access String data. Ok until there.
+	    Node c1_node = (Node)c1;
+	    String[] info = c1_node.getData();
+	    System.out.println(info[0]);// NullPointerException here
+	    System.out.println(c1);// also here which does the same thing
+	    System.out.println(c2);
+	} catch (IOException ioe) { 
+	    ioe.printStackTrace();
+	} catch (ClassNotFoundException cnfe) {
+	    cnfe.printStackTrace();
+	}
+    }
+    
 }

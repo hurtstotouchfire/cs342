@@ -3,6 +3,10 @@ import java.io.Serializable;
 // sort out how searching and printing by private data should be methodized
 public class Contact extends Node implements Serializable {
 
+    public Contact(String[] data) {
+	this.data = data;
+    }
+
     // Some helper methods to minimize casting in AddressBook
     public Contact nextContact() {
 	return (Contact)next;
@@ -46,4 +50,6 @@ public class Contact extends Node implements Serializable {
 	return rtn;
 	}
 
+    // this doesn't fix the import error.
+    //public static final long serialVersionUID = 1l;
 }
