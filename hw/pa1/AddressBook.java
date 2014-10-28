@@ -158,12 +158,12 @@ public class AddressBook extends DLList {
 	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream(fileName));
 	    
 	    // need to loop through till we reach end of file. For now just testing 2.
-	    Contact c1 = (Contact)oin.readObject();
-	    Contact c2 = (Contact)oin.readObject();
+	    Object c1 = oin.readObject();
+	    Object c2 = oin.readObject();
 
 	    // all debugging. fails when I try to access String data. Ok until there.
-	    //	    Contact c1_node = (Contact)c1;
-	    String[] info = c1.getData();
+	    Contact c1_node = (Contact)c1;
+	    String[] info = c1_node.getData();
 	    System.out.println(info[0]);// NullPointerException here
 	    System.out.println(c1);// also here which does the same thing
 	    System.out.println(c2);
