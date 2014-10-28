@@ -114,6 +114,24 @@ public class Driver {
 	System.out.println("");
 
 
+	// Searching
+	System.out.println("Search for contact by name");
+	System.out.println(addy.searchContacts("Kelly", "name"));
+	System.out.println("");
+
+	System.out.println("Search for contact by email");
+	System.out.println(addy.searchContacts("kb3@stuff.com", "email"));
+	System.out.println("");
+
+	System.out.println("Failing search by name");
+	System.out.println(addy.searchContacts("nope", "name"));
+	System.out.println("");
+
+	System.out.println("Failing search by email");
+	System.out.println(addy.searchContacts("waa@stuff.com", "email"));
+	System.out.println("");
+
+
 	// delete contacts
 	System.out.println("Delete a contact");
 	addy.deleteContact(3);
@@ -122,16 +140,6 @@ public class Driver {
 
 	System.out.println("Delete a contact");
 	addy.deleteContact(4);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Delete a contact");
-	addy.deleteContact(4);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Delete a contact");
-	addy.deleteContact(1);
 	System.out.println(addy);
 	System.out.println("");
 
@@ -145,10 +153,6 @@ public class Driver {
 	System.out.println(addy);
 	System.out.println("");
 
-
-
-	//	System.out.println("searching");
-	//	System.out.println(addy.searchContacts("Kelly", "name"));
     }
 
 }

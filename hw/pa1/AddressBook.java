@@ -23,18 +23,19 @@ public class AddressBook extends DLList {
 
     private Contact createContact(String[] contactInfo) {
 	Contact newContact = new Contact();
-	newContact.setData(contactInfo);
+	newContact.setData(contactInfo); // TODO: use Contact methods or justify
 	return newContact;
     }
 
-    // Methods for supported commands
+    /*
+     *   Methods for supported commands
+     */
 
     public boolean addContact(String[] contactInfo) { 
-	/* Add contacts in alpha order by Name field.
-	 * Prevent adding dupes for the fields we allow searching on:
-	 * - name
-	 * - email
-	 */
+	// Add contacts in alpha order by Name field.
+	// Prevent adding dupes for the fields we allow searching on:
+	// - name
+	// - email
 	
 	// unpack contact fields that we will validate against
 	String newName = contactInfo[0];
@@ -78,23 +79,29 @@ public class AddressBook extends DLList {
 	return true;
     }
     
-    public int searchContacts(String query, String field) {
+    public String searchContacts(String query, String field) {
 	// traverse list of Contacts, searching for a particular field
 	// Prints contact if found and returns index 
 	// TODO: sort out what this method should return
 
 	Contact currentContact = firstContact();
-	int i = 0; // keep track of index, we will return this
+	int i = 0; // keep track of index, we will include this in our return.
 	while (currentContact != null) {
 	    if (field == "email") {
 		if (currentContact.getEmail() == query) {
-		    System.out.println(currentContact);
-		    return i;
+		    String rtn = "";
+		    rtn += "[" + i + "][";
+		    rtn += currentContact;
+		    rtn += "]";
+		    return rtn;
 		}
 	    } else if (field == "name") {
 		if (currentContact.getName() == query) {
-		    System.out.println(currentContact);
-		    return i;
+		    String rtn = "";
+		    rtn += "[" + i + "][";
+		    rtn += currentContact;
+		    rtn += "]";
+		    return rtn;
 		} 
 	    } else {
 		throw new RuntimeException("That Contact field is not queryable!");
@@ -102,7 +109,7 @@ public class AddressBook extends DLList {
 		currentContact = currentContact.nextContact();
 		i++;
 	}
-	return -1;
+	return "Contact not found.";
     }
 
     public void deleteContact(int index) {
