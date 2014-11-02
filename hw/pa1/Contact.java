@@ -4,7 +4,7 @@ import java.io.Serializable;
 public class Contact extends Node implements Serializable {
 
     public Contact(String[] data) {
-	this.data = data;
+	super(data);
     }
 
     // Some helper methods to minimize casting in AddressBook

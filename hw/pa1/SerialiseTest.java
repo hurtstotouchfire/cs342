@@ -24,9 +24,9 @@ public class SerialiseTest {
 	contactInfo4[1] = "kb4@stuff.com"; 
 	contactInfo4[2] = "123-4567";
 
-	Contact o1 = new Contact(contactInfo2);
-	Contact o2 = new Contact(contactInfo3);
-	Contact o3 = new Contact(contactInfo4);
+	Node o1 = new Node(contactInfo2);
+	Node o2 = new Node(contactInfo3);
+	Node o3 = new Node(contactInfo4);
 
 
 	System.out.println("here's what goes in:");
@@ -46,14 +46,14 @@ public class SerialiseTest {
                
 	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream("output.bin"));
                
-	    Object ob1 = oin.readObject();
-	    Object ob2 = oin.readObject();
-	    Object ob3 = oin.readObject();
+	    o1 = (Node)oin.readObject();
+	    o2 = (Node)oin.readObject();
+	    o3 = (Node)oin.readObject();
                
 	    System.out.println("here's what comes out:");
-	    System.out.println(ob1);
-	    System.out.println(ob2);
-	    System.out.println(ob3);
+	    System.out.println(o1);
+	    System.out.println(o2);
+	    System.out.println(o3);
                
 	} catch (Exception exc){ 
 	    exc.printStackTrace();
@@ -61,15 +61,15 @@ public class SerialiseTest {
     }
 }
 /*
-class Contact implements Serializable {
+class Node implements Serializable {
     private int foo;
      
-    public Contact(int i) {
+    public Node(int i) {
 	foo = i;
     }
      
     public String toString() {
-	return "Contact::"+foo;
+	return "Node::"+foo;
     }
      
     public static final long serialVersionUID = 1l;

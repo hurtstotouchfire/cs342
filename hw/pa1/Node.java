@@ -1,9 +1,12 @@
-
-public class Node {
+import java.io.Serializable;
+public class Node implements Serializable  {
     protected Node next;
     protected Node prev;
     protected String[] data;
     
+    public Node(String[] data) {
+	this.data = data;
+    }
     public Node getNext() {
     return next;
     }
