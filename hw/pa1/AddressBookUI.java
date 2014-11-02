@@ -2,27 +2,38 @@ import java.util.Scanner;
 // TODO fix indentation in master and rebase
 public class AddressBookUI {
 
+    private Scanner scant;
+    private AddressBook addy;
+
+    public AddressBookUI() {
+	// initialize scanner
+	scant = new Scanner(System.in);
+	scant.useDelimiter("\\n");
+
+	// initialize addressbook
+	addy = new AddressBook();
+    }
+
     public static void main(String[] args) {
 	AddressBookUI me = new AddressBookUI();
-	// me.testMethods();
 
+	// print command menu and await commands
 	me.printMenu();
 	me.takeInput();
-
+	// TODO: make this quittable
     }
 
     public void takeInput() {
-	AddressBook addy = new AddressBook();
-	Scanner scant = new Scanner(System.in);
-
-	// Print the menu
-	
-	char input = scant.next().charAt(0);
-	if (validInput(input)) {
-	    parseInput(input);
-	} else {
-	    System.out.println("That is not a valid command.");
-	    printMenu();
+	// TODO: currently breaks if you enter multiple newlines
+	while(scant.hasNext()) {
+	    char input = scant.next().charAt(0);
+	    if (validInput(input)) {
+		parseInput(input);
+	        System.out.println("");
+	    } else {
+		System.out.println("That is not a valid command.");
+		printMenu();
+	    }
 	}
     }
 
@@ -52,143 +63,87 @@ public class AddressBookUI {
 	}
     }
 
-    private boolean parseInput(char input) {// Exercising public methods
+    private void parseInput(char input) {
 	switch (input) {
-	case 'a': return true;
-	case 'p': return true;
-	case 's': return true;
-	case 'e': return true;
-	case 'd': return true;
-	case 'w': return true;
-	case 'r': return true;
-	default: return false;
+	case 'a': 
+	    addContact();
+	    break;
+	case 'p': 
+	    printContacts();
+	    break;
+	case 's': 
+	    searchByName();
+	    break;
+	case 'e': 
+	    searchByEmail();
+	    break;
+	case 'd': 
+	    deleteContact();
+	    break;
+	case 'w': 
+	    writeContacts();
+	    break;
+	case 'r': 
+	    readContacts();
+	    break;
+	default: 
+	    break;
 	}
     }
 
-    private void testMethods() {// Exercising public methods
-	System.out.println("Make an empty AddressBook");
-	AddressBook addy = new AddressBook();
-
-	// Print: empty condition
-	System.out.println("Print the empty AddressBook");
-	System.out.println(addy);
-	System.out.println("");
-
-	// add first contact
-	System.out.println("Add first contact");
+    private void addContact() {
 	String[] contactInfo = new String[3];
-	contactInfo[0] = "Kelly";
-	contactInfo[1] = "kb@stuff.com"; 
-	contactInfo[2] = "123-4567";
+
+	// get name
+	System.out.println("Enter contact name");
+	contactInfo[0] = scant.next();
+
+	// get email
+	System.out.println("Enter contact email address");
+	contactInfo[1] = scant.next();
+
+	// get phone number as string
+	System.out.println("Enter contact phone number");
+	contactInfo[2] = scant.next();
+
 	addy.addContact(contactInfo);
-	System.out.println("");
+    }
 
-
-	// Print: 1 contact
-	System.out.println("Print the contact");
+    private void printContacts() {
 	System.out.println(addy);
-	System.out.println("");
+    }
 
+    private void searchByName() {
+	System.out.println("Enter a name to search by");
+	String name = scant.next();
+	System.out.println(addy.searchContacts(name, "name"));
+    }
 
-	// Delete: last contact
-	System.out.println("Delete the contact");
-	addy.deleteContact(0);
-	System.out.println(addy);
-	System.out.println("");
+    private void searchByEmail() {
+	System.out.println("Enter an email address to search by");
+	String email = scant.next();
+	System.out.println(addy.searchContacts(email, "email"));
+    }
 
+    private void deleteContact() {
+	System.out.println("Enter the index of the contact to delete");
+	if (scant.hasNextInt()) {
+	    int index = scant.nextInt();
+	    addy.deleteContact(index);
+	} else {
+	    System.out.println("Please enter an integer index or ENTER to cancel deletion.");
+	    scant.next(); // consume incorrect input and try again
+	    deleteContact();
+	    // TODO: break if enter
+	}
+    }
 
-	System.out.println("Add the contact back");
-	addy.addContact(contactInfo);
-	System.out.println(addy);
-	System.out.println("");
+    private void writeContacts() {
+	//TODO
+    }
 
-
-	//make some contacts
-	String[] contactInfo2 = new String[3];
-	contactInfo2[0] = "Bob";
-	contactInfo2[1] = "kb2@stuff.com"; 
-	contactInfo2[2] = "123-4567";
-	String[] contactInfo3 = new String[3];
-	contactInfo3[0] = "Charlie";
-	contactInfo3[1] = "kb3@stuff.com"; 
-	contactInfo3[2] = "123-4567";
-	String[] contactInfo4 = new String[3];
-	contactInfo4[0] = "Bret";
-	contactInfo4[1] = "kb4@stuff.com"; 
-	contactInfo4[2] = "123-4567";
-	String[] contactInfo5 = new String[3];
-	contactInfo5[0] = "Zedd";
-	contactInfo5[1] = "kb5@stuff.com"; 
-	contactInfo5[2] = "123-4567";
-
-	System.out.println("Add a contact");
-	addy.addContact(contactInfo2);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Add a contact");
-	addy.addContact(contactInfo3);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Add a contact");
-	addy.addContact(contactInfo4);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Add a contact");
-	addy.addContact(contactInfo5);
-	System.out.println(addy);
-	System.out.println("");
-
-
-	// Searching
-	System.out.println("Search for contact by name");
-	System.out.println(addy.searchContacts("Kelly", "name"));
-	System.out.println("");
-
-	System.out.println("Search for contact by email");
-	System.out.println(addy.searchContacts("kb3@stuff.com", "email"));
-	System.out.println("");
-
-	System.out.println("Failing search by name");
-	System.out.println(addy.searchContacts("nope", "name"));
-	System.out.println("");
-
-	System.out.println("Failing search by email");
-	System.out.println(addy.searchContacts("waa@stuff.com", "email"));
-	System.out.println("");
-
-
-	// delete contacts
-	System.out.println("Delete a contact");
-	addy.deleteContact(3);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Delete a contact");
-	addy.deleteContact(4);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Delete a contact");
-	addy.deleteContact(2);
-	System.out.println(addy);
-	System.out.println("");
-
-	System.out.println("Delete a contact");
-	addy.deleteContact(1);
-	System.out.println(addy);
-	System.out.println("");
-
-	// export
-	System.out.println("export contacts");
-	addy.exportContacts("Contacts.bin");
-
-	// import
-	System.out.println("import contacts");
-	addy.importContacts("Contacts.bin");
-
+    private void readContacts() {
+	//TODO
     }
 
 }

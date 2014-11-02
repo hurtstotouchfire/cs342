@@ -116,7 +116,7 @@ public class AddressBook extends DLList {
 	// TODO: add some messaging for what was removed
 	try {
 	    removeAtIndex(index);
-	} catch (IndexOutOfBoundsException e) {
+	} catch (IndexOutOfBoundsException e) {//TODO, make sure this is properly thrown, currently getting runtime error from DLList about removing head
 	    System.err.println("There is no Contact at that index.");
 	}
     }

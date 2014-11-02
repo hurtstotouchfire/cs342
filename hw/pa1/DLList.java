@@ -18,7 +18,7 @@ public class DLList {
      */
 
     public void insertAtIndex(Node newNode, int index) {
-	System.out.println("Index: " + index + " Nodecount: " + nodeCount);
+	//System.out.println("Index: " + index + " Nodecount: " + nodeCount);
 	if (nodeCount == 0) {
 	    addHead(newNode);
 	} else if (index == 0) {
@@ -133,7 +133,7 @@ public class DLList {
     }
 
     public void removeHead() {//can handle 2+ node lists. for 1 node, use clear
-	System.out.println("Nodecount: " + nodeCount);
+	//System.out.println("Nodecount: " + nodeCount);
 	switch (nodeCount) {
 	case 0:
 	    throw new RuntimeException("Head is already removed.");
@@ -179,7 +179,6 @@ public class DLList {
 
     public String toString() {
 	String output = "";
-	output += "Node Count = " + nodeCount + "\n";
 		
 	if (nodeCount == 0) {
 	    output += "[0][Empty]";
