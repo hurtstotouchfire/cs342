@@ -147,25 +147,25 @@ public class AddressBook extends DLList {
 	} 
     }
     
-    public void importContacts(String fileName) { // TODO: currently currentNode vs currentContact is all mixed up
-	// if file doesn't exist, throw an error.
-	/*	if (nodeCount == 0) {
-	    throw new RuntimeException("File does not exist.");
+    public boolean importContacts(String fileName) { // TODO: currently currentNode vs currentContact is all mixed up
+	/*	if (file does not exist) {
+		return false;
 	    }*/
 
 	try {
 	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream(fileName));
 	    
-	    // need to loop through till we reach end of file. For now just testing 2.
-	    Object c1 = oin.readObject();
-	    Object c2 = oin.readObject();
+	    // TODO: delete all contacts first
 
-	    // all debugging. fails when I try to access String data. Ok until there.
-	    Contact c1_node = (Contact)c1;
-	    String[] info = c1_node.getData();
-	    System.out.println(info[0]);// NullPointerException here
-	    System.out.println(c1);// also here which does the same thing
-	    System.out.println(c2);
+	    while (true) {
+		try {
+		    //nextContact = ;
+		    //bad scene. May need to serialize whole addressbook instead and assign it into addy in the UI
+		    addContact(oin.readObject());
+		} catch (EOFException eofe) {
+		    return true;
+		}
+	    }
 	} catch (IOException ioe) { 
 	    ioe.printStackTrace();
 	} catch (ClassNotFoundException cnfe) {

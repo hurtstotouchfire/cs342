@@ -158,7 +158,10 @@ public class AddressBookUI {
     }
 
     private void readContacts() {
-	//TODO
-    }
+	System.out.println("Enter base filename (Enter for default filename - " + filename + "):");
+	filename = scant.next();
+	filename += ".bin";
+	addy.importContacts(filename);
+    } 
 
 }
