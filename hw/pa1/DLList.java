@@ -35,6 +35,8 @@ public class DLList {
 	
 	if (index < 0) {
 	    throw new RuntimeException("Negative indices are not supported.");
+	} else if (index == 0 && nodeCount == 0) {
+	    throw new IndexOutOfBoundsException();
 	} else if (index == 0) {
 	    removeHead();
 	} else if (index >= nodeCount) {
@@ -135,7 +137,7 @@ public class DLList {
     public void removeHead() {//can handle 2+ node lists. for 1 node, use clear
 	//System.out.println("Nodecount: " + nodeCount);
 	switch (nodeCount) {
-	case 0:
+	case 0: // this should be handled by the parent method, but just in case
 	    throw new RuntimeException("Head is already removed.");
 	case 1:
 	    clearList();

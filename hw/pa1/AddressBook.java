@@ -81,14 +81,13 @@ public class AddressBook extends DLList {
     
     public String searchContacts(String query, String field) {
 	// traverse list of Contacts, searching for a particular field
-	// Prints contact if found and returns index 
-	// TODO: sort out what this method should return
+	// Returns all matching contacts, with indices
 
 	Contact currentContact = firstContact();
 	int i = 0; // keep track of index, we will include this in our return.
 	while (currentContact != null) {
 	    if (field == "email") {
-		if (currentContact.getEmail() == query) {
+		if (currentContact.getEmail().equals(query)) {
 		    String rtn = "";
 		    rtn += "[" + i + "][";
 		    rtn += currentContact;
@@ -96,7 +95,7 @@ public class AddressBook extends DLList {
 		    return rtn;
 		}
 	    } else if (field == "name") {
-		if (currentContact.getName() == query) {
+		if (currentContact.getName().equals(query)) {
 		    String rtn = "";
 		    rtn += "[" + i + "][";
 		    rtn += currentContact;

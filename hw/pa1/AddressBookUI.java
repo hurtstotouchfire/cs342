@@ -29,10 +29,11 @@ public class AddressBookUI {
 	    char input = scant.next().charAt(0);
 	    if (validInput(input)) {
 		parseInput(input);
-	        System.out.println("");
+	        System.out.println("\nEnter a command:");
 	    } else {
 		System.out.println("That is not a valid command.");
 		printMenu();
+	        System.out.println("\nEnter a command:");
 	    }
 	}
     }
@@ -106,7 +107,10 @@ public class AddressBookUI {
 	System.out.println("Enter contact phone number");
 	contactInfo[2] = scant.next();
 
-	addy.addContact(contactInfo);
+	boolean success = addy.addContact(contactInfo);
+	if (success) {
+	    System.out.println("Contact added.");
+	}
     }
 
     private void printContacts() {
@@ -116,12 +120,14 @@ public class AddressBookUI {
     private void searchByName() {
 	System.out.println("Enter a name to search by");
 	String name = scant.next();
+	System.out.println("");
 	System.out.println(addy.searchContacts(name, "name"));
     }
 
     private void searchByEmail() {
 	System.out.println("Enter an email address to search by");
 	String email = scant.next();
+	System.out.println("");
 	System.out.println(addy.searchContacts(email, "email"));
     }
 
