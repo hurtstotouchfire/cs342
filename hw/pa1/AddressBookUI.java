@@ -4,11 +4,15 @@ public class AddressBookUI {
 
     private Scanner scant;
     private AddressBook addy;
+    private String filename;
 
     public AddressBookUI() {
 	// initialize scanner
 	scant = new Scanner(System.in);
 	scant.useDelimiter("\\n");
+
+	// initialize default filename
+	filename = "output.bin";
 
 	// initialize addressbook
 	addy = new AddressBook();
@@ -145,7 +149,12 @@ public class AddressBookUI {
     }
 
     private void writeContacts() {
-	//TODO
+	System.out.println("Enter base filename:");
+	filename = scant.next() + ".bin";
+	boolean success = addy.exportContacts(filename);
+	if (success) {
+	    System.out.println("Contacts exported.");
+	} 
     }
 
     private void readContacts() {
