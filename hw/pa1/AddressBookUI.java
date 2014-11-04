@@ -150,16 +150,24 @@ public class AddressBookUI {
     }
 
     private void writeContacts() {
-	System.out.println("Enter base filename:");
-	filename = scant.next() + ".bin";
-	//need to stop doing this base thing. blow off the extension.
+	System.out.println("Enter filename:");
+	filename = scant.next();
+
+	try {
+	    ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(filename));
+	    oout.writeObject(addy);
+	    oout.flush();
+	    oout.close();
+	} catch (IOException ioe) { 
+	    ioe.printStackTrace();
+	}
+
 	System.out.println("Contacts exported.");
     }
 
     private void readContacts() {
-	System.out.println("Enter base filename (Enter for default filename - " + filename + "):");
+	System.out.println("Enter filename (Enter for default filename - " + filename + "):");
 	filename = scant.next();
-	filename += ".bin";
 	//addy.importContacts(filename);
 
 	try {
