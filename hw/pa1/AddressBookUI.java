@@ -166,9 +166,11 @@ public class AddressBookUI {
     }
 
     private void readContacts() {
-	System.out.println("Enter filename (Enter for default filename - " + filename + "):");
-	filename = scant.next();
-	//addy.importContacts(filename);
+	System.out.println("Enter filename (Enter for default filename: " + filename + "):");
+	String line = scant.next();
+	if (! line.isEmpty()) {
+	   filename = line;
+	}
 
 	try {
 	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream(filename));
