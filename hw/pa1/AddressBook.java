@@ -7,7 +7,7 @@
 // Would need getters and setters for those fields.
 import java.io.*;
 
-public class AddressBook extends DLList {
+public class AddressBook extends DLList implements Serializable {
 
     // Some helper methods to keep all our casting in one place
     //    public Contact currentContact(){
@@ -117,59 +117,6 @@ public class AddressBook extends DLList {
 	    removeAtIndex(index);
 	} catch (IndexOutOfBoundsException e) {//TODO, make sure this is properly thrown, currently getting runtime error from DLList about removing head
 	    System.err.println("There is no Contact at that index.");
-	}
-    }
-
-    public boolean exportContacts(String fileName) {
-	// if we have no contacts, don't export.
-	if (nodeCount == 0) {//TODO make this addressbooky
-	    throw new RuntimeException("You have no contacts to export.");
-	}
-
-	try {
-	    ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(fileName));
-	    
-	    Contact currentContact = firstContact();
-	    while (currentContact != null) {
-		System.out.println("Exporting contact: " + currentContact);
-		oout.writeObject(currentContact);
-		currentContact = currentContact.nextContact();
-	    }
-
-	    // close up the file when we're done.
-	    oout.flush();
-	    oout.close();
-	    return true;
-
-	} catch (IOException ioe){ 
-	    ioe.printStackTrace();
-	    return false;
-	} 
-    }
-    
-    public boolean importContacts(String fileName) { // TODO: currently currentNode vs currentContact is all mixed up
-	/*	if (file does not exist) {
-		return false;
-	    }*/
-
-	try {
-	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream(fileName));
-	    
-	    // TODO: delete all contacts first
-
-	    while (true) {
-		try {
-		    //nextContact = ;
-		    //bad scene. May need to serialize whole addressbook instead and assign it into addy in the UI
-		    addContact(oin.readObject());
-		} catch (EOFException eofe) {
-		    return true;
-		}
-	    }
-	} catch (IOException ioe) { 
-	    ioe.printStackTrace();
-	} catch (ClassNotFoundException cnfe) {
-	    cnfe.printStackTrace();
 	}
     }
     

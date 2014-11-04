@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 // TODO fix indentation in master and rebase
 public class AddressBookUI {
@@ -151,17 +152,26 @@ public class AddressBookUI {
     private void writeContacts() {
 	System.out.println("Enter base filename:");
 	filename = scant.next() + ".bin";
-	boolean success = addy.exportContacts(filename);
-	if (success) {
-	    System.out.println("Contacts exported.");
-	} 
+	//need to stop doing this base thing. blow off the extension.
+	System.out.println("Contacts exported.");
     }
 
     private void readContacts() {
 	System.out.println("Enter base filename (Enter for default filename - " + filename + "):");
 	filename = scant.next();
 	filename += ".bin";
-	addy.importContacts(filename);
+	//addy.importContacts(filename);
+
+	try {
+	    ObjectInputStream oin = new ObjectInputStream(new FileInputStream(filename));
+	    addy = (AddressBook)oin.readObject();
+	} catch (IOException ioe) { 
+	    ioe.printStackTrace();
+	} catch (ClassNotFoundException cnfe) {
+	    cnfe.printStackTrace();
+	}
+    
+
     } 
 
 }

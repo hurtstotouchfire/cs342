@@ -1,5 +1,6 @@
+import java.io.Serializable;
 // TODO: add all the methods here we actually need
-public class DLList {
+public class DLList implements Serializable {
     protected Node head;
     protected int nodeCount;
     protected Node tail; // need this for exporting from end
