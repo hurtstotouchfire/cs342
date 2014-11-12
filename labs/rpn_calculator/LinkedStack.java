@@ -2,7 +2,7 @@
 public class LinkedStack implements MyStack {
 
 	private LSNode top;
-	private int count;
+	protected int count;
 	
 	public LinkedStack() {
 		top = null;
