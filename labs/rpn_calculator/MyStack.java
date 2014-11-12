@@ -1,12 +1,12 @@
 public interface MyStack {
 
-	public abstract void push(int data) throws StackOverFlowException;
+	public abstract void push(double data) throws StackOverFlowException;
 
-	public abstract int pop();
+	public abstract double pop();
 
 	public abstract boolean isEmpty();
 
-	public abstract int stackTop();
+	public abstract double stackTop();
 
 	public abstract boolean isFull();
 
