@@ -34,7 +34,7 @@ public class Solver {
 	while (!qp.empty() && !success) {
 	    if (conflict()) {
 		// pop items off until the top is not in the 8th column
-		System.out.println("peek x: " + qp.peek().getX());
+		//System.out.println("peek x: " + qp.peek().getX());
 		while (!qp.empty() && (qp.peek().getX() == 8)) {
 		    qp.pop();
 		}
@@ -71,7 +71,8 @@ public class Solver {
 
     private boolean conflict() {
 	Node latest = qp.peek();
-	for (int i = 0; i == qp.size() - 2; i++) {
+	System.out.println("checking for conflicts in: " + qp.size());
+	for (int i = 0; i == qp.size() - 2; i++) { // tried this with just qp.size() as well
 	    Node coords = qp.get(i);
 	    System.out.println("Iteration: " + i);
 	    System.out.println("Latest: " + latest);
