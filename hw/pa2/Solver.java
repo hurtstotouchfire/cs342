@@ -71,13 +71,15 @@ public class Solver {
 
     private boolean conflict() {
 	Node latest = qp.peek();
-	System.out.println("checking for conflicts in: " + qp.size());
-	for (int i = 0; i == qp.size() - 2; i++) { // tried this with just qp.size() as well
+	System.out.println("checking for conflicts in " + qp.size() + " items: " + qp);
+	int i = 0;
+	do { // compare latest item to each other item
 	    Node coords = qp.get(i);
 	    System.out.println("Iteration: " + i);
 	    System.out.println("Latest: " + latest);
 	    System.out.println("Coords: " + coords);
-	}
+	    i++;
+	} while (i < qp.size() - 1); // stop when we get to the latest
 	return getRandomBoolean();
     }
 
