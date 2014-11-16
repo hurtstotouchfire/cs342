@@ -20,13 +20,17 @@ public class Solver {
     }
 
     private void doit() {
-	System.out.println("Empty: " + qp);
-	Node xy = coords(1,1);
-	System.out.println("Node: " + xy.getX() + ", " + xy.getY());
-	qp.push(xy);
-	System.out.println("1 node: " + qp);
-
-	qp.push(xy);
+// 	System.out.println("Empty: " + qp);
+// 	Node xy = coords(1,1);
+// 	System.out.println("Node: " + xy.getX() + ", " + xy.getY());
+// 	qp.push(xy);
+// 	System.out.println("1 node: " + qp);
+	
+	// push first coordinate set
+	qp.push(coords(1, 1));
+	System.out.println(qp);
+	
+	// loop through until we find  solution
 	while (!qp.empty() && !success) {
 	    if (conflict()) {
 		// pop the last choice off
@@ -38,6 +42,7 @@ public class Solver {
 		int x = qp.size() + 1;
 		int y = column;
 		qp.push(coords(x,y));
+		System.out.println(qp);
 	    }
 	}
 
