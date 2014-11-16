@@ -4,27 +4,27 @@ public class Solver {
 
     private final int N = 8; // in case we want to solve N-queens
     private boolean success;
-    private Stack<int[]> qp;
+    private Stack<Node> qp;
     private int column;
     //private String[] board; // use constructor to initialize with N
 
     public Solver() {
-
+	qp = new Stack<Node>();
 	column = 2;// figure out what this should be initialized to
 	success = false;
     }
 
     public static void main (String[] args){ // making this runnable for now
-	Stack<int[]> qp = new Stack<int[]>();
 	Solver me = new Solver();
 	me.doit();
     }
 
     private void doit() {
-	System.out.println(qp);
-	int[] xy = coords(1,1);
-	System.out.println(xy[0] + ", " + xy[1]);
-	System.out.println(qp);
+	System.out.println("Empty: " + qp);
+	Node xy = coords(1,1);
+	System.out.println("Node: " + xy.getX() + ", " + xy.getY());
+	qp.push(xy);
+	System.out.println("1 node: " + qp);
 
 	qp.push(xy);
 	while (!qp.empty() && !success) {
@@ -43,10 +43,10 @@ public class Solver {
 
     }
 
-    private int[] coords(int x, int y) {
-	int[] coordinates = new int[2];
-	coordinates[0] = x;
-	coordinates[1] = y;
+    private Node coords(int x, int y) {
+	Node coordinates = new Node();
+	coordinates.setX(x);
+	coordinates.setY(y);
 	return coordinates;
     }
 
