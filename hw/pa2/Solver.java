@@ -10,7 +10,7 @@ public class Solver {
 
     public Solver() {
 	qp = new Stack<Node>();
-	column = 2;// figure out what this should be initialized to
+	column = 1;// figure out what this should be initialized to
 	success = false;
     }
 
@@ -33,18 +33,24 @@ public class Solver {
 	// loop through until we find  solution
 	while (!qp.empty() && !success) {
 	    if (conflict()) {
-		// pop the last choice off
-		qp.pop();
-		// move to the next column
-		column++;
+		// pop items off until the top is not in the 8th column
+		System.out.println("peek x: " + qp.peek().getX());
+		while (!qp.empty() && (qp.peek().getX() == 8)) {
+		    qp.pop();
+		}
+		if (!qp.empty()) {// increment the column of the top item
+		    System.out.println("before increment: " + qp);
+		    incrementCol(qp.peek());
+		}
 	    } else if (qp.size() == N) {
 		success = true;
 		//display the result
+		System.out.println("Solution: " + qp);
 	    } else {
 		int x = column;
 		int y = qp.size() + 1;
 		qp.push(coords(x,y));
-		System.out.println(qp);
+		System.out.println("push new: " + qp);
 	    }
 	}
 	
@@ -55,6 +61,12 @@ public class Solver {
 	coordinates.setX(x);
 	coordinates.setY(y);
 	return coordinates;
+    }
+
+    private void incrementCol(Node coords) {
+	int x = coords.getX();
+	x++;
+	coords.setX(x);
     }
 
     private boolean conflict() {
@@ -69,7 +81,7 @@ public class Solver {
     }
 
     public boolean getRandomBoolean() {
-	if (qp.size() == 1) {
+	if (qp.size() == 0 || qp.size() == 1) {
 	    return false;
 	} else {
 	    return Math.random() < 0.5;
