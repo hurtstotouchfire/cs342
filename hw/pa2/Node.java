@@ -16,6 +16,13 @@ public class Node {
     public int getY() {
 	return y;
     }
+
+    public String toString() {
+	String rtn = "";
+	rtn += "(" + x;
+	rtn += ", " + y + ")";
+	return rtn;
+    }
     
     public int[] getData() {
 	int[] coords = new int[2];
