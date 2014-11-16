@@ -34,20 +34,22 @@ public class Solver {
 	while (!qp.empty() && !success) {
 	    if (conflict()) {
 		// pop the last choice off
+		qp.pop();
+		// move to the next column
 		column++;
 	    } else if (qp.size() == N) {
 		success = true;
 		//display the result
 	    } else {
-		int x = qp.size() + 1;
-		int y = column;
+		int x = column;
+		int y = qp.size() + 1;
 		qp.push(coords(x,y));
 		System.out.println(qp);
 	    }
 	}
-
+	
     }
-
+    
     private Node coords(int x, int y) {
 	Node coordinates = new Node();
 	coordinates.setX(x);
@@ -56,6 +58,28 @@ public class Solver {
     }
 
     private boolean conflict() {
+	Node latest = qp.peek();
+	for (int i = 0; i == qp.size() - 2; i++) {
+	    Node coords = qp.get(i);
+	    System.out.println("Iteration: " + i);
+	    System.out.println("Latest: " + latest);
+	    System.out.println("Coords: " + coords);
+	}
+	return getRandomBoolean();
+    }
+
+    public boolean getRandomBoolean() {
+	if (qp.size() == 1) {
+	    return false;
+	} else {
+	    return Math.random() < 0.5;
+	}
+    }
+
+    private boolean rowConflict() {
+	return false;
+    }
+    private boolean diagConflict() {
 	return false;
     }
 }

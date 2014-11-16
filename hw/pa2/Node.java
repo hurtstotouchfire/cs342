@@ -23,12 +23,5 @@ public class Node {
 	rtn += ", " + y + ")";
 	return rtn;
     }
-    
-    public int[] getData() {
-	int[] coords = new int[2];
-	coords[0] = x;
-	coords[1] = y;
-	return coords;
-    }
 
 }
