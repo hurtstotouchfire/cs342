@@ -32,10 +32,11 @@ public class Solver {
 	
 	// loop through until we find  solution
 	while (!qp.empty() && !success) {
+		System.out.println("Another pass: " + qp);
 	    if (conflict()) {
-		// pop items off until the top is not in the 8th column
+		// pop items off until the top is not in the nth column
 		//System.out.println("peek x: " + qp.peek().getX());
-		while (!qp.empty() && (qp.peek().getX() == 8)) {
+		while (!qp.empty() && (qp.peek().getX() == N)) {
 		    qp.pop();
 		}
 		if (!qp.empty()) {// increment the column of the top item
@@ -70,17 +71,33 @@ public class Solver {
     }
 
     private boolean conflict() {
-	Node latest = qp.peek();
-	System.out.println("checking for conflicts in " + qp.size() + " items: " + qp);
-	int i = 0;
-	do { // compare latest item to each other item
-	    Node coords = qp.get(i);
-	    System.out.println("Iteration: " + i);
-	    System.out.println("Latest: " + latest);
-	    System.out.println("Coords: " + coords);
-	    i++;
-	} while (i < qp.size() - 1); // stop when we get to the latest
-	return getRandomBoolean();
+	switch (qp.size()) {
+	case 0: return false;
+	case 1: return false;
+	default:
+	    Node latest = qp.peek();
+	    System.out.println("checking for conflicts in " + qp.size() + " items: " + qp);
+	    int i = 0;
+	    do { // compare latest item to each other item
+		Node coords = qp.get(i);
+		// check rows and columns
+		if (coords.getX() == latest.getX()) {return true;}
+		if (coords.getY() == latest.getY()) {return true;}
+		//check diagonals
+		if (diagConflict(coords, latest)) {return true;}
+		
+		// debugging output
+		System.out.println("Iteration: " + i);
+		System.out.println("Latest: " + latest);
+		System.out.println("Coords: " + coords);
+		
+		i++; // should we be starting at the top or bottom of the stack?
+	    } while (i < qp.size() - 1); // stop when we get to the latest
+
+	    // otherwise there are no conflicts
+	    System.out.println("no conflicts in " + qp);
+	    return false;
+	}
     }
 
     public boolean getRandomBoolean() {
@@ -91,10 +108,38 @@ public class Solver {
 	}
     }
 
-    private boolean rowConflict() {
-	return false;
-    }
-    private boolean diagConflict() {
+    private boolean diagConflict(Node coords, Node latest) {
+	int x = coords.getX();
+	int y = coords.getY();
+	
+	// check x++ y++
+	do {
+	    x++;
+	    y++;
+	    if (x == latest.getX() && y == latest.getY()) {return true;}
+	} while (x < N && y < N);
+	
+	// check x-- y++
+	do {
+	    x--;
+	    y++;
+	    if (x == latest.getX() && y == latest.getY()) {return true;}
+	} while (x > 1 && y < N);
+	
+	// check x-- y--
+	do {
+	    x--;
+	    y--;
+	    if (x == latest.getX() && y == latest.getY()) {return true;}
+	} while (x > 1 && y > 1);
+	
+	// check x++ y--
+	do {
+	    x++;
+	    y--;
+	    if (x == latest.getX() && y == latest.getY()) {return true;}
+	} while (x < N && y > 1);
+	
 	return false;
     }
 }
