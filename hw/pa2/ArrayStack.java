@@ -1,5 +1,5 @@
 
-public class ArrayStack implements MyStack {
+public class ArrayStack {
 
 	private static final int ARRAY_SIZE = 32;
 	private int[] stack;
@@ -9,11 +9,7 @@ public class ArrayStack implements MyStack {
 		stack = new int[ARRAY_SIZE];
 		count = 0;
 	}
-	
-	/* (non-Javadoc)
-	 * @see MyStack#push(int)
-	 */
-	@Override
+
 	public void push(int data) throws StackOverFlowException {
 		if (isFull()) {
 			throw new StackOverFlowException("Stack Overflow");
@@ -22,42 +18,22 @@ public class ArrayStack implements MyStack {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see MyStack#pop()
-	 */
-	@Override
 	public int pop() {
 		return stack[--count];
 	}
 	
-	/* (non-Javadoc)
-	 * @see MyStack#isEmpty()
-	 */
-	@Override
 	public boolean isEmpty() {
 		return (count == 0);
 	}
 	
-	/* (non-Javadoc)
-	 * @see MyStack#stackTop()
-	 */
-	@Override
 	public int stackTop() {
 		return stack[count-1];
 	}
 	
-	/* (non-Javadoc)
-	 * @see MyStack#isFull()
-	 */
-	@Override
 	public boolean isFull() {
 		return (count == stack.length);
 	}
 	
-	/* (non-Javadoc)
-	 * @see MyStack#clear()
-	 */
-	@Override
 	public void clear() {
 		while (!isEmpty()) {
 			pop();
