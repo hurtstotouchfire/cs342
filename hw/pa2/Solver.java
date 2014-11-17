@@ -56,9 +56,7 @@ public class Solver {
     }
     
     private Node coords(int x, int y) {
-	Node coordinates = new Node();
-	coordinates.setX(x);
-	coordinates.setY(y);
+	Node coordinates = new Node(x, y);
 	return coordinates;
     }
 

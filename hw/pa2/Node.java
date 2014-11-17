@@ -3,6 +3,11 @@ public class Node {
     private int x;
     private int y;
     
+    public Node(int x, int y) {
+	setX(x);
+	setY(y);
+    }
+
     public void setX(int x) {
 	this.x = x;
     }
