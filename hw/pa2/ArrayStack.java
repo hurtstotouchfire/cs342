@@ -10,6 +10,24 @@ public class ArrayStack {
 	count = 0;
     }
 
+    public static void main(String[] args) {
+	ArrayStack me = new ArrayStack();
+	me.testCases();
+    }
+
+    private void testCases() {
+	int int1 = 1;
+	int int2 = 2;
+	int int3 = 3;
+	push(int1);
+	push(int2);
+	push(int3);
+
+	System.out.println(this);
+	System.out.println("Item at index 1: " + get(1));
+	System.out.println(this);
+    }
+
     public void push(int data) throws StackOverFlowException {
 	if (isFull()) {
 	    throw new StackOverFlowException("Stack Overflow");
@@ -40,7 +58,9 @@ public class ArrayStack {
 	}
     }
 	
-    
+    public int get(int i) {
+	return stack[i];
+    }
 
     public String toString() {
 	String rtn = "";
