@@ -6,7 +6,7 @@ public class Solver {
     private boolean success;
     private ArrayStack qp; // queen positions
     private int column;
-    //private int iteration = 0; // debugging
+    private int iteration = 0; // debugging
     // TODO add visualization method
     //private String[] board; // use constructor to initialize with N
 
@@ -24,28 +24,29 @@ public class Solver {
     private void doit() {
 	// push first coordinate set
 	qp.push(coords(1, 1));
-	System.out.println(qp);
+	System.out.println("[0]: " + qp); // debugging
 
 	// loop through until we find  solution
 	while (!qp.empty() && !success) {
 	    //System.out.println("Iteration: " + iteration);
-	    //iteration++; // for debugging
+	    iteration++; // for debugging
+	    System.out.println("[" + iteration + "]: " + qp); // debugging
 	    if (conflict()) {
-		System.out.println("Conflict in: " + qp);
+		//System.out.println("Conflict in: " + qp); // debugging
 		// pop items off until the top is not in the nth column
 		while (!qp.empty() && (qp.peek().getX() == N)) {
 		    qp.pop();
 		}
 		if (!qp.empty()) {// increment the column of the top item
 		    incrementCol(qp.peek());
-		    System.out.println("Adjusting latest: " + qp);
+		    //System.out.println("Adjusting latest: " + qp); // debugging
 		} else {
 		    throw new RuntimeException("Empty stack! " + qp);
 		}
 	    } else if (qp.size() == N) {
 		success = true;
-		//display the result TODO
 		System.out.println("Solution: " + qp);
+		printBoard();
 	    } else {
 		int x = column;
 		int y = qp.size() + 1;
@@ -94,7 +95,7 @@ public class Solver {
 	    } while (i < qp.size() - 1); // stop when we get to the latest
 
 	    // otherwise there are no conflicts
-	    System.out.println("no conflicts in " + qp);
+	    //System.out.println("no conflicts in " + qp); // debugging
 	    return false;
 	}
     }
@@ -145,4 +146,37 @@ public class Solver {
 	
 	return false;
     }
+
+    public void printBoard() {
+	String[][] board = new String[N][N];
+	for (int i = 0; i < N; i++) {
+	    Node coords = qp.get(i);
+	    int x = coords.getX() - 1;
+	    int y = coords.getY() - 1;
+	    board[x][y] = "Q";
+	}
+	System.out.println(arrayToString(board));
+    }
+
+    private String arrayToString(String[][] a) {
+
+	String aString;     
+	aString = "";
+	int column;
+	int row;
+
+	for (row = 0; row < a.length; row++) {
+	    for (column = 0; column < a[0].length; column++ ) {
+		if (a[row][column] == null) {
+		    aString = aString + " - ";
+		} else {
+		    aString = aString + " " + a[row][column] + " ";
+		}
+	    }
+	    aString = aString + "\n";
+	}
+
+	return aString;
+    }
+
 }

@@ -71,20 +71,11 @@ public class ArrayStack {
 	if (count == 0) {
 	    rtn = "<Empty>";
 	} else {
-	    rtn += "Stack Contains " + (count) + " Elements\n";
 	    for (int i = count-1; i >= 0; i--) {
-		if (i == count-1) {
-		    rtn += "Top -> ";
-		} else {
-		    rtn += "       ";
-		}
-		rtn += "<" + stack[i] + ">\n";
+		rtn +=  stack[i] + "; ";
 	    }
 	}
 	return rtn;
     }
-	
-    public String foo() {
-	return "foo";
-    }
+
 }
