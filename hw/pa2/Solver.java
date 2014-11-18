@@ -4,14 +4,14 @@ public class Solver {
 
     private final int N = 8; // in case we want to solve N-queens
     private boolean success;
-    private Stack<Node> qp; // queen positions
+    private ArrayStack qp; // queen positions
     private int column;
     //private int iteration = 0; // debugging
     // TODO add visualization method
     //private String[] board; // use constructor to initialize with N
 
     public Solver() {
-	qp = new Stack<Node>();
+	qp = new ArrayStack();
 	column = 1;
 	success = false;
     }

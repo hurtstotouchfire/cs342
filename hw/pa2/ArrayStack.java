@@ -29,7 +29,7 @@ public class ArrayStack {
     }
 
     public void push(Node data) throws StackOverFlowException {
-	if (isFull()) {
+	if (full()) {
 	    throw new StackOverFlowException("Stack Overflow");
 	} else {
 	    stack[count++] = data;
@@ -40,20 +40,24 @@ public class ArrayStack {
 	return stack[--count];
     }
 	
-    public boolean isEmpty() {
+    public boolean empty() {
 	return (count == 0);
     }
 	
-    public Node stackTop() {
+    public Node peek() {
 	return stack[count-1];
     }
 	
-    public boolean isFull() {
+    public boolean full() {
 	return (count == stack.length);
+    }
+
+    public int size() {
+	return count;
     }
 	
     public void clear() {
-	while (!isEmpty()) {
+	while (!empty()) {
 	    pop();
 	}
     }
