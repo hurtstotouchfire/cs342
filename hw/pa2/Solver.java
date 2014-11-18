@@ -1,5 +1,3 @@
-import java.util.Stack;
-
 public class Solver {
 
     private final int N = 8; // in case we want to solve N-queens
@@ -7,8 +5,6 @@ public class Solver {
     private ArrayStack qp; // queen positions
     private int column;
     private int iteration = 0; // debugging
-    // TODO add visualization method
-    //private String[] board; // use constructor to initialize with N
 
     public Solver() {
 	qp = new ArrayStack();
@@ -16,38 +12,39 @@ public class Solver {
 	success = false;
     }
 
-    public static void main (String[] args){ // making this runnable for now TODO
+    public static void main (String[] args){ 
 	Solver me = new Solver();
-	me.doit();
+	me.solve();
     }
 
-    private void doit() {
+    private void solve() {
 	// push first coordinate set
 	qp.push(coords(1, 1));
+
+	// program runs faster without output, but it looks cooler with it
 	System.out.println("[0]: " + qp); // debugging
 
 	// loop through until we find  solution
 	while (!qp.empty() && !success) {
-	    //System.out.println("Iteration: " + iteration);
+
 	    iteration++; // for debugging
 	    System.out.println("[" + iteration + "]: " + qp); // debugging
 	    if (conflict()) {
-		//System.out.println("Conflict in: " + qp); // debugging
+
 		// pop items off until the top is not in the nth column
 		while (!qp.empty() && (qp.peek().getX() == N)) {
 		    qp.pop();
 		}
 		if (!qp.empty()) {// increment the column of the top item
 		    incrementCol(qp.peek());
-		    //System.out.println("Adjusting latest: " + qp); // debugging
 		} else {
 		    throw new RuntimeException("Empty stack! " + qp);
 		}
-	    } else if (qp.size() == N) {
+	    } else if (qp.size() == N) { // if we've found a solution
 		success = true;
 		System.out.println("Solution: " + qp);
 		printBoard();
-	    } else {
+	    } else { // push the next guess onto the stack
 		int x = column;
 		int y = qp.size() + 1;
 		qp.push(coords(x,y));
@@ -56,20 +53,20 @@ public class Solver {
 	
     }
     
-    private Node coords(int x, int y) {
+    private Node coords(int x, int y) { // any changes to the syntax for creating new nodes should go here
 	Node coordinates = new Node(x, y);
 	return coordinates;
     }
 
-    private void incrementCol(Node coords) {
+    private void incrementCol(Node coords) { // possible refactor: put this on Node as an incrementing method
 	int x = coords.getX();
 	x++;
 	coords.setX(x);
     }
 
-    private boolean conflict() {
+    private boolean conflict() { // check for conflicts in our solutions as they progress
 	switch (qp.size()) {
-	case 0: return false;
+	case 0: return false; // these cases cannot have conflicts by definition
 	case 1: return false;
 	default:
 
@@ -78,29 +75,23 @@ public class Solver {
 	    do { // compare latest item to each other item
 		Node coords = qp.get(i);
 
-		// debugging output
-		//if (iteration == 2833) {
-		//    System.out.println("Iteration: " + i);
-		//    System.out.println("Latest: " + latest);
-		//    System.out.println("Coords: " + coords);
-		//}
-
 		// check rows and columns
 		if (coords.getX() == latest.getX()) {return true;}
 		if (coords.getY() == latest.getY()) {return true;}
+
 		//check diagonals
 		if (diagConflict(coords, latest)) {return true;}
 		
-		i++; // TODO: should we be starting at the top or bottom of the stack? optimization-wise
+		i++;
 	    } while (i < qp.size() - 1); // stop when we get to the latest
 
 	    // otherwise there are no conflicts
-	    //System.out.println("no conflicts in " + qp); // debugging
 	    return false;
 	}
     }
 
-    private boolean diagConflict(Node coords, Node latest) {
+    private boolean diagConflict(Node coords, Node latest) { //check for diagonal conflicts
+        // initialize coords
 	int x = coords.getX();
 	int y = coords.getY();
 
@@ -147,7 +138,8 @@ public class Solver {
 	return false;
     }
 
-    public void printBoard() {
+    public void printBoard() { // Print out the board in a prettier format
+        // Make a 2d array so that we can put our coords back in 2d space
 	String[][] board = new String[N][N];
 	for (int i = 0; i < N; i++) {
 	    Node coords = qp.get(i);
@@ -155,28 +147,26 @@ public class Solver {
 	    int y = coords.getY() - 1;
 	    board[x][y] = "Q";
 	}
-	System.out.println(arrayToString(board));
+	System.out.println(arrayToString(board)); // print out the 2d array
     }
 
     private String arrayToString(String[][] a) {
-
-	String aString;     
-	aString = "";
+	String rtn;     
+	rtn = "";
 	int column;
 	int row;
 
 	for (row = 0; row < a.length; row++) {
 	    for (column = 0; column < a[0].length; column++ ) {
-		if (a[row][column] == null) {
-		    aString = aString + " - ";
-		} else {
-		    aString = aString + " " + a[row][column] + " ";
+		if (a[row][column] == null) { // put a spacer into any empty cells
+		    rtn = rtn + " - ";
+		} else { // otherwise pad out the cell contents
+		    rtn = rtn + " " + a[row][column] + " ";
 		}
 	    }
-	    aString = aString + "\n";
+	    rtn = rtn + "\n";
 	}
-
-	return aString;
+	return rtn;
     }
 
 }

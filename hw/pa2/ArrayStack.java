@@ -1,7 +1,7 @@
 
 public class ArrayStack {
 
-    private static final int ARRAY_SIZE = 32;
+    private static final int ARRAY_SIZE = 10; // since this is customized for the N-queens solver, this can be pretty low. 
     private Node[] stack;
     private int count;
 	
@@ -10,11 +10,13 @@ public class ArrayStack {
 	count = 0;
     }
 
+    // if you run this class on its own, it tests itself
     public static void main(String[] args) {
 	ArrayStack me = new ArrayStack();
 	me.testCases();
     }
 
+    // This is just to exercise the push and get methods
     private void testCases() {
 	Node node1 = new Node(1, 1);
 	Node node2 = new Node(2, 2);
@@ -62,6 +64,7 @@ public class ArrayStack {
 	}
     }
 	
+    // allows external methods to walk the stack
     public Node get(int i) {
 	return stack[i];
     }
