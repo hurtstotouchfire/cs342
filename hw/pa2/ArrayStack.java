@@ -2,11 +2,11 @@
 public class ArrayStack {
 
     private static final int ARRAY_SIZE = 32;
-    private int[] stack;
+    private Node[] stack;
     private int count;
 	
     public ArrayStack() {
-	stack = new int[ARRAY_SIZE];
+	stack = new Node[ARRAY_SIZE];
 	count = 0;
     }
 
@@ -16,19 +16,19 @@ public class ArrayStack {
     }
 
     private void testCases() {
-	int int1 = 1;
-	int int2 = 2;
-	int int3 = 3;
-	push(int1);
-	push(int2);
-	push(int3);
+	Node node1 = new Node(1, 1);
+	Node node2 = new Node(2, 2);
+	Node node3 = new Node(3, 3);
+	push(node1);
+	push(node2);
+	push(node3);
 
 	System.out.println(this);
 	System.out.println("Item at index 1: " + get(1));
 	System.out.println(this);
     }
 
-    public void push(int data) throws StackOverFlowException {
+    public void push(Node data) throws StackOverFlowException {
 	if (isFull()) {
 	    throw new StackOverFlowException("Stack Overflow");
 	} else {
@@ -36,7 +36,7 @@ public class ArrayStack {
 	}
     }
 	
-    public int pop() {
+    public Node pop() {
 	return stack[--count];
     }
 	
@@ -44,7 +44,7 @@ public class ArrayStack {
 	return (count == 0);
     }
 	
-    public int stackTop() {
+    public Node stackTop() {
 	return stack[count-1];
     }
 	
@@ -58,7 +58,7 @@ public class ArrayStack {
 	}
     }
 	
-    public int get(int i) {
+    public Node get(int i) {
 	return stack[i];
     }
 
