@@ -24,10 +24,11 @@ public class AddressBookUI {
 	// print command menu and await commands
 	me.printMenu();
 	me.takeInput();
+	// TODO: make this quittable
     }
 
     public void takeInput() {
-
+	// TODO: currently breaks if you enter multiple newlines
 	while(scant.hasNext()) {
 	    char input = scant.next().charAt(0);
 	    if (validInput(input)) {
@@ -141,6 +142,7 @@ public class AddressBookUI {
 	    addy.deleteContact(index);
 	} else {
 	    System.out.println("Please enter an integer index or ENTER to cancel deletion.");
+	    // TODO: break if enter
 	    scant.next(); // consume incorrect input and try again
 	    deleteContact();
 	}
