@@ -1,10 +1,9 @@
 import java.io.Serializable;
-// TODO: add all the methods here we actually need
+
 public class DLList implements Serializable {
     protected Node head;
     protected int nodeCount;
-    protected Node tail; // need this for exporting from end
-    //    protected Node currentNode;
+    protected Node tail; 
 
     public DLList() {
 	head = null;
@@ -19,8 +18,10 @@ public class DLList implements Serializable {
      */
 
     public void insertAtIndex(Node newNode, int index) {
-	//System.out.println("Index: " + index + " Nodecount: " + nodeCount);
-	if (nodeCount == 0) {
+        // defer to head and tail methods for special cases
+	if (index < 0) {
+	    throw new RuntimeException("Negative indices are not supported.");
+	} else if (nodeCount == 0) {// don't care what index they provide, if the list is empty, insert at head
 	    addHead(newNode);
 	} else if (index == 0) {
 	    insertAtHead(newNode);
@@ -51,7 +52,8 @@ public class DLList implements Serializable {
     }
 
     private Node getNodeByIndex(int index) {
-	// safeguard for indexing errors
+	// this is only called by insertAtIndex and removeAtIndex currently, which will do their own index checking
+	// but we will safeguard for indexing errors just in case someone else uses this someday
 	if (index >= nodeCount) {
 	    return null;
 	} else if (index < 0) {
@@ -75,8 +77,8 @@ public class DLList implements Serializable {
      * The following insert* methods handle cases where nodeCount = 1+
      * for empty lists, they defer to addHead
      */
-    //TODO: make private so only the byindex methods can call them
-    public void addHead(Node newNode) {// add first node
+
+    private void addHead(Node newNode) {// add first node
 	newNode.setNext(null);
 	newNode.setPrev(null);
 	head = newNode;
@@ -84,14 +86,14 @@ public class DLList implements Serializable {
 	nodeCount++;
     }
 
-    public void insertAtHead(Node newNode) {// insert before existing head
+    private void insertAtHead(Node newNode) {// insert before existing head
 	newNode.setNext(head);
 	head.setPrev(newNode);
 	head = newNode;
 	nodeCount++;
     }
   
-    public void insertBeforeNode(Node newNode, Node currentNode) {//TODO check cases here
+    private void insertBeforeNode(Node newNode, Node currentNode) {
 	switch (nodeCount) {
 	case 0:
 	    addHead(newNode);
@@ -110,7 +112,7 @@ public class DLList implements Serializable {
 	}
     }
 
-    public void insertAtTail(Node newNode) {//insert after last node
+    private void insertAtTail(Node newNode) {//insert after last node
 	// can handle a 1 node list but not an empty one
 	switch (nodeCount) {
 	case 0:
@@ -126,17 +128,17 @@ public class DLList implements Serializable {
     /*
      * Remove methods handle cases where nodeCount = 2+
      * For 1 node, they defer to clear
-     * For empty lists, they throw runtime errors. TODO add those
+     * For empty lists, they throw runtime errors. 
      */
 
-    public void clearList() {//TODO see if we can call a constructor here
+    private void clearList() {// make the list like new again
 	nodeCount = 0;
 	head = null;
 	tail = null;
     }
 
-    public void removeHead() {//can handle 2+ node lists. for 1 node, use clear
-	//System.out.println("Nodecount: " + nodeCount);
+    private void removeHead() {//can handle 2+ node lists. for 1 node, use clear
+
 	switch (nodeCount) {
 	case 0: // this should be handled by the parent method, but just in case
 	    throw new RuntimeException("Head is already removed.");
@@ -154,7 +156,8 @@ public class DLList implements Serializable {
 	}
     }
   
-    public void removeNode(Node currentNode) {//TODO safeguard for 0,1,2 cases
+    private void removeNode(Node currentNode) {
+
 	// get nodes surrounding current
 	Node prevNode = currentNode.getPrev();
 	Node nextNode = currentNode.getNext();
@@ -165,7 +168,7 @@ public class DLList implements Serializable {
 	nodeCount--;
     }
   
-    public void removeTail() {// can handle 2 node list but not 1
+    private void removeTail() {// can handle 2 node list but not 1
 	// get node before tail
 	Node prevNode = tail.getPrev();
 

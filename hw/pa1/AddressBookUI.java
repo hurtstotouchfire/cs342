@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.Scanner;
-// TODO fix indentation in master and rebase
 public class AddressBookUI {
 
     private Scanner scant;
@@ -25,11 +24,10 @@ public class AddressBookUI {
 	// print command menu and await commands
 	me.printMenu();
 	me.takeInput();
-	// TODO: make this quittable
     }
 
     public void takeInput() {
-	// TODO: currently breaks if you enter multiple newlines
+
 	while(scant.hasNext()) {
 	    char input = scant.next().charAt(0);
 	    if (validInput(input)) {
@@ -145,7 +143,6 @@ public class AddressBookUI {
 	    System.out.println("Please enter an integer index or ENTER to cancel deletion.");
 	    scant.next(); // consume incorrect input and try again
 	    deleteContact();
-	    // TODO: break if enter
 	}
     }
 

@@ -1,18 +1,6 @@
-// what's the right segregation of abstractions? 
-// AddressBook knows it extends DLList and uses DLList methods presumably
-// But maybe all public methods on AddressBook are named as if DLList does not exist
-
-// TODO: consider taking a string array of args so you can set all three. 
-// store in array as well?
-// Would need getters and setters for those fields.
 import java.io.*;
 
 public class AddressBook extends DLList implements Serializable {
-
-    // Some helper methods to keep all our casting in one place
-    //    public Contact currentContact(){
-    //return (Contact)currentNode;
-    //}
 
     private Contact firstContact(){
 	return (Contact)head;
@@ -27,7 +15,7 @@ public class AddressBook extends DLList implements Serializable {
 	return newContact;
     }
 
-   /*
+    /*
      *   Methods for supported commands
      */
 
@@ -85,22 +73,19 @@ public class AddressBook extends DLList implements Serializable {
 
 	Contact currentContact = firstContact();
 	int i = 0; // keep track of index, we will include this in our return.
+	String rtn = "";
 	while (currentContact != null) {
 	    if (field == "email") {
 		if (currentContact.getEmail().equals(query)) {
-		    String rtn = "";
 		    rtn += "[" + i + "][";
 		    rtn += currentContact;
 		    rtn += "]";
-		    return rtn;
 		}
 	    } else if (field == "name") {
 		if (currentContact.getName().equals(query)) {
-		    String rtn = "";
 		    rtn += "[" + i + "][";
 		    rtn += currentContact;
 		    rtn += "]";
-		    return rtn;
 		} 
 	    } else {
 		throw new RuntimeException("That Contact field is not queryable!");
@@ -108,14 +93,20 @@ public class AddressBook extends DLList implements Serializable {
 		currentContact = currentContact.nextContact();
 		i++;
 	}
-	return "Contact not found.";
+
+	if (rtn == "") {
+	    return "Contact not found.";
+	} else {
+	    return rtn;
+	}
     }
 
     public void deleteContact(int index) {
-	// TODO: add some messaging for what was removed
+
 	try {
 	    removeAtIndex(index);
-	} catch (IndexOutOfBoundsException e) {//TODO, make sure this is properly thrown, currently getting runtime error from DLList about removing head
+	    System.out.println("Contact was delete.");
+	} catch (IndexOutOfBoundsException e) {
 	    System.err.println("There is no Contact at that index.");
 	}
     }
