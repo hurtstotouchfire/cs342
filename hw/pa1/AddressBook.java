@@ -1,168 +1,114 @@
-// what's the right segregation of abstractions? 
-// AddressBook knows it extends DLList and uses DLList methods presumably
-// But maybe all public methods on AddressBook are named as if DLList does not exist
+import java.io.*;
 
-// TODO: consider taking a string array of args so you can set all three. 
-// store in array as well?
-// Would need getters and setters for those fields.
+public class AddressBook extends DLList implements Serializable {
 
-public class AddressBook extends DLList {
-
-    public static void main(String[] args) {
-	AddressBook addy = new AddressBook();
-	addy.start();
-    }
-    
-    public void start() {
-	
-	// make an empty list
-	DLList list = new DLList();
-	printAllContacts();
-	// print contents of address book using list's toString method
-	System.out.println(list);	
-
-	// make a loop which takes commands and parses them with parseArgs
-	/*
-	  while (not breaking condition) {
-	  parseArgs();
-	  }
-	*/
-	
-    }
-    
-    public void parseArgs() {	
-	// take CL input
-	// validate input, ask additional questions where needed
-	// break up as command and input
-	// execArgs(command, input);
-
+    private Contact firstContact(){
+	return (Contact)head;
     }
 
-    public void execArgs(String command, String[] input) {// TODO: move to another class somehow
-	// make input arg optional
-
-   	// if command is "a"
-	addContact(input);
-
-   	// if command is "p"
-	printAllContacts();
-
-   	// if command is "s"
-	searchContacts(input[0], "name");
-
-   	// if command is "e"
-	searchContacts(input[1], "email");
-
-   	// if command is "d"
-        deleteContact(input[0]);
-
-	// String array arg option breaks down once you need a filename. Need to break this up and move it.
-
-   	// if command is "w"
-	String fileName = ""; //get this from UI / validation
-	exportContacts(fileName);
-
-   	// if command is "r"
-	String fileName = ""; //get this from UI / validation
-	importContacts(fileName);
+    private Contact lastContact(){
+	return (Contact)tail;
     }
 
-    /* TODO:
-     * decide which of the following UI methods need to exist and which we can 
-     * implement by directly accessing DLList methods.
+    private Contact createContact(String[] contactInfo) {
+	Contact newContact = new Contact(contactInfo);
+	return newContact;
+    }
+
+    /*
+     *   Methods for supported commands
      */
 
-    public void addContact(String[] contactInfo) { //add contacts in alpha order by Name field.
+    public boolean addContact(String[] contactInfo) { 
+	// Add contacts in alpha order by Name field.
+	// Prevent adding dupes for the fields we allow searching on:
+	// - name
+	// - email
+	
+	// unpack contact fields that we will validate against
 	String newName = contactInfo[0];
-	String email = contactInfo[1]; 
-	String phoneNumber = contactInfo[2];
-	/* first, make sure searchContact returns false. (note that this is less efficient but better encapsulation)
-	 * make a new Contact and populate data
-	 * 
-	 * start with first contact, get it's name
-	 * if firstcontact.name is alphabetically after newName
-	 *     insertContactAtHead(newName)
-	 * otherwise, make a loop (remember prev node so we can step back one)
-	 * if currentContact.name is alpha before newName
-	 *     getNext contact
-	 * else 
-	 *     insert newName contact after prev node and before currentContact node.
-	 */
+	String newEmail = contactInfo[1]; 
+	// dupe phone numbers are allowed
+	
+	// make a new contact with this info, and then we'll figure out where it goes.
+	Contact newContact = createContact(contactInfo);
+
+	// If there are no contacts yet, add this one in the first slot
+	if (firstContact() == null) {
+	    insertAtIndex(newContact, 0);
+	    return true;
+	}
+
+	// Otherwise, add it in order
+	Contact currentContact = firstContact();
+	int i = 0; // keep track of index, we will use this to insert
+	while (currentContact != null) {
+	    if (currentContact.getName() == newName) {
+		// prevent adding dupe names
+		System.out.println("That name is already associated with a Contact.");
+		return false;
+	    } else if (currentContact.getEmail() == newEmail) {
+		// prevent adding dupe emails
+		System.out.println("That email address is already associated with a Contact.");
+		return false;
+	    } else if (currentContact.getName().compareTo(newName) > 0) {
+		// once current > new, insert new in current slot
+		insertAtIndex(newContact, i);
+		return true;
+	    } else {
+		currentContact = currentContact.nextContact();
+		i++; // increments even on the last time through the loop
+	    }
+	}
+	
+	// if loop completes, then insert contact at end 
+	// (index is currently 1 past the valid indices that have Contacts)
+	insertAtIndex(newContact, i);
+	return true;
     }
-    public void printAllContacts() { // TODO: Make sure Contact toString makes a nice print output for concatenating
-	// if nodeCount == 0 (is this the right check)
-	// print that we're empty. 
-	// else:
-	// make a return string with some initial glue in it
-	// start at head
-	// while we have Contacts
-	//     add currentContact.toString() to return string
+    
+    public String searchContacts(String query, String field) {
+	// traverse list of Contacts, searching for a particular field
+	// Returns all matching contacts, with indices
+
+	Contact currentContact = firstContact();
+	int i = 0; // keep track of index, we will include this in our return.
+	String rtn = "";
+	while (currentContact != null) {
+	    if (field == "email") {
+		if (currentContact.getEmail().equals(query)) {
+		    rtn += "[" + i + "][";
+		    rtn += currentContact;
+		    rtn += "]";
+		}
+	    } else if (field == "name") {
+		if (currentContact.getName().equals(query)) {
+		    rtn += "[" + i + "][";
+		    rtn += currentContact;
+		    rtn += "]";
+		} 
+	    } else {
+		throw new RuntimeException("That Contact field is not queryable!");
+	    }
+		currentContact = currentContact.nextContact();
+		i++;
+	}
+
+	if (rtn == "") {
+	    return "Contact not found.";
+	} else {
+	    return rtn;
+	}
     }
 
-    public boolean searchContacts(String query, String field) {
-	// TODO: if I use a class variable for currentNode I could have searchContacts set that to the contact when I find it, and then I could call this from add and delete and I could just pick that up from the class... Way more efficient.
-	/* start at head
-	 * while we have contacts
-	 *    if currentContact field matches query
-	 *        println(currentContact.toString())
-	 *        return true
-	 */
-	// if the loop finishes or we reach nextContact is null, 
-	return false;
-    }
-    public void deleteContact(String contactName) {
-	/* first make sure searchContact returns true (note that this is less efficient but better encapsulation)
-	 * start at first contact
-	 * while currentContact.name != contactName
-	 * 
-	 */
-    }
-    public void exportContacts(String fleName) {//https://community.oracle.com/message/9051394
-	/*
-	 * initialize a new File from fileName
-	 * initialize a new FileOutputStream, giving it the new File
-	 * initialize a new ObjectOutputStream, giving it the new FileOutputStream
-	 * 
-	 * start at the tail node
-	 * while we have nodes,
-	 *     writeObject(currentContact)
-	 *     currentContact.getPrev();
-	 * make sure to include the head
-	 * close out the streams
-	 */
-    }
-    public void importContacts(String fleName) { // TODO: currently currentNode vs currentContact is all mixed up
-	/*
-	 * initialize a new File from fileName
-	 * initialize a new FileInputStream, giving it the new File
-	 * initialize a new ObjectInputStream, giving it the new FileInputStream
-	 * 
-	 * No contacts in file:
-	 * check for empty file (EOFE probably) and throw error
-	 *
-	 * One contact in file:
-	 * make newContact object from readObject()
-	 * point head to newContact
-	 * point tail to newContact
-	 * set currentNode to newContact
-	 * if there's only one contact, the following while loop will immediately get EOFE
-	 *
-	 * Multiple contacts:
-	 * while we're not getting an end of file exception
-	 *     make newContact object from readObject()
-	 *     set newContact prev to currentNode
-	 *     set currentNode next to newContact
-	 *     set tail to newContact
-	 *     set currentContact to newContact
-	 */
-    }
+    public void deleteContact(int index) {
 
-    // More methods I need:
-    private void insertContactAtHead(String newName) {
-	// make a new node with name newName
-	// make it the new head
-
-	// So this would be a private method that knows about Contacts (which DLList doesn't know about)
-	// but which also knows about DLList Nodes, which public methods of AddressBook will not reference.
+	try {
+	    removeAtIndex(index);
+	    System.out.println("Contact was delete.");
+	} catch (IndexOutOfBoundsException e) {
+	    System.err.println("There is no Contact at that index.");
+	}
     }
+    
 }
