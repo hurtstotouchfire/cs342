@@ -1,5 +1,4 @@
-
-public class BTree implements MyBTree {
+public class BTree {
 	
     private BTNode root;
     private int nodeCount;
@@ -9,14 +8,9 @@ public class BTree implements MyBTree {
 	nodeCount = 0;
     }
 	
-    /* (non-Javadoc)
-     * @see MyBTree#add(java.lang.Integer)
-     */
-    @Override
-	public boolean add(Integer data) {
+    public boolean add(String word) {
 		
-	BTNode n = new BTNode();
-	n.setData(data);
+	BTNode n = new BTNode(word);
 
 	// What if tree is empty?
 	if (nodeCount == 0) {
@@ -29,24 +23,24 @@ public class BTree implements MyBTree {
 	if (search(data)) return false;
 		
 	// iteratively locate place for this data
-	BTNode tmp = root;
+	BTNode currentNode = root;
 		
-	while (tmp != null) {
-	    if (data > tmp.getData()) {
-		if (tmp.getRchild() == null) {
-		    tmp.setRchild(n);
+	while (currentNode != null) {
+	    if (data > currentNode.getWord()) {
+		if (currentNode.getRchild() == null) {
+		    currentNode.setRchild(n);
 		    nodeCount++;
 		    return true;
 		} else {
-		    tmp = tmp.getRchild();
+		    currentNode = currentNode.getRchild();
 		}
 	    } else {
-		if (tmp.getLchild() == null) {
-		    tmp.setLchild(n);
+		if (currentNode.getLchild() == null) {
+		    currentNode.setLchild(n);
 		    nodeCount++;
 		    return true;
 		} else {
-		    tmp = tmp.getLchild();
+		    currentNode = currentNode.getLchild();
 		}
 				
 	    }
@@ -56,11 +50,7 @@ public class BTree implements MyBTree {
 		
     }
 	
-    /* (non-Javadoc)
-     * @see MyBTree#print()
-     */
-    @Override
-	public void print() {
+    public void print() {
 	printTree(root);
     }
 	
@@ -71,16 +61,13 @@ public class BTree implements MyBTree {
 	}
 		
 	printTree(root.getLchild());
-	System.out.print(root.getData());
+	System.out.print(root.getWord());
 	printTree(root.getRchild());
 		
     }
-	
-    /* (non-Javadoc)
-     * @see MyBTree#preOrder()
-     */
-    @Override
-	public void preOrder() {
+
+    /*
+    public void preOrder() {
 	preOrderTraversal(root);
 	System.out.println();
     }
@@ -89,16 +76,12 @@ public class BTree implements MyBTree {
 	if (root == null) {
 	    return;
 	}
-	System.out.print(root.getData() + " ");
+	System.out.print(root.getWord() + " ");
 	preOrderTraversal(root.getLchild());
 	preOrderTraversal(root.getRchild());
     }
-	
-    /* (non-Javadoc)
-     * @see MyBTree#inOrder()
-     */
-    @Override
-	public void inOrder() {
+    
+    public void inOrder() {
 	inOrderTraversal(root);
 	System.out.println();
     }
@@ -108,15 +91,11 @@ public class BTree implements MyBTree {
 	    return;
 	}
 	preOrderTraversal(root.getLchild());
-	System.out.print(root.getData() + " ");
+	System.out.print(root.getWord() + " ");
 	preOrderTraversal(root.getRchild());
     }
 	
-    /* (non-Javadoc)
-     * @see MyBTree#postOrder()
-     */
-    @Override
-	public void postOrder() {
+    public void postOrder() {
 	postOrderTraversal(root);
 	System.out.println();
     }
@@ -127,30 +106,26 @@ public class BTree implements MyBTree {
 	}
 	postOrderTraversal(root.getLchild());
 	postOrderTraversal(root.getRchild());
-	System.out.print(root.getData() + " ");
+	System.out.print(root.getWord() + " ");
+    }
+    */
+	
+    public boolean search(String word) {
+	return bsearch(root, word);
     }
 	
-
-    /* (non-Javadoc)
-     * @see MyBTree#search(java.lang.Integer)
-     */
-    @Override
-	public boolean search(Integer num) {
-	return bsearch(root, num);
-    }
-	
-    private boolean bsearch(BTNode root, Integer num) {
-	if (root == null) {
+    private boolean bsearch(BTNode currentNode, String word) {
+	if (currentNode == null) {
 	    return false;
 	}
 		
-	if (root.getData() == num) {
+	if (currentNode.getWord() == word) {
 	    return true;
 	} else {
-	    if (num < root.getData()) {
-		return bsearch(root.getLchild(), num);
+	    if (word < currentNode.getWord()) {
+		return bsearch(currentNode.getLchild(), word);
 	    } else {
-		return bsearch(root.getRchild(), num);
+		return bsearch(currentNode.getRchild(), word);
 	    }
 	}
     }
