@@ -39,4 +39,12 @@ public class BTNode {
     public void setRchild(BTNode rchild) {
 	this.rchild = rchild;
     }
+
+    public String toString() {
+	String rtn = "[";
+	rtn += word;
+	rtn += ": " + count;
+	rtn += "]";
+	return rtn;
+    }
 }

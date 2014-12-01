@@ -1,3 +1,4 @@
+import java.lang.Math;
 public class BTree {
 	
     private BTNode root;
@@ -20,69 +21,91 @@ public class BTree {
 	}
 		
 	// See if data already in tree
-	if (search(data)) return false;
+	// if this already exists we should increment instead TODO
+	if (search(word)) {
+	    // increment somehow, probably need a different method.
+	    System.out.println("Word already in tree"); // debugging
+	    return false;
+	}
 		
-	// iteratively locate place for this data
+	// Insert node in alphabetical order by word
 	BTNode currentNode = root;
+	System.out.println("Current Node: " + currentNode); //debugging
 		
 	while (currentNode != null) {
-	    if (data > currentNode.getWord()) {
-		if (currentNode.getRchild() == null) {
-		    currentNode.setRchild(n);
-		    nodeCount++;
-		    return true;
-		} else {
-		    currentNode = currentNode.getRchild();
-		}
-	    } else {
+	    // Compare the new word to the word we're on
+	    int comp = word.compareTo(currentNode.getWord());
+	    comp = comp / Math.abs(comp);
+	    System.out.println(comp); // debugging
+	    switch(comp) {
+	    case 0: // if it's the same, increment instead of adding
+		currentNode.incrCount();
+		return true;
+	    case -1: // if we're too late in the alphabet, go left
+		// if there's nothing there, insert
 		if (currentNode.getLchild() == null) {
 		    currentNode.setLchild(n);
 		    nodeCount++;
 		    return true;
-		} else {
-		    currentNode = currentNode.getLchild();
-		}
-				
+		} // otherwise, traverse
+		currentNode = currentNode.getLchild();
+	    case 1: // if we're too early in the alphabet, go right
+		// if there's nothing there, insert
+		if (currentNode.getRchild() == null) {
+		    currentNode.setRchild(n);
+		    nodeCount++;
+		    return true;
+		} // otherwise, traverse
+		currentNode = currentNode.getRchild();
+	    default:
+		throw new RuntimeException("Invalid add case."); // TODO throw runtime exception
 	    }
-	}
-		
-	return false;
-		
+	    
+	}		
+	return false; // TODO what's this case?		
     }
 	
-    public void print() {
-	printTree(root);
+    public String toString() {
+	String rtn = "Nodecount: " + nodeCount + "\n";
+	return printTree(root, rtn);
     }
-	
-    private void printTree(BTNode root) {
-	if (root == null) {
-	    System.out.print(".");
-	    return;
+    
+    private String printTree(BTNode node, String rtn) {
+	if (node == null) {
+	    rtn = rtn + ".";
+	    return rtn;
+	} else {
+	    // TODO check what this order is, looks like inorder
+	    rtn += printTree(node.getLchild(), rtn);
+	    rtn += node;
+	    rtn += printTree(node.getRchild(), rtn);
+	    return rtn;
 	}
-		
-	printTree(root.getLchild());
-	System.out.print(root.getWord());
-	printTree(root.getRchild());
-		
     }
-
+    
     public boolean search(String word) {
 	return bsearch(root, word);
     }
-	
+
     private boolean bsearch(BTNode currentNode, String word) {
+	// base case: if we reach a dead end, the word's not in the tree
 	if (currentNode == null) {
 	    return false;
 	}
-		
-	if (currentNode.getWord() == word) {
+	
+	// Compare the word we're searching for to the word we're on
+	int comp = word.compareTo(currentNode.getWord());
+	comp = comp / Math.abs(comp);
+	System.out.println(comp); // debugging
+	switch(comp) {
+	case 0: // if it's the same, return true
 	    return true;
-	} else {
-	    if (word < currentNode.getWord()) {
-		return bsearch(currentNode.getLchild(), word);
-	    } else {
-		return bsearch(currentNode.getRchild(), word);
-	    }
+	case -1: // if we're too late in the alphabet, go left
+	    return bsearch(currentNode.getLchild(), word);
+	case 1: // if we're too early in the alphabet, go right
+	    return bsearch(currentNode.getRchild(), word);
+	default:
+	    throw new RuntimeException("Invalid search case."); // TODO throw runtime exception
 	}
     }
 }
