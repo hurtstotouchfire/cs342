@@ -66,50 +66,6 @@ public class BTree {
 		
     }
 
-    /*
-    public void preOrder() {
-	preOrderTraversal(root);
-	System.out.println();
-    }
-	
-    private void preOrderTraversal(BTNode root) {
-	if (root == null) {
-	    return;
-	}
-	System.out.print(root.getWord() + " ");
-	preOrderTraversal(root.getLchild());
-	preOrderTraversal(root.getRchild());
-    }
-    
-    public void inOrder() {
-	inOrderTraversal(root);
-	System.out.println();
-    }
-	
-    private void inOrderTraversal(BTNode root) {
-	if (root == null) {
-	    return;
-	}
-	preOrderTraversal(root.getLchild());
-	System.out.print(root.getWord() + " ");
-	preOrderTraversal(root.getRchild());
-    }
-	
-    public void postOrder() {
-	postOrderTraversal(root);
-	System.out.println();
-    }
-	
-    private void postOrderTraversal(BTNode root) {
-	if (root == null) {
-	    return;
-	}
-	postOrderTraversal(root.getLchild());
-	postOrderTraversal(root.getRchild());
-	System.out.print(root.getWord() + " ");
-    }
-    */
-	
     public boolean search(String word) {
 	return bsearch(root, word);
     }
