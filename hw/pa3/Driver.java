@@ -12,9 +12,25 @@ public class Driver {
 	
 	// make a BTree object
 	BTree bt = new BTree();
-	bt.add("cat");
+	bt.add("delta");
 	System.out.println("First pass: " + bt);
-	bt.add("and");
+	bt.add("gamma");
 	System.out.println("Second pass: " + bt);
+	bt.add("beta");
+	System.out.println("Third pass: " + bt);
+	bt.add("alpha");
+	System.out.println("Fourth pass: " + bt);
+	bt.add("gamma");
+	System.out.println("Fifth pass: " + bt);
+	bt.add("delt");
+	System.out.println("First pass: " + bt);
+	bt.add("gamm");
+	System.out.println("Second pass: " + bt);
+	bt.add("bet");
+	System.out.println("Third pass: " + bt);
+	bt.add("alph");
+	System.out.println("Fourth pass: " + bt);
+	bt.add("gamm");
+	System.out.println("Fifth pass: " + bt);
     }
 }

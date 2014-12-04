@@ -1,4 +1,4 @@
-import java.lang.Math;
+import java.lang.Integer;
 public class BTree {
 	
     private BTNode root;
@@ -20,14 +20,6 @@ public class BTree {
 	    return true;
 	}
 		
-	// See if data already in tree
-	// if this already exists we should increment instead TODO
-	if (search(word)) {
-	    // increment somehow, probably need a different method.
-	    System.out.println("Word already in tree"); // debugging
-	    return false;
-	}
-		
 	// Insert node in alphabetical order by word
 	BTNode currentNode = root;
 	System.out.println("Current Node: " + currentNode); //debugging
@@ -35,7 +27,7 @@ public class BTree {
 	while (currentNode != null) {
 	    // Compare the new word to the word we're on
 	    int comp = word.compareTo(currentNode.getWord());
-	    comp = comp / Math.abs(comp);
+	    comp = Integer.signum(comp);
 	    System.out.println(comp); // debugging
 	    switch(comp) {
 	    case 0: // if it's the same, increment instead of adding
@@ -49,6 +41,7 @@ public class BTree {
 		    return true;
 		} // otherwise, traverse
 		currentNode = currentNode.getLchild();
+		break;
 	    case 1: // if we're too early in the alphabet, go right
 		// if there's nothing there, insert
 		if (currentNode.getRchild() == null) {
@@ -57,6 +50,7 @@ public class BTree {
 		    return true;
 		} // otherwise, traverse
 		currentNode = currentNode.getRchild();
+		break;
 	    default:
 		throw new RuntimeException("Invalid add case."); // TODO throw runtime exception
 	    }
@@ -76,9 +70,9 @@ public class BTree {
 	    return rtn;
 	} else {
 	    // TODO check what this order is, looks like inorder
-	    rtn += printTree(node.getLchild(), rtn);
+	    rtn += printTree(node.getLchild(), "");
 	    rtn += node;
-	    rtn += printTree(node.getRchild(), rtn);
+	    rtn += printTree(node.getRchild(), "");
 	    return rtn;
 	}
     }
@@ -95,7 +89,7 @@ public class BTree {
 	
 	// Compare the word we're searching for to the word we're on
 	int comp = word.compareTo(currentNode.getWord());
-	comp = comp / Math.abs(comp);
+	comp = Integer.signum(comp);
 	System.out.println(comp); // debugging
 	switch(comp) {
 	case 0: // if it's the same, return true
@@ -108,4 +102,5 @@ public class BTree {
 	    throw new RuntimeException("Invalid search case."); // TODO throw runtime exception
 	}
     }
+
 }
