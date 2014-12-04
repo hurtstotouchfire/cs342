@@ -3,6 +3,11 @@ public class BTree {
 	
     private BTNode root;
     private int nodeCount;
+
+    // utility function for string comparison will return these values
+    private final int left = -1;
+    private final int right = 1;
+    private final int stay = 0;
 	
     public BTree() {
 	root = null;
@@ -26,14 +31,13 @@ public class BTree {
 		
 	while (currentNode != null) {
 	    // Compare the new word to the word we're on
-	    int comp = word.compareTo(currentNode.getWord());
-	    comp = Integer.signum(comp);
+	    int comp = treeDir(word, currentNode.getWord());
 	    System.out.println(comp); // debugging
 	    switch(comp) {
-	    case 0: // if it's the same, increment instead of adding
+	    case stay: // if it's the same, increment instead of adding
 		currentNode.incrCount();
 		return true;
-	    case -1: // if we're too late in the alphabet, go left
+	    case left: // if we're too late in the alphabet, go left
 		// if there's nothing there, insert
 		if (currentNode.getLchild() == null) {
 		    currentNode.setLchild(n);
@@ -42,7 +46,7 @@ public class BTree {
 		} // otherwise, traverse
 		currentNode = currentNode.getLchild();
 		break;
-	    case 1: // if we're too early in the alphabet, go right
+	    case right: // if we're too early in the alphabet, go right
 		// if there's nothing there, insert
 		if (currentNode.getRchild() == null) {
 		    currentNode.setRchild(n);
@@ -88,19 +92,22 @@ public class BTree {
 	}
 	
 	// Compare the word we're searching for to the word we're on
-	int comp = word.compareTo(currentNode.getWord());
-	comp = Integer.signum(comp);
+	int comp = treeDir(word, currentNode.getWord());
 	System.out.println(comp); // debugging
 	switch(comp) {
-	case 0: // if it's the same, return true
+	case stay: // if it's the same, return true
 	    return true;
-	case -1: // if we're too late in the alphabet, go left
+	case left: // if we're too late in the alphabet, go left
 	    return bsearch(currentNode.getLchild(), word);
-	case 1: // if we're too early in the alphabet, go right
+	case right: // if we're too early in the alphabet, go right
 	    return bsearch(currentNode.getRchild(), word);
 	default:
 	    throw new RuntimeException("Invalid search case."); // TODO throw runtime exception
 	}
     }
 
+    private int treeDir(String query, String current) {
+	int comp = query.compareTo(current);
+	return Integer.signum(comp);
+    }
 }
