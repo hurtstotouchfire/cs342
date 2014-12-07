@@ -15,13 +15,19 @@ public class Driver {
 
     public void fileTest() {
 	// read in text file
-	text = readFile(filename);
-	// remove punctuation and map to lowercase, keep only letters and numbers
-	while (strPos != text.length() - 1) {
-	    System.out.println(getNextWord());
-	}
+	text = readFile("sample.txt");
 	
-	// either save it out or somehow put it into another object that we can Scan
+	// make a tree to put stuff in
+	BTree bt = new BTree();
+	
+	while (strPos != text.length() - 1) {
+	    // remove punctuation and map to lowercase, keep only letters and numbers
+	    // append to tree
+	    bt.add(getNextWord());
+	}
+
+	// Print tree
+	System.out.println("sample text: " + bt);
 
     }
 
