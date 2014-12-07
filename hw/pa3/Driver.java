@@ -42,23 +42,22 @@ public class Driver {
     }
 
     public String getNextWord() {
+	// start with empty rtn, and first char in text
 	String rtn = "";
-
 	char n = text.charAt(strPos);
-	n = Character.toLowerCase(n);
-	//System.out.println(Character.valueOf(n));
-	// First trim beginning
-	while (((n < 'a') || (n > 'z')) && !Character.isDigit(n)) {
+	
+	// First skip past any leading non-alphanumeric chars
+	while (!Character.isLetterOrDigit(n)) {
 	    strPos++;
 	    n = text.charAt(strPos);
-	    n = Character.toLowerCase(n);
 	}
 
 	// Now pull only letters or numbers until we hit a space
 	while(!Character.isWhitespace(n)) {
-	    if (Character.isLetterOrDigit(n)) {
-		rtn += text.charAt(strPos);
-	    }
+	    if (Character.isLetterOrDigit(n)) {//if it's a letter or number
+		n = Character.toLowerCase(n); //convert to lowercase (doesn't alter numbers)
+		rtn += n; //and append to rtn
+	    }//otherwise move to the next char
 	    strPos++; 
 	    n = text.charAt(strPos);
 	}
