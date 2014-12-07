@@ -1,21 +1,20 @@
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-public class Driver {
+public class DraculaIO {
 
-    private String filename = "sample.txt";
+    private String filename = "pg345.txt"; // TODO currently not using this, still developing
     private String text;
     private int strPos = 0;
 
     public static void main(String[] args) {
-	Driver me = new Driver();
-	//me.btreeTest();
-	me.fileTest();
+	DraculaIO dio = new DraculaIO();
+	dio.readDracula();
     }
 
-    public void fileTest() {
+    public void readDracula() {
 	// read in text file
-	text = readFile("sample.txt");
+	text = readFile("sample.txt"); // TODO switch to filename var when done developing methods
 	
 	// make a tree to put stuff in
 	BTree bt = new BTree();
@@ -26,13 +25,12 @@ public class Driver {
 	    bt.add(getNextWord());
 	}
 
-	// Print tree
+	// Print tree TODO remove then when we switch to real file
 	System.out.println("sample text: " + bt);
 
     }
 
-    public String readFile(String filename)
-    {
+    public String readFile(String filename) {
 	String content = null;
 	File file = new File(filename);
 	try {
@@ -48,6 +46,9 @@ public class Driver {
     }
 
     public String getNextWord() {
+	// gets next contiguous alphanumeric, non-whitespace string
+	// returns only lowercase letters
+
 	// start with empty rtn, and first char in text
 	String rtn = "";
 	char n = text.charAt(strPos);
@@ -71,29 +72,4 @@ public class Driver {
 	return rtn;
     }
 
-    public void btreeTest() {
-	
-	// make a BTree object
-	BTree bt = new BTree();
-	bt.add("delta");
-	System.out.println("First pass: " + bt);
-	bt.add("gamma");
-	System.out.println("Second pass: " + bt);
-	bt.add("beta");
-	System.out.println("Third pass: " + bt);
-	bt.add("alpha");
-	System.out.println("Fourth pass: " + bt);
-	bt.add("gamma");
-	System.out.println("Fifth pass: " + bt);
-	bt.add("delt");
-	System.out.println("First pass: " + bt);
-	bt.add("gamm");
-	System.out.println("Second pass: " + bt);
-	bt.add("bet");
-	System.out.println("Third pass: " + bt);
-	bt.add("alph");
-	System.out.println("Fourth pass: " + bt);
-	bt.add("gamm");
-	System.out.println("Fifth pass: " + bt);
-    }
 }
