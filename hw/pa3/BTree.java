@@ -14,6 +14,23 @@ public class BTree {
 	nodeCount = 0;
     }
 	
+    /*
+     * Getters for private vars
+     */
+
+    public int getNodeCount() {
+	return nodeCount;
+    }
+
+    // never provide the actual root object to an outside class
+    public String getRootWord() { 
+	return root.getWord();
+    }
+
+    /*
+     * Heavy lifter methods that make the tree
+     */
+
     public boolean add(String word) {
 		
 	BTNode n = new BTNode(word);
@@ -106,8 +123,28 @@ public class BTree {
 	}
     }
 
+    // Utility function that compares two strings and tells you which way to go
     private int treeDir(String query, String current) {
 	int comp = query.compareTo(current);
 	return Integer.signum(comp);
     }
+
+    /*
+     * Methods for getting information about the tree's contents
+     */
+
+    public int wordCount(String word) {}
+    public int getMaxWordCount() {} 
+
+    // not sure how this will be implemented yet
+    private int getNodeDepth(BTNode node) {} 
+    public int getWordDepth(String word) {} // could use search then getNodeDepth
+    public int getMaxDepth() {}
+
+    // definitely want to avoid returning nodes publicly if we can
+    public String getDeepestWord() {
+	return getDeepestNode().getWord();
+    } 
+    private BTNode getDeepestNode(BTNode node) {} 
+
 }
