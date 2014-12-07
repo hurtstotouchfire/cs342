@@ -2,13 +2,17 @@ public class Driver {
 
     public static void main(String[] args) {
 	Driver me = new Driver();
-	me.doIt();
+	//me.btreeTest();
+	me.fileTest();
     }
 
-    public void doIt() {
+    public void fileTest() {
 	// read in text file
 	// remove punctuation and map to lowercase, keep only letters and numbers
 	// either save it out or somehow put it into another object that we can Scan
+    }
+
+    public void btreeTest() {
 	
 	// make a BTree object
 	BTree bt = new BTree();

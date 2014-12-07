@@ -1,0 +1,9 @@
+We need to strip punctuation, so I'm curious what happens to contractions. 
+
+Keep numbers: 1, 14 0 
+
+Count repeating repeating repeating words words words.
+
+Words with caps we will count with their lowercase counterparts.
+
+//\/.a.b.c will probably come out as abc. Because contractions.
