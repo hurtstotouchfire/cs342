@@ -2,6 +2,7 @@ import java.lang.Integer;
 public class BTree {
 	
     private BTNode root;
+    private BTNode nullNode;
     private int nodeCount;
 
     // utility function for string comparison will return these values
@@ -11,6 +12,7 @@ public class BTree {
 	
     public BTree() {
 	root = null;
+	nullNode = null;
 	nodeCount = 0;
     }
 	
@@ -98,14 +100,14 @@ public class BTree {
 	}
     }
     
-    public boolean search(String word) {
+    public BTNode search(String word) {
 	return bsearch(root, word);
     }
 
-    private boolean bsearch(BTNode currentNode, String word) {
+    private BTNode bsearch(BTNode currentNode, String word) {
 	// base case: if we reach a dead end, the word's not in the tree
 	if (currentNode == null) {
-	    return false;
+	    return nullNode;
 	}
 	
 	// Compare the word we're searching for to the word we're on
@@ -113,7 +115,7 @@ public class BTree {
 	System.out.println(comp); // debugging
 	switch(comp) {
 	case stay: // if it's the same, return true
-	    return true;
+	    return currentNode;
 	case left: // if we're too late in the alphabet, go left
 	    return bsearch(currentNode.getLchild(), word);
 	case right: // if we're too early in the alphabet, go right
@@ -133,18 +135,22 @@ public class BTree {
      * Methods for getting information about the tree's contents
      */
 
-    public int wordCount(String word) {}
-    public int getMaxWordCount() {} 
+    public int wordCount(String word) {
+	BTNode target = search(word);
+	return target.getCount();
+    }
+    public int getMaxWordCount() {return 0;} 
+    public String getMostFrequentWord() {return "";} 
 
     // not sure how this will be implemented yet
-    private int getNodeDepth(BTNode node) {} 
-    public int getWordDepth(String word) {} // could use search then getNodeDepth
-    public int getMaxDepth() {}
+    private int getNodeDepth(BTNode node) {return 0;} 
+    public int getWordDepth(String word) {return 0;} // could use search then getNodeDepth
+    public int getMaxDepth() {return 0;}
 
     // definitely want to avoid returning nodes publicly if we can
     public String getDeepestWord() {
 	return getDeepestNode().getWord();
     } 
-    private BTNode getDeepestNode(BTNode node) {} 
+    private BTNode getDeepestNode() {return nullNode;} 
 
 }

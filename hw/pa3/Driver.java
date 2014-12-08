@@ -6,19 +6,32 @@ public class Driver {
     private String filename = "sample.txt";
     private String text;
     private int strPos = 0;
+    private BTree bt;
+
+    public Driver() {
+	bt = new BTree();
+    }
 
     public static void main(String[] args) {
 	Driver me = new Driver();
 	//me.btreeTest();
 	me.fileTest();
+	me.nodeTest();
     }
+
+    public void nodeTest() {
+	System.out.println("curious occurs    : " + bt.wordCount("curious") + " times");
+	System.out.println("Tree is           : " + bt.getMaxDepth() + " nodes deep");
+	System.out.println("Tree contains     : " + bt.getNodeCount() + " distinct words");
+	System.out.println("Word at root is   : " + bt.getRootWord());
+	System.out.println("Deepest word is   : " + bt.getDeepestWord());
+	System.out.println("Most Frequent is  : " + bt.getMostFrequentWord() + " occuring " + bt.getMaxWordCount() + " times");
+    }
+
 
     public void fileTest() {
 	// read in text file
 	text = readFile("sample.txt");
-	
-	// make a tree to put stuff in
-	BTree bt = new BTree();
 	
 	while (strPos != text.length() - 1) {
 	    // remove punctuation and map to lowercase, keep only letters and numbers
@@ -74,7 +87,7 @@ public class Driver {
     public void btreeTest() {
 	
 	// make a BTree object
-	BTree bt = new BTree();
+	bt = new BTree();
 	bt.add("delta");
 	System.out.println("First pass: " + bt);
 	bt.add("gamma");
