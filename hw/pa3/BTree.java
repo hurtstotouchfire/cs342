@@ -4,6 +4,8 @@ public class BTree {
     private BTNode root;
     private BTNode nullNode;
     private int nodeCount;
+    private int maxDepth;
+
 
     // utility function for string comparison will return these values
     private final int left = -1;
@@ -14,6 +16,7 @@ public class BTree {
 	root = null;
 	nullNode = null;
 	nodeCount = 0;
+	maxDepth = 0;
     }
 	
     /*
@@ -148,9 +151,34 @@ public class BTree {
     public int getMaxDepth() {return 0;}
 
     // definitely want to avoid returning nodes publicly if we can
-    public String getDeepestWord() {
-	return getDeepestNode().getWord();
+    // public String getDeepestWord() {
+    // 	return getDeepestNode().getWord();
+    // } 
+    // private BTNode getDeepestNode() {
+    // 	findMaxDepth();
+    // 	//search by depth
+    // }
+    
+    public int findMaxDepth() {
+	traverse(root, 0);
+	return maxDepth;
     } 
-    private BTNode getDeepestNode() {return nullNode;} 
+
+    private void traverse(BTNode curr, int depth) {
+	if (!(curr.getLchild() == null)) {
+	    depth++;
+	    traverse(curr.getLchild(), depth);
+	} else if (!(curr.getRchild() == null)) {
+	    depth++;
+	    traverse(curr.getRchild(), depth);
+	} else {
+	    maxDepth = Math.max(depth, maxDepth);
+	    depth--;
+	    return;
+	}
+
+	
+	    
+    }
 
 }

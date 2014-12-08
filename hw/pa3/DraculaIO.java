@@ -11,16 +11,16 @@ public class DraculaIO {
 	DraculaIO dio = new DraculaIO();
 	dio.readDracula();
 
-	System.out.println("transylvania occurs : " + bt.wordCount("transylvania"); + " times"); //16
-	System.out.println("harker occurs       : " + bt.wordCount("harker"); + " times"); //113
-	System.out.println("renfield occurs     : " + bt.wordCount("renfield"); + " times"); //39
-	System.out.println("vampire occurs      : " + bt.wordCount("vampire"); + " times"); //24
-	System.out.println("expostulate occurs  : " + bt.wordCount("expostulate"); + " times"); //1
-	System.out.println("Tree is             : " + bt.getMaxDepth(); + " nodes deep"); //34
-	System.out.println("Tree contains       : " + bt.getNodeCount(); + " distinct words"); //10857
-	System.out.println("Word at root is     : " + bt.getRootWord()); //the
-	System.out.println("Deepest word is     : " + bt.getDeepestWord()); //accessible
-	System.out.println("Most Frequent is    : 'the' occuring " + bt.getMaxWordCount().getWord() + " times"); //8037
+	// System.out.println("transylvania occurs : " + bt.wordCount("transylvania") + " times"); //16
+	// System.out.println("harker occurs       : " + bt.wordCount("harker") + " times"); //113
+	// System.out.println("renfield occurs     : " + bt.wordCount("renfield") + " times"); //39
+	// System.out.println("vampire occurs      : " + bt.wordCount("vampire") + " times"); //24
+	// System.out.println("expostulate occurs  : " + bt.wordCount("expostulate") + " times"); //1
+	// System.out.println("Tree is             : " + bt.getMaxDepth() + " nodes deep"); //34
+	// System.out.println("Tree contains       : " + bt.getNodeCount() + " distinct words"); //10857
+	// System.out.println("Word at root is     : " + bt.getRootWord()); //the
+	// System.out.println("Deepest word is     : " + bt.getDeepestWord()); //accessible
+	// System.out.println("Most Frequent is    : 'the' occuring " + bt.getMaxWordCount().getWord() + " times"); //8037
 
     }
 

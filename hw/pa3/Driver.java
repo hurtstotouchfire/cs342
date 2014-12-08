@@ -21,10 +21,10 @@ public class Driver {
 
     public void nodeTest() {
 	System.out.println("curious occurs    : " + bt.wordCount("curious") + " times");
-	System.out.println("Tree is           : " + bt.getMaxDepth() + " nodes deep");
+	System.out.println("Tree is           : " + bt.findMaxDepth() + " nodes deep");
 	System.out.println("Tree contains     : " + bt.getNodeCount() + " distinct words");
 	System.out.println("Word at root is   : " + bt.getRootWord());
-	System.out.println("Deepest word is   : " + bt.getDeepestWord());
+	//System.out.println("Deepest word is   : " + bt.getDeepestWord());
 	System.out.println("Most Frequent is  : " + bt.getMostFrequentWord() + " occuring " + bt.getMaxWordCount() + " times");
     }
 
