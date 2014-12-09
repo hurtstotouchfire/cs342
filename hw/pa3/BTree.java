@@ -5,6 +5,7 @@ public class BTree {
     private BTNode nullNode;
     private int nodeCount;
     private int maxDepth;
+    private int maxCount;
 
 
     // utility function for string comparison will return these values
@@ -151,34 +152,53 @@ public class BTree {
     public int getMaxDepth() {return 0;}
 
     // definitely want to avoid returning nodes publicly if we can
-    // public String getDeepestWord() {
-    // 	return getDeepestNode().getWord();
-    // } 
-    // private BTNode getDeepestNode() {
-    // 	findMaxDepth();
-    // 	//search by depth
-    // }
+    public String getDeepestWord() {
+    	return getDeepestNode().getWord();
+    } 
+
+    // Methods for deepest node
+    private BTNode getDeepestNode() {
+	// determine tree depth
+    	int maxDepth = findMaxDepth();
+    	//search for node with max depth
+	BTNode deepestNode = searchForDepth(root, 0, maxDepth);
+	return deepestNode;
+    }
+
+    private BTNode searchForDepth(BTNode curr, int d, int depth) {
+	// 
+	if (d == depth) { // if we're at the max depth, return this node
+	    return curr;
+	} else if (!(curr.getLchild() == null)) { //otherwise go left
+	    d++;
+	    return searchForDepth(curr.getLchild(), d, depth);
+	} else if (!(curr.getRchild() == null)) { // then go right
+	    d++;
+	    return searchForDepth(curr.getRchild(), d, depth);
+	} else {// if there's no node of the depth we're searching for
+	    return nullNode;
+	}
+    }
     
+    // Find max node depth
     public int findMaxDepth() {
-	traverse(root, 0);
+	depthTraverse(root, 0);
 	return maxDepth;
     } 
 
-    private void traverse(BTNode curr, int depth) {
+    private void depthTraverse(BTNode curr, int depth) {
 	if (!(curr.getLchild() == null)) {
 	    depth++;
-	    traverse(curr.getLchild(), depth);
+	    depthTraverse(curr.getLchild(), depth);
 	} else if (!(curr.getRchild() == null)) {
 	    depth++;
-	    traverse(curr.getRchild(), depth);
+	    depthTraverse(curr.getRchild(), depth);
 	} else {
 	    maxDepth = Math.max(depth, maxDepth);
 	    depth--;
 	    return;
 	}
-
-	
-	    
+		    
     }
 
 }
