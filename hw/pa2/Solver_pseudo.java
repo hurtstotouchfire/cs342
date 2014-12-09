@@ -24,6 +24,15 @@ public class Solver {
     }
 
     private void conflict() {
+        // check for row conflicts
+	// return true if we find any
 
+        // check for column conflicts
+	// return true if we find any
+
+        // check for diagonal conflicts
+	// return true if we find any
+
+	// otherwise return false
     }
 }
