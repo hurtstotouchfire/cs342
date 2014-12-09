@@ -143,13 +143,6 @@ public class BTree {
 	BTNode target = search(word);
 	return target.getCount();
     }
-    public int getMaxWordCount() {return 0;} 
-    public String getMostFrequentWord() {return "";} 
-
-    // not sure how this will be implemented yet
-    private int getNodeDepth(BTNode node) {return 0;} 
-    public int getWordDepth(String word) {return 0;} // could use search then getNodeDepth
-    public int getMaxDepth() {return 0;}
 
     // definitely want to avoid returning nodes publicly if we can
     public String getDeepestWord() {
@@ -200,5 +193,43 @@ public class BTree {
 	}
 		    
     }
+
+    // Methods for most frequent word
+    public String getMostFrequentWord() {
+	// determine max word count
+    	setMaxCount(root);
+    	//search for node with max word count
+	BTNode frequentWord = searchWordByCount(root, maxCount);
+	return frequentWord.getWord();
+    }
+
+    public int getMaxWordCount() {
+	setMaxCount(root);
+	return maxCount;
+    }
+
+    private BTNode searchWordByCount(BTNode curr, int count) {
+	// 
+	if (curr.getCount() == count) { // if we're at a word with the count we want, return this node
+	    return curr;
+	} else if (!(curr.getLchild() == null)) { //otherwise go left
+	    return searchWordByCount(curr.getLchild(), count);
+	} else if (!(curr.getRchild() == null)) { // then go right
+	    return searchWordByCount(curr.getRchild(), count);
+	} else {// if there's no node of the depth we're searching for
+	    return nullNode;
+	}
+    }
+    
+    private void setMaxCount(BTNode curr) {
+	maxCount = Math.max(curr.getCount(), maxCount);
+	if (!(curr.getLchild() == null)) {
+	    setMaxCount(curr.getLchild());
+	} else if (!(curr.getRchild() == null)) {
+	    setMaxCount(curr.getRchild());
+	} 
+		    
+    }
+
 
 }
