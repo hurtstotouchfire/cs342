@@ -50,12 +50,10 @@ public class BTree {
 		
 	// Insert node in alphabetical order by word
 	BTNode currentNode = root;
-	System.out.println("Current Node: " + currentNode); //debugging
 		
 	while (currentNode != null) {
 	    // Compare the new word to the word we're on
 	    int comp = treeDir(word, currentNode.getWord());
-	    System.out.println(comp); // debugging
 	    switch(comp) {
 	    case stay: // if it's the same, increment instead of adding
 		currentNode.incrCount();
@@ -116,7 +114,6 @@ public class BTree {
 	
 	// Compare the word we're searching for to the word we're on
 	int comp = treeDir(word, currentNode.getWord());
-	System.out.println(comp); // debugging
 	switch(comp) {
 	case stay: // if it's the same, return true
 	    return currentNode;
@@ -225,10 +222,10 @@ public class BTree {
 	maxCount = Math.max(curr.getCount(), maxCount);
 	if (!(curr.getLchild() == null)) {
 	    setMaxCount(curr.getLchild());
-	} else if (!(curr.getRchild() == null)) {
+	} 
+	if (!(curr.getRchild() == null)) {
 	    setMaxCount(curr.getRchild());
 	} 
-		    
     }
 
 
