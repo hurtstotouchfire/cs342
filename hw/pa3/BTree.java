@@ -41,7 +41,7 @@ public class BTree {
 		
 	BTNode n = new BTNode(word);
 
-	// What if tree is empty?
+	// if tree is empty
 	if (nodeCount == 0) {
 	    root = n;
 	    nodeCount++;
@@ -77,11 +77,11 @@ public class BTree {
 		currentNode = currentNode.getRchild();
 		break;
 	    default:
-		throw new RuntimeException("Invalid add case."); // TODO throw runtime exception
+		throw new RuntimeException("Invalid add case.");
 	    }
 	    
 	}		
-	return false; // TODO what's this case?		
+	return false; 
     }
 	
     public String toString() {
@@ -94,7 +94,7 @@ public class BTree {
 	    rtn = rtn + ".";
 	    return rtn;
 	} else {
-	    // TODO check what this order is, looks like inorder
+	    // Print inorder
 	    rtn += printTree(node.getLchild(), "");
 	    rtn += node;
 	    rtn += printTree(node.getRchild(), "");
@@ -122,7 +122,7 @@ public class BTree {
 	case right: // if we're too early in the alphabet, go right
 	    return bsearch(currentNode.getRchild(), word);
 	default:
-	    throw new RuntimeException("Invalid search case."); // TODO throw runtime exception
+	    throw new RuntimeException("Invalid search case."); 
 	}
     }
 
@@ -136,12 +136,15 @@ public class BTree {
      * Methods for getting information about the tree's contents
      */
 
+    // get count for a given word
     public int wordCount(String word) {
 	BTNode target = search(word);
 	return target.getCount();
     }
 
     // Methods for deepest node
+    
+    // get deepest word by finding max depth and then getting the first word at that depth
     public String getDeepestWord() {
 	// determine tree depth
     	int maxDepth = getMaxDepth();
@@ -154,9 +157,30 @@ public class BTree {
 	}
     }
 
+    // Find max node depth
+    public int getMaxDepth() {
+	depthTraverse(root, 0);
+	return maxDepth;
+    } 
+
+    // traverse tree to determine max depth
+    private void setMaxDepth(BTNode curr, int depth) {
+	if (!(curr.getLchild() == null)) {
+	    depth++;
+	    setMaxDepth(curr.getLchild(), depth);
+	} else if (!(curr.getRchild() == null)) {
+	    depth++;
+	    setMaxDepth(curr.getRchild(), depth);
+	} else {
+	    maxDepth = Math.max(depth, maxDepth);
+	    depth--;
+	    return;
+	}
+		    
+    }
+
+    // returns the first node it finds at a given depth
     private BTNode searchForDepth(BTNode curr, int d, int depth) {
-	// returns the first node it finds at a given depth
-	
 	// base cases
 	if (curr == null) { // if we've reached the end, return null
 	    return null;
@@ -182,29 +206,9 @@ public class BTree {
 	} 
     }
     
-    
-    // Find max node depth
-    public int getMaxDepth() {
-	depthTraverse(root, 0);
-	return maxDepth;
-    } 
-
-    private void depthTraverse(BTNode curr, int depth) {
-	if (!(curr.getLchild() == null)) {
-	    depth++;
-	    depthTraverse(curr.getLchild(), depth);
-	} else if (!(curr.getRchild() == null)) {
-	    depth++;
-	    depthTraverse(curr.getRchild(), depth);
-	} else {
-	    maxDepth = Math.max(depth, maxDepth);
-	    depth--;
-	    return;
-	}
-		    
-    }
-
     // Methods for most frequent word
+
+    // get most frequent word by finding max word count and then returning the first word with that count
     public String getMostFrequentWord() {
 	// determine max word count
     	setMaxCount(root);
@@ -222,9 +226,19 @@ public class BTree {
 	return maxCount;
     }
 
-    private BTNode searchWordByCount(BTNode curr, int count) {
-	// returns the first node it finds with a given count
+    // traverse tree to determine max word count
+    private void setMaxCount(BTNode curr) {
+	maxCount = Math.max(curr.getCount(), maxCount);
+	if (!(curr.getLchild() == null)) {
+	    setMaxCount(curr.getLchild());
+	} 
+	if (!(curr.getRchild() == null)) {
+	    setMaxCount(curr.getRchild());
+	} 
+    }
 
+    // returns the first node it finds with a given count
+    private BTNode searchWordByCount(BTNode curr, int count) {
 	// base cases
 	if (curr == null) { // if we've reached the end, return null
 	    return null;
@@ -247,16 +261,5 @@ public class BTree {
 	    return null;
 	}
     }
-    
-    private void setMaxCount(BTNode curr) {
-	maxCount = Math.max(curr.getCount(), maxCount);
-	if (!(curr.getLchild() == null)) {
-	    setMaxCount(curr.getLchild());
-	} 
-	if (!(curr.getRchild() == null)) {
-	    setMaxCount(curr.getRchild());
-	} 
-    }
-
 
 }
