@@ -1,6 +1,9 @@
-import java.io.File;
-import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.io.IOException;
+
 public class DraculaIO {
 
     private String filename = "pg345.txt";
@@ -20,7 +23,7 @@ public class DraculaIO {
 
     public void readDracula() {
 	// read in text file
-	text = readFile(filename);
+	text = readFile(filename, StandardCharsets.UTF_8);
 	
 	while (strPos != text.length() - 1) {
 	    // remove punctuation and map to lowercase, keep only letters and numbers
@@ -33,19 +36,14 @@ public class DraculaIO {
 
     }
 
-    public String readFile(String filename) {
-	String content = null;
-	File file = new File(filename);
+    static String readFile(String path, Charset encoding) {
 	try {
-	    FileReader reader = new FileReader(file);
-	    char[] chars = new char[(int) file.length()];
-	    reader.read(chars);
-	    content = new String(chars);
-	    reader.close();
-	} catch (IOException e) {
+	    byte[] encoded = Files.readAllBytes(Paths.get(path));
+	    return new String(encoded, encoding);
+	} catch(IOException e) {
 	    e.printStackTrace();
 	}
-	return content;
+	return null;
     }
 
     public String getNextWord() {
