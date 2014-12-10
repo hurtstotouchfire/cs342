@@ -159,24 +159,20 @@ public class BTree {
 
     // Find max node depth
     public int getMaxDepth() {
-	depthTraverse(root, 0);
-	return maxDepth;
+	setMaxDepth(root, 0);
+	return maxDepth + 1; // I'm counting the root as level 0
     } 
 
     // traverse tree to determine max depth
     private void setMaxDepth(BTNode curr, int depth) {
+	maxDepth = Math.max(depth, maxDepth);
+	depth++;
 	if (!(curr.getLchild() == null)) {
-	    depth++;
 	    setMaxDepth(curr.getLchild(), depth);
-	} else if (!(curr.getRchild() == null)) {
-	    depth++;
+	} 
+	if (!(curr.getRchild() == null)) {
 	    setMaxDepth(curr.getRchild(), depth);
-	} else {
-	    maxDepth = Math.max(depth, maxDepth);
-	    depth--;
-	    return;
 	}
-		    
     }
 
     // returns the first node it finds at a given depth
