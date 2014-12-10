@@ -30,10 +30,6 @@ public class DraculaIO {
 	    // append to tree
 	    bt.add(getNextWord());
 	}
-
-	// Print tree TODO remove then when we switch to real file
-	System.out.println("sample text: " + bt);
-
     }
 
     static String readFile(String path, Charset encoding) {
