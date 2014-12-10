@@ -144,7 +144,7 @@ public class BTree {
     // Methods for deepest node
     public String getDeepestWord() {
 	// determine tree depth
-    	int maxDepth = findMaxDepth();
+    	int maxDepth = getMaxDepth();
     	//search for node with max depth
 	BTNode deepestNode = searchForDepth(root, 0, maxDepth);
 	if (deepestNode == null) {
@@ -184,7 +184,7 @@ public class BTree {
     
     
     // Find max node depth
-    public int findMaxDepth() {
+    public int getMaxDepth() {
 	depthTraverse(root, 0);
 	return maxDepth;
     } 

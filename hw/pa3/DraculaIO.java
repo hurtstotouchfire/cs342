@@ -3,33 +3,24 @@ import java.io.FileReader;
 import java.io.IOException;
 public class DraculaIO {
 
-    private String filename = "pg345.txt"; // TODO currently not using this, still developing
+    private String filename = "pg345.txt";
     private String text;
     private int strPos = 0;
+    private BTree bt;
+
+    public DraculaIO() {
+	bt = new BTree();
+    }
 
     public static void main(String[] args) {
 	DraculaIO dio = new DraculaIO();
 	dio.readDracula();
-
-	// System.out.println("transylvania occurs : " + bt.wordCount("transylvania") + " times"); //16
-	// System.out.println("harker occurs       : " + bt.wordCount("harker") + " times"); //113
-	// System.out.println("renfield occurs     : " + bt.wordCount("renfield") + " times"); //39
-	// System.out.println("vampire occurs      : " + bt.wordCount("vampire") + " times"); //24
-	// System.out.println("expostulate occurs  : " + bt.wordCount("expostulate") + " times"); //1
-	// System.out.println("Tree is             : " + bt.getMaxDepth() + " nodes deep"); //34
-	// System.out.println("Tree contains       : " + bt.getNodeCount() + " distinct words"); //10857
-	// System.out.println("Word at root is     : " + bt.getRootWord()); //the
-	// System.out.println("Deepest word is     : " + bt.getDeepestWord()); //accessible
-	// System.out.println("Most Frequent is    : 'the' occuring " + bt.getMaxWordCount().getWord() + " times"); //8037
-
+	dio.queryBTree();
     }
 
     public void readDracula() {
 	// read in text file
-	text = readFile("sample.txt"); // TODO switch to filename var when done developing methods
-	
-	// make a tree to put stuff in
-	BTree bt = new BTree();
+	text = readFile(filename);
 	
 	while (strPos != text.length() - 1) {
 	    // remove punctuation and map to lowercase, keep only letters and numbers
@@ -69,6 +60,7 @@ public class DraculaIO {
 	while (!Character.isLetterOrDigit(n)) {
 	    strPos++;
 	    n = text.charAt(strPos);
+	    System.out.print(n);
 	}
 
 	// Now pull only letters or numbers until we hit a space
@@ -82,6 +74,19 @@ public class DraculaIO {
 	}
 
 	return rtn;
+    }
+
+    public void queryBTree() {
+	System.out.println("transylvania occurs : " + bt.wordCount("transylvania") + " times"); //16
+	System.out.println("harker occurs       : " + bt.wordCount("harker") + " times"); //113
+	System.out.println("renfield occurs     : " + bt.wordCount("renfield") + " times"); //39
+	System.out.println("vampire occurs      : " + bt.wordCount("vampire") + " times"); //24
+	System.out.println("expostulate occurs  : " + bt.wordCount("expostulate") + " times"); //1
+	System.out.println("Tree is             : " + bt.getMaxDepth() + " nodes deep"); //34
+	System.out.println("Tree contains       : " + bt.getNodeCount() + " distinct words"); //10857
+	System.out.println("Word at root is     : " + bt.getRootWord()); //the
+	System.out.println("Deepest word is     : " + bt.getDeepestWord()); //accessible
+	System.out.println("Most Frequent is    : '" + bt.getMostFrequentWord() + "' occuring " + bt.getMaxWordCount() + " times"); //8037
     }
 
 }
