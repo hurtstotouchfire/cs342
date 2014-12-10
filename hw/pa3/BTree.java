@@ -141,37 +141,47 @@ public class BTree {
 	return target.getCount();
     }
 
-    // definitely want to avoid returning nodes publicly if we can
-    public String getDeepestWord() {
-    	return getDeepestNode().getWord();
-    } 
-
     // Methods for deepest node
-    private BTNode getDeepestNode() {
+    public String getDeepestWord() {
 	// determine tree depth
     	int maxDepth = findMaxDepth();
     	//search for node with max depth
 	BTNode deepestNode = searchForDepth(root, 0, maxDepth);
-	return deepestNode;
+	if (deepestNode == null) {
+	    throw new RuntimeException("No Node at maxDepth");
+	} else {
+	    return deepestNode.getWord();
+	}
     }
 
-     private BTNode searchForDepth(BTNode curr, int d, int depth) {
-// 	// 
-// 	if (d == depth) { // if we're at the max depth, return this node
-// 	    return curr;
-// 	} else { //recurse
-// 	    if (!(curr.getLchild() == null)) { // go left
-// 		d++;
-// 		searchForDepth(curr.getLchild(), d, depth);
-// 	    } 
-// 	    if (!(curr.getRchild() == null)) { // go right
-// 		d++;
-// 		searchForDepth(curr.getRchild(), d, depth);
-// 	    } 
+    private BTNode searchForDepth(BTNode curr, int d, int depth) {
+	// returns the first node it finds at a given depth
+	
+	// base cases
+	if (curr == null) { // if we've reached the end, return null
+	    return null;
+	} else if (d == depth) { // if we're at the depth we want, return this node
+	    return curr;
+	} else { //recurse
+	    d++; // go down a level
 	    
-// 	}
-	 return nullNode;
-     }
+	    // if it's in the left branch, return that
+	    BTNode lNode = searchForDepth(curr.getLchild(), d, depth);
+	    if (lNode != null) {
+		return lNode;
+	     }
+	    
+	    // if it's in the right branch, return that
+	    BTNode rNode = searchForDepth(curr.getRchild(), d, depth);
+	    if (rNode != null) {
+		 return rNode;
+	    }
+
+	    // Otherwise not found
+	    return null;
+	} 
+    }
+    
     
     // Find max node depth
     public int findMaxDepth() {
@@ -213,6 +223,8 @@ public class BTree {
     }
 
     private BTNode searchWordByCount(BTNode curr, int count) {
+	// returns the first node it finds with a given count
+
 	// base cases
 	if (curr == null) { // if we've reached the end, return null
 	    return null;
