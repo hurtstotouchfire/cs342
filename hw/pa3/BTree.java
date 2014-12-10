@@ -159,14 +159,16 @@ public class BTree {
 	// 
 	if (d == depth) { // if we're at the max depth, return this node
 	    return curr;
-	} else if (!(curr.getLchild() == null)) { //otherwise go left
-	    d++;
-	    return searchForDepth(curr.getLchild(), d, depth);
-	} else if (!(curr.getRchild() == null)) { // then go right
-	    d++;
-	    return searchForDepth(curr.getRchild(), d, depth);
-	} else {// if there's no node of the depth we're searching for
-	    return nullNode;
+	} else { //recurse
+	    if (!(curr.getLchild() == null)) { // go left
+		d++;
+		searchForDepth(curr.getLchild(), d, depth);
+	    } 
+	    if (!(curr.getRchild() == null)) { // go right
+		d++;
+		searchForDepth(curr.getRchild(), d, depth);
+	    } 
+	    
 	}
     }
     
@@ -207,14 +209,18 @@ public class BTree {
 
     private BTNode searchWordByCount(BTNode curr, int count) {
 	// 
+	System.out.println("curr count: " + curr.getCount());
+	System.out.println("target count: " + count);
+
 	if (curr.getCount() == count) { // if we're at a word with the count we want, return this node
 	    return curr;
-	} else if (!(curr.getLchild() == null)) { //otherwise go left
-	    return searchWordByCount(curr.getLchild(), count);
-	} else if (!(curr.getRchild() == null)) { // then go right
-	    return searchWordByCount(curr.getRchild(), count);
-	} else {// if there's no node of the depth we're searching for
-	    return nullNode;
+	} else { //recurse
+	    if (!(curr.getLchild() == null)) { //otherwise go left
+		searchWordByCount(curr.getLchild(), count);
+	    }  
+	    if (!(curr.getRchild() == null)) { // then go right
+		searchWordByCount(curr.getRchild(), count);
+	    }
 	}
     }
     
