@@ -213,25 +213,26 @@ public class BTree {
     }
 
     private BTNode searchWordByCount(BTNode curr, int count) {
-	// 
-	System.out.println("curr word: " + curr.getWord());
-	System.out.println("curr count: " + curr.getCount());
-	System.out.println("target count: " + count);
-	if (curr == null) {
-	    return nullNode;
+	// base cases
+	if (curr == null) { // if we've reached the end, return null
+	    return null;
 	} else if (curr.getCount() == count) { // if we're at a word with the count we want, return this node
 	    return curr;
-	} else { //recurse
+	} else { // recursion
+	    // if it's in the left branch, return that
 	    BTNode lNode = searchWordByCount(curr.getLchild(), count);
-	    BTNode rNode = searchWordByCount(curr.getRchild(), count);
 	    if (lNode != null) {
 		return lNode;
-	    } else if (rNode != null) {
-		return rNode;
-	    } else {
-		return nullNode;
 	    }
 
+	    // if it's in the right branch, return that
+	    BTNode rNode = searchWordByCount(curr.getRchild(), count);
+	    if (rNode != null) {
+		return rNode;
+	    }
+
+	    // otherwise not found
+	    return null;
 	}
     }
     
