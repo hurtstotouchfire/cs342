@@ -145,7 +145,8 @@ public class BTree {
     // get deepest word by finding max depth and then getting the first word at that depth
     public String getDeepestWord() {
 	// determine tree depth
-    	int maxDepth = getMaxDepth();
+	setMaxDepth(root, 0);
+
     	//search for node with max depth
 	BTNode deepestNode = searchForDepth(root, 0, maxDepth);
 	if (deepestNode == null) {
@@ -155,7 +156,7 @@ public class BTree {
 	}
     }
 
-    // Find max node depth
+    // Provide max node depth with 1 indexing instead of 0
     public int getMaxDepth() {
 	setMaxDepth(root, 0);
 	return maxDepth + 1; // I'm counting the root as level 0
@@ -163,6 +164,8 @@ public class BTree {
 
     // traverse tree to determine max depth
     private void setMaxDepth(BTNode curr, int depth) {
+	// call with root and 0 for whole tree
+
 	maxDepth = Math.max(depth, maxDepth);
 	depth++;
 	if (!(curr.getLchild() == null)) {
@@ -222,6 +225,8 @@ public class BTree {
 
     // traverse tree to determine max word count
     private void setMaxCount(BTNode curr) {
+	// call with root for whole tree
+
 	maxCount = Math.max(curr.getCount(), maxCount);
 	if (!(curr.getLchild() == null)) {
 	    setMaxCount(curr.getLchild());

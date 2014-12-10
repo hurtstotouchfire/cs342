@@ -54,7 +54,6 @@ public class DraculaIO {
 	while (!Character.isLetterOrDigit(n)) {
 	    strPos++;
 	    n = text.charAt(strPos);
-	    System.out.print(n);
 	}
 
 	// Now pull only letters or numbers until we hit a space
