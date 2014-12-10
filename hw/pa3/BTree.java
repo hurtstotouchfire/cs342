@@ -2,7 +2,6 @@ import java.lang.Integer;
 public class BTree {
 	
     private BTNode root;
-    private BTNode nullNode;
     private int nodeCount;
     private int maxDepth;
     private int maxCount;
@@ -15,7 +14,6 @@ public class BTree {
 	
     public BTree() {
 	root = null;
-	nullNode = null;
 	nodeCount = 0;
 	maxDepth = 0;
     }
@@ -109,7 +107,7 @@ public class BTree {
     private BTNode bsearch(BTNode currentNode, String word) {
 	// base case: if we reach a dead end, the word's not in the tree
 	if (currentNode == null) {
-	    return nullNode;
+	    return null;
 	}
 	
 	// Compare the word we're searching for to the word we're on
