@@ -155,22 +155,23 @@ public class BTree {
 	return deepestNode;
     }
 
-    private BTNode searchForDepth(BTNode curr, int d, int depth) {
-	// 
-	if (d == depth) { // if we're at the max depth, return this node
-	    return curr;
-	} else { //recurse
-	    if (!(curr.getLchild() == null)) { // go left
-		d++;
-		searchForDepth(curr.getLchild(), d, depth);
-	    } 
-	    if (!(curr.getRchild() == null)) { // go right
-		d++;
-		searchForDepth(curr.getRchild(), d, depth);
-	    } 
+     private BTNode searchForDepth(BTNode curr, int d, int depth) {
+// 	// 
+// 	if (d == depth) { // if we're at the max depth, return this node
+// 	    return curr;
+// 	} else { //recurse
+// 	    if (!(curr.getLchild() == null)) { // go left
+// 		d++;
+// 		searchForDepth(curr.getLchild(), d, depth);
+// 	    } 
+// 	    if (!(curr.getRchild() == null)) { // go right
+// 		d++;
+// 		searchForDepth(curr.getRchild(), d, depth);
+// 	    } 
 	    
-	}
-    }
+// 	}
+	 return nullNode;
+     }
     
     // Find max node depth
     public int findMaxDepth() {
@@ -199,7 +200,11 @@ public class BTree {
     	setMaxCount(root);
     	//search for node with max word count
 	BTNode frequentWord = searchWordByCount(root, maxCount);
-	return frequentWord.getWord();
+	if (frequentWord == null) {
+	    return "word with count " + maxCount + "not found";
+	} else {
+	    return frequentWord.getWord();
+	}
     }
 
     public int getMaxWordCount() {
@@ -209,18 +214,24 @@ public class BTree {
 
     private BTNode searchWordByCount(BTNode curr, int count) {
 	// 
+	System.out.println("curr word: " + curr.getWord());
 	System.out.println("curr count: " + curr.getCount());
 	System.out.println("target count: " + count);
-
-	if (curr.getCount() == count) { // if we're at a word with the count we want, return this node
+	if (curr == null) {
+	    return nullNode;
+	} else if (curr.getCount() == count) { // if we're at a word with the count we want, return this node
 	    return curr;
 	} else { //recurse
-	    if (!(curr.getLchild() == null)) { //otherwise go left
-		searchWordByCount(curr.getLchild(), count);
-	    }  
-	    if (!(curr.getRchild() == null)) { // then go right
-		searchWordByCount(curr.getRchild(), count);
+	    BTNode lNode = searchWordByCount(curr.getLchild(), count);
+	    BTNode rNode = searchWordByCount(curr.getRchild(), count);
+	    if (lNode != null) {
+		return lNode;
+	    } else if (rNode != null) {
+		return rNode;
+	    } else {
+		return nullNode;
 	    }
+
 	}
     }
     
