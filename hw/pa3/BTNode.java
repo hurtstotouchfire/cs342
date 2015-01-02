@@ -1,19 +1,32 @@
+
 public class BTNode {
-    private Integer data;
+    private Integer count;
+    private String word;
     private BTNode lchild;
     private BTNode rchild;
 	
-	
-    public BTNode() {
+    public BTNode(String word) {
 	lchild = null;
 	rchild = null;
+	count = 1;
+	this.word = word;
     }
-    public Integer getData() {
-	return data;
+
+    // Data handlers
+    public Integer getCount() {
+	return count;
     }
-    public void setData(Integer data) {
-	this.data = data;
+    public void incrCount() {
+	count++;
     }
+    public String getWord() {
+	return word;
+    }
+    public void setWord(String word) {
+	this.word = word;
+    }
+
+    // Child handlers
     public BTNode getLchild() {
 	return lchild;
     }
@@ -25,5 +38,13 @@ public class BTNode {
     }
     public void setRchild(BTNode rchild) {
 	this.rchild = rchild;
+    }
+
+    public String toString() {
+	String rtn = "[";
+	rtn += word;
+	rtn += ": " + count;
+	rtn += "]";
+	return rtn;
     }
 }
